@@ -1,0 +1,14 @@
+- file: name="{{lookup('env','HOME')}}/bin" state=directory
+- copy: src="{{item.src}}" dest="{{item.dest}}" mode=0755
+  with_items:
+    - { src: "scripts/findgrep"               , dest: "~/bin/findgrep"               } 
+    - { src: "scripts/gerrit-config-checkout" , dest: "~/bin/gerrit-config-checkout" } 
+    - { src: "scripts/git-addremove"          , dest: "~/bin/git-addremove"          } 
+    - { src: "scripts/git-clean"              , dest: "~/bin/git-clean"              } 
+    - { src: "scripts/git-gc"                 , dest: "~/bin/git-gc"                 } 
+    - { src: "scripts/git-prune"              , dest: "~/bin/git-prune"              } 
+    - { src: "scripts/git-rootnew"            , dest: "~/bin/git-rootnew"            } 
+    - { src: "scripts/gitup"                  , dest: "~/bin/gitup"                  } 
+    - { src: "scripts/killtree"               , dest: "~/bin/killtree"               } 
+    - { src: "scripts/mymake"                 , dest: "~/bin/mymake"                 } 
+    - { src: "scripts/mymakesee"              , dest: "~/bin/mymakesee"              } 

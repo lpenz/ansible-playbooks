@@ -1,0 +1,45 @@
+#!/bin/sh
+
+TMP=$(tempfile)
+trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
+
+FILES=
+
+for i in \
+	.glimpse_exclude \
+	.glimpse_filenames \
+	.glimpse_filenames_index \
+	.glimpse_filetimes \
+	.glimpse_index \
+	.glimpse_messages \
+	.glimpse_partitions \
+	.glimpse_statistics \
+	ID \
+	.slocatedb \
+	cvsps.txt \
+	cvscs.txt \
+	.find.txt.gz \
+	tags \
+	config.mk \
+	equip.mk \
+	common/include/debugDefines.h \
+; do
+	if [ -e $i ]; then
+		FILES="$FILES $i"
+	fi
+done
+
+if [ -n "$FILES" ]; then
+	echo Saving $FILES
+	tar -czf $TMP $FILES
+fi
+
+git clean -xfd
+git submodule foreach git clean -xfd
+
+echo Restoring $FILES
+
+if [ -s "$TMP" ]; then
+	tar -xzf $TMP
+fi
+

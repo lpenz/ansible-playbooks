@@ -1,0 +1,11 @@
+- file: name="{{lookup('env','HOME')}}/.mc" state=directory
+- copy: src="{{item.src}}" dest="{{item.dest}}"
+  with_items:
+    - { src: "dotfiles/expectk.rc"   , dest: "~/.expectk.rc"   }
+    - { src: "dotfiles/expect.rc"    , dest: "~/.expect.rc"    }
+    - { src: "dotfiles/mailcap"      , dest: "~/.mailcap"      }
+    - { src: "dotfiles/mime.types"   , dest: "~/.mime.types"   }
+    - { src: "dotfiles/screenrc"     , dest: "~/.screenrc"     }
+    - { src: "dotfiles/mc.ini"       , dest: "~/.mc/ini"       }
+    - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
+    - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }

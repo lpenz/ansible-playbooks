@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -x -e
+
+git add .
+git ls-files --deleted | xargs -r git rm
+

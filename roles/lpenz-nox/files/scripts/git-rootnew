@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -x -e
+
+BRANCH=${1?usage: $0 <branch>}
+git symbolic-ref HEAD "refs/heads/$BRANCH"
+git rm --cached -r .
+git clean -f -d
+
+echo 'Add files and/or make an empty initial commit with:'
+echo git commit --allow-empty -m "Initial commit of $BRANCH."
+

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if git status | grep -q 'Changed but not updated:'; then
+	STASH=true
+else
+	STASH=false
+fi
+
+set -x
+
+$STASH && git stash
+git pull --rebase
+$STASH && git stash pop
+
+
