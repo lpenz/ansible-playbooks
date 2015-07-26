@@ -1,0 +1,501 @@
+# Initialization: ############################################################
+
+if {[info commands wm] != ""} {
+	wm withdraw .
+}
+
+set timeout -1;
+set env(EXPECT) 1;
+
+if {[info exists env(TERM)] == 0 || $env(TERM) == "dumb"} {
+	overlay x-terminal-emulator -e /bin/sh -c "$argv0 $argv"
+	exit 0
+}
+
+# Misc functions: ############################################################
+
+proc color { { cor "NO_COLOUR" } } {
+	array set colors {
+		BLUE      "\033\[0\;34m"
+		RED       "\033\[0\;31m"
+		GREEN     "\033\[0\;32m"
+		BROWN     "\033\[0\;33m"
+		LIGHT_RED "\033\[1\;31m"
+		WHITE     "\033\[1\;37m"
+		NO_COLOUR "\033\[0m"
+		BOLD      "\033\[39m"
+	};
+
+	return $colors($cor);
+}
+
+proc date {} {
+	return [clock format [clock seconds] -format "%Y-%m-%d %H:%M:%S"]
+}
+
+proc key { keys } {
+	array set code {
+		ESC      "\033"
+		F1       "\033\[11~"
+		F2       "\033\[12~"
+		F3       "\033\[13~"
+		F4       "\033\[14~"
+		F5       "\033\[15~"
+		F6       "\033\[17~"
+		F7       "\033\[18~"
+		F8       "\033\[19~"
+		F9       "\033\[20~"
+		F10      "\033\[21~"
+		F11      "\033\[23~"
+		F12      "\033\[24~"
+		CTRL_F1  "\033O5P"
+		CTRL_F2  "\033O5Q"
+		CTRL_F3  "\033O5R"
+		CTRL_F4  "\033O5S"
+		CTRL_F5  "\033\[15^"
+		CTRL_F6  "\033\[17^"
+		CTRL_F7  "\033\[18^"
+		CTRL_F8  "\033\[19^"
+		CTRL_F9  "\033\[20^"
+		CTRL_F10 "\033\[21^"
+		CTRL_F11 "\033\[23^"
+		CTRL_F12 "\033\[24^"
+		CTRL_A   "\001"
+		CTRL_B   "\002"
+		CTRL_C   "\003"
+		CTRL_D   "\004"
+		CTRL_E   "\005"
+		CTRL_F   "\006"
+		CTRL_G   "\007"
+		CTRL_H   "\010"
+		CTRL_I   "\011"
+		CTRL_J   "\012"
+		CTRL_K   "\013"
+		CTRL_L   "\014"
+		CTRL_M   "\015"
+		CTRL_N   "\016"
+		CTRL_O   "\017"
+		CTRL_P   "\020"
+		CTRL_Q   "\021"
+		CTRL_R   "\022"
+		CTRL_S   "\023"
+		CTRL_T   "\024"
+		CTRL_U   "\025"
+		CTRL_V   "\026"
+		CTRL_W   "\027"
+		CTRL_X   "\030"
+		CTRL_Y   "\031"
+		CTRL_Z   "\032"
+		DOWN     "\033OB"
+		UP       "\033OA"
+		END      "\033[8~"
+		ENDER    "\015"
+	};
+
+	set rv "";
+	set lista [split $keys ",+ "];
+
+	foreach key $lista {
+		if { [ info exists code($key) ] } {
+			set tmp $code($key);
+		} else {
+			set tmp $key;
+		}
+		set rv "$rv$tmp"
+	}
+
+	return $rv;
+}
+
+# Implemented in expectk.rc
+proc show_user_tk { { msg "" } } {
+	# Not implemented
+}
+
+proc swallow_input { } {
+	global spawn_id;
+	global user_spawn_id;
+	expect_interruptible {
+		-timeout 1
+		timeout {}
+		-re . { exp_continue }
+	}
+}
+
+proc setSessionName { name } {
+	global SessionName
+	set SessionName $name;
+	send_user "[key ESC]\]0;$SessionName\007"
+}
+
+
+
+# User communication: ########################################################
+
+proc mark_screen_dialog {} {
+	set var [dialog_inputbox "Enter message:" "--------------"]
+	if { $var != "" } {
+		tell_user "-----$var [date]"
+	}
+}
+
+proc tell_user { { arg "" } } {
+	if { [log_user -info] == 0 } {
+		return
+	}
+	exp_send_user "\n[color LIGHT_RED]exp: [color BOLD] $arg [color]\n"
+}
+
+proc tell_user_warn { { arg "" } } {
+	tell_user $arg;
+	warn $arg;
+}
+
+proc dialog_inputbox { question def } {
+	if { ! [ catch {
+		set ans [exec kdialog --inputbox "$question" $def 2>@stdout ]
+	}]} {
+		return $ans;
+	}
+	return ""
+}
+
+proc clrscr {} {
+	for {set i 0} {$i < 100} {incr i} {
+		exp_send_user "\n"
+	}
+}
+
+proc expect_interruptible { { val "" } { msg "something" } } {
+	global spawn_id;
+	global user_spawn_id;
+	set args [string map "{\n} { } {\t} { } {__msg__} {$msg}" [concat $val {
+		-i $user_spawn_id [key ESC] { tell_user "Expect __msg__ canceled."; }
+		-i $user_spawn_id -re . { tell_user "Expect __msg__, press ESC to give up."; exp_continue }
+	}]]
+	uplevel 1 "global spawn_id"
+	uplevel 1 "global user_spawn_id"
+	global errorInfo errorCode
+	set exprv ''
+	set code [catch {set exprv [uplevel 1 "expect $args"]} message]
+	switch -- $code {
+		0 { return $exprv }
+		1 { return  -code      error \
+					-errorinfo $errorInfo \
+					-errorcode $errorCode $message }
+		2 { return  -code return $message }
+		3 { return -code break }
+		4 { return -code continue }
+		default { return -code $code $message }
+	}
+}
+
+
+
+# External process interaction: ##############################################
+
+proc kill_spawned { id } {
+	system_try "kill [exp_pid -i $id]";
+	sleep 2;
+	system_try "kill -9 [exp_pid -i $id]";
+	wait -i $id;
+}
+
+proc system_capture { cmd } {
+	global spawn_id;
+	if {[info exist spawn_id]} { set spawn_id_backup $spawn_id; }
+	set log_backup [log_user -info];
+	log_user 0;
+	spawn -noecho /bin/sh -c "$cmd"
+	set rv ""
+	expect {
+		-re . { set rv "${rv}$expect_out(0,string)"; exp_continue }
+		eof {}
+	}
+	wait
+	if {[info exist spawn_id_backup]} { set spawn_id $spawn_id_backup; }
+	log_user $log_backup;
+	return $rv
+}
+
+proc xpaste {} {
+	global spawn_id;
+	set buf [system_capture "xclip -o"];
+	exp_send -- $buf;
+}
+
+proc system_try { cmd } {
+	if { [ catch { system $cmd } ] } { 
+		return 1;
+	}
+	return 0;
+}
+
+proc system_try_interruptible { args } {
+	global spawn_id;
+	global user_spawn_id;
+	if {[info exist spawn_id]} {
+		set spawn_id_backup $spawn_id;
+	}
+	uplevel 1 "spawn [concat $args]"
+	set id $spawn_id;
+	if {[info exist spawn_id_backup]} {
+		set spawn_id $spawn_id_backup;
+	}
+	set rv 0;
+	expect_interruptible {
+		-i $id eof {}
+		-i $user_spawn_id [key ESC] { set rv 1 }
+	} "$args"
+	if { $rv == 1 } {
+		kill_spawned $id;
+	} else {
+		wait -i $id;
+	}
+	return $rv;
+}
+
+proc spawn_this { args } {
+	global spawn_id;
+	if {[info exist spawn_id]} {
+		set spawn_id_backup $spawn_id;
+	}
+	uplevel 1 "spawn [concat $args]"
+	set rv $spawn_id;
+	if {[info exist spawn_id_backup]} {
+		set spawn_id $spawn_id_backup;
+	}
+	return $rv;
+}
+
+
+
+# Prompt: ####################################################################
+
+proc prompt {} {
+	return "\(\[#$>\] \|% \\\[0m\\\[K\|\[-=\]>\)$";
+}
+
+proc prompt_wait {} {
+	expect_interruptible {
+		-re [prompt] { return 0; }
+	} "prompt";
+	return 1;
+}
+
+proc cmd { { par "" } } {
+	for {set i 0} {$i < [string length $par]} {incr i} {
+		set c [string index $par $i]
+		exp_send -- $c
+		expect_interruptible { -gl $c {} }
+	}
+	exp_send -- "\r";
+	expect_interruptible {
+		"\r" { return [prompt_wait] }
+	} "command $par entry"
+	return 1;
+}
+
+
+
+# Warns: #####################################################################
+
+proc warn { msg } {
+	global SessionName
+	system_try "notify-send $SessionName: $msg"
+}
+
+proc warn_on { regex } {
+	global user_spawn_id;
+	expect_interruptible {
+		-re "$regex" { warn "Regexp $regex found." }
+	} "regex {$regex}"
+}
+
+set warn_on_dialog_last .
+
+proc warn_on_dialog { } {
+	global warn_on_dialog_last
+	set var [dialog_inputbox "Enter regexp:" $warn_on_dialog_last]
+	if { $var != "" } {
+		set warn_on_dialog_last $var
+		warn_on $var
+	}
+}
+
+proc wait_silence { seconds } {
+	global spawn_id;
+	global user_spawn_id;
+	expect_interruptible {
+		-re "." { exp_continue }
+		-timeout $seconds
+		timeout { return 0; }
+	}
+	return 1;
+}
+
+proc wait_silence_dialog { } {
+	global spawn_id;
+	global user_spawn_id;
+	set seconds [dialog_inputbox "Seconds of silence:" 5];
+	if { $seconds == "" } {
+		return;
+	}
+	tell_user "Waiting for $seconds seconds of silence."
+	if {[wait_silence $seconds]} {
+		return;
+	}
+	warn "Silence."
+}
+
+
+
+# Log: ####################3##################################################
+
+set LogEnable 0
+set LogFilename "log.txt"
+proc log_toggle {} {
+	global LogEnable
+	global LogFilename
+	if { $LogEnable } {
+		log_file
+		set LogEnable 0
+		tell_user "Log $LogFilename closed."
+		return
+	}
+	set var [dialog_inputbox "Enter file name:" $LogFilename];
+	if { $var != "" } {
+		log_file $var
+		set LogFilename "$var"
+		set LogEnable 1
+		tell_user "Logging in $LogFilename."
+	}
+}
+
+
+
+# Couting: ###################################################################
+
+proc count_regex { regex } {
+	global user_spawn_id;
+	set i 0
+	set lasti 0
+	set inidate [date]
+	set last [clock seconds]
+	set sum 0
+
+	expect_interruptible {
+		-re "$regex" { incr i; exp_continue }
+		-re "." { exp_continue }
+		-timeout 1
+		timeout {
+			if { $lasti != $i } {
+				set lasti $i;
+				set sum [expr $sum + ([clock seconds] - $last)];
+				set last [clock seconds];
+				tell_user "Counted $i {$regex}, ini $inidate, now [date], every [expr 1.0 * $sum / $i] s";
+				exp_continue;
+			}
+			exp_continue;
+		}
+	} "counting {$regex}"
+
+	if {$sum > 0} {
+		tell_user "Counted total $i {$regex}, ini $inidate, now [date], every [expr 1.0 * $sum / $i] s"
+	} else {
+		tell_user "Counted total $i {$regex}, ini $inidate, now [date]"
+	}
+}
+
+set count_regex_last "."
+
+proc count_regex_dialog {} {
+	global count_regex_last
+	set var [dialog_inputbox "Enter regexp:" $count_regex_last]
+	if { $var != "" } {
+		set count_regex_last $var
+		count_regex $var
+	}
+}
+
+
+
+# Macros: ####################################################################
+
+set macro_str "";
+
+proc macro_grava {} {
+	global macro_str
+	global spawn_id
+
+	tell_user "Macro, recording"
+	set macro_str "";
+
+	interact {
+		[key CTRL_E] {
+			tell_user "Macro saved"
+			return
+		} -re . {
+			set macro_str "${macro_str}$interact_out(0,string)"
+			exp_send -- "$interact_out(0,string)"
+		}
+	}
+	set fd [open "~/.expect.macros" w];
+	puts -nonewline $fd "set macro_str {"
+	puts -nonewline $fd $macro_str
+	puts $fd "}"
+	close $fd
+}
+
+proc macro_play {} {
+	global macro_str
+	global spawn_id
+
+	exp_send -- $macro_str
+}
+
+
+
+# Interact: ##################################################################
+
+proc myinteract { { val "" } } {
+	global SessionName;
+	set args [string map {"\n" " " "\t" " "} [concat $val {
+		[key CTRL_E,CTRL_C] { tell_user "Cancelando processo."; exit 1 }
+		[key CTRL_E,CTRL_L] { log_toggle }
+		[key CTRL_E,CTRL_T] { warn_on_dialog }
+		[key CTRL_E,CTRL_Y] { wait_silence_dialog }
+		[key CTRL_E,CTRL_M] { tell_user "------------------------------------[date]" }
+		[key CTRL_E,CTRL_K] { mark_screen_dialog }
+		[key CTRL_E,CTRL_Q] { macro_grava }
+		[key CTRL_E,CTRL_W] { macro_play }
+		[key CTRL_E,CTRL_P] { xpaste }
+		[key CTRL_E,CTRL_N] { set var [dialog_inputbox "Enter session name:" $SessionName]; if { $var != "" } { setSessionName $var } }
+		[key CTRL_E,CTRL_X] { count_regex_dialog }
+		[key CTRL_E,CTRL_R] { clrscr }
+	}]]
+	uplevel 1 "interact $args";
+}
+
+
+
+##############################################################################
+
+# Generic shortcuts:
+
+expect_after {
+	-i $user_spawn_id [key CTRL_E,ESC]    { tell_user "Saindo do expect." }
+	-i $user_spawn_id [key CTRL_E,CTRL_C] { tell_user "Cancelando processo."; exit 1 }
+	-i $user_spawn_id [key CTRL_E,CTRL_I] { tell_user "Forçando um interact."; myinteract }
+}
+
+# Local customizations in ~/.expect.config
+catch { source "~/.expect.config" }
+
+# Load macros:
+catch { source "~/.expect.macros" }
+
+set SessionName [exp_pid]
+
+# vim: ft=expect
+

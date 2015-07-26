@@ -1,0 +1,123 @@
+
+package require Tk
+
+wm withdraw .
+source ~/.expect.rc
+
+set env(EXPECTK) 1;
+
+rename dialog_inputbox ""
+
+set dialog_inputbox_ok 0
+set dialog_inputbox_output ""
+proc dialog_inputbox { { question "Option" } { def "" } } {
+	global dialog_inputbox_ok
+	global dialog_inputbox_output
+	global SessionName
+	set dialog_inputbox_output $def
+	toplevel .w -class tkdialog
+	wm title .w $SessionName
+	label .w.label -text $question
+	entry .w.entry -textvar dialog_inputbox_output -width 80
+	pack .w.label .w.entry -side left
+	wm transient .w
+
+	set dialog_inputbox_ok 0
+	bind .w <Escape> {
+		destroy .w
+	}
+	bind .w <Return> {
+		global dialog_inputbox_ok
+		set dialog_inputbox_ok 1
+		destroy .w
+	}
+	wm deiconify .w
+	focus .w.entry
+	tkwait win .w
+
+	if { $dialog_inputbox_ok == 1 } {
+		return $dialog_inputbox_output
+	}
+	return ""
+}
+
+###############################################################################
+
+set dialog_menu_ok 0
+set dialog_menu_sel 0
+set dialog_menu_size 0
+proc dialog_menu { { question "Option" } options { def 0 } } {
+	global dialog_menu_ok
+	global dialog_menu_sel
+	global dialog_menu_size
+	global SessionName
+	set dialog_menu_sel $def
+	set dialog_menu_size [expr [llength $options] / 2]
+	toplevel .w -class tkdialog
+	wm title .w $SessionName
+	frame .w.topframe
+	label .w.label -text $question
+	set optwidgets ""
+	for { set i 0 } {$i < [llength $options]} { incr i; incr i } {
+		set iopt [expr $i / 2]
+		set opt [lindex $options $i]
+		radiobutton .w.opt$iopt -text "$opt" -variable dialog_menu_sel -value $iopt
+		set optwidgets [concat $optwidgets .w.opt$iopt]
+	}
+	pack .w.topframe -expand 1 -side top -anchor center
+	pack .w.label -in .w.topframe
+	eval "pack $optwidgets -in .w.topframe -side top -anchor w"
+	wm transient .w
+	set dialog_menu_ok 0
+	bind .w <Escape> {
+		destroy .w
+	}
+	bind .w <Up> {
+		set dialog_menu_sel [expr ($dialog_menu_sel - 1) %% $dialog_menu_size]
+		focus .w.opt$dialog_menu_sel
+	}
+	bind .w <Down> {
+		set dialog_menu_sel [expr ($dialog_menu_sel + 1) %% $dialog_menu_size]
+		focus .w.opt$dialog_menu_sel
+	}
+	bind .w <Return> {
+		global dialog_menu_ok
+		set dialog_menu_ok 1
+		destroy .w
+	}
+	focus .w.opt$dialog_menu_sel
+	wm deiconify .w
+	tkwait win .w
+
+	if { $dialog_menu_ok == 1 } {
+		set f [lindex $options [expr $dialog_menu_sel*2+1]]
+		uplevel 1 $f
+		return $dialog_menu_sel
+	}
+	return ""
+}
+
+###############################################################################
+
+rename show_user_tk ""
+
+set tell_user_index 0
+proc show_user_tk { { msg "" } } {
+	global tell_user_index
+	set tell_user_index [expr $tell_user_index + 1]
+	toplevel .tell_user${tell_user_index} -class tkdialog
+	wm title .tell_user${tell_user_index} Info
+	label .tell_user${tell_user_index}.label -text $msg
+	pack .tell_user${tell_user_index}.label -side left
+	wm transient .tell_user${tell_user_index}
+
+	bind .tell_user${tell_user_index} <Escape> "destroy .tell_user${tell_user_index}"
+	bind .tell_user${tell_user_index} <Return> "destroy .tell_user${tell_user_index}"
+	bind .tell_user${tell_user_index} <FocusIn> "sleep 2; destroy .tell_user${tell_user_index}"
+
+	wm deiconify .tell_user${tell_user_index}
+	focus .tell_user${tell_user_index}
+}
+
+# vim: ft=tcl
+

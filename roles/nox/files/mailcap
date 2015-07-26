@@ -1,0 +1,39 @@
+text/t2t; t2tview '%s'
+text/dot; dotview '%s'
+text/neato; neatoview '%s'
+#application/pdf; /usr/bin/xpdf '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
+application/pdf; /usr/bin/evince '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
+#application/pdf; /usr/bin/google-chrome '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
+application/postscript; /usr/bin/gv '%s'; test=test "$DISPLAY" != ""; description=Postscript; nametemplate=%s.ps
+application/chm; xchm '%s'
+#text/html; /home/penz/bin/htmlview '%s'; test=test -n "$DISPLAY"
+text/html; /usr/bin/lynx -dump -force_html '%s'; copiousoutput; description=HTML Text; nametemplate=%s.html
+application/ganttproject; /usr/local/bin/ganttproject '%s'; test=test -n "$DISPLAY"
+text/cronogram; crnview '%s'
+image/gif; feh '%s'; test=test -n "$DISPLAY" ; description=GIF Image; nametemplate=%s.gif
+image/jpeg; feh '%s'; test=test -n "$DISPLAY" ; description=JPEG Image; nametemplate=%s.jpeg
+image/png; feh '%s'; test=test -n "$DISPLAY" ; description=PNG Image; nametemplate=%s.png
+image/tiff; feh '%s'; test=test -n "$DISPLAY" ; description=TIFF Image; nametemplate=%s.tiff
+image/pnm; feh '%s'; test=test -n "$DISPLAY" ; description=PNM Image; nametemplate=%s.pnm
+image/tga; feh '%s'; test=test -n "$DISPLAY" ; description=TGA Image; nametemplate=%s.tga
+image/argb; feh '%s'; test=test -n "$DISPLAY" ; description=ARGB Image; nametemplate=%s.argb
+image/x-ms-bmp; feh '%s'; test=test -n "$DISPLAY" ; description=BMP Image; nametemplate=%s.bmp
+image/xpm; feh '%s'; test=test -n "$DISPLAY" ; description=XPM Image; nametemplate=%s.xpm
+image/pjpeg; feh '%s'; test=test -n "$DISPLAY" ; description=PJPEG Image; nametemplate=%s.pjpeg
+text/taskjuggler; TaskJugglerUI '%s'
+text/x-lua; gvim '%s'
+text/x-csrc; gvim '%s'
+application/vnd.ms-excel; libreoffice '%s'; edit=libreoffice '%s'; test=test -n "$DISPLAY"; description="Microsoft Excel Document"; nametemplate=%s.xls
+application/msexcel; libreoffice '%s'; edit=libreoffice '%s'; test=test -n "$DISPLAY"; description="Microsoft Excel Document"; nametemplate=%s.xls
+application/vnd.ms-powerpoint; soffice -impress '%s'; edit=soffice -impress '%s'; test=test -n "$DISPLAY"; description="Microsoft PowerPoint Document"; nametemplate=%s.ppt
+application/mspowerpoint; soffice -impress '%s'; edit=soffice -impress '%s'; test=test -n "$DISPLAY"; description="Microsoft PowerPoint Document"; nametemplate=%s.ppt
+application/msword; soffice -writer '%s'; edit=soffice -writer '%s'; test=test -n "$DISPLAY"; description="Microsoft Word Document"; nametemplate=%s.doc
+application/evoluspencil; evoluspencil '%s'; test=test -n "$DISPLAY"; description="Evolus Pencil file"
+video/x-msvideo; /usr/bin/vlc -f '%s'; description="Audio Video Interleave - Microsoft"; test=test -n "$DISPLAY"
+video/x-matroska; /usr/bin/vlc -f '%s'; description="Audio Video Interleave - Microsoft"; test=test -n "$DISPLAY"
+text/csv; cat '%s'; description="CSV Document"; nametemplate=%s.csv
+text/calendar; /home/penz/bin/icalview; copiousoutput
+application/dia; dia '%s'; test=test -n "$DISPLAY"
+text/msc; /home/penz/bin/mscview '%s'; test=test -n "$DISPLAY"
+text/plantuml; /home/penz/bin/plantumlview '%s'; test=test -n "$DISPLAY"
+

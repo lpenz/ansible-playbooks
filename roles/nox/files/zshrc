@@ -1,0 +1,108 @@
+# lpenz .zshrc
+
+DISABLE_AUTO_TITLE=true
+
+source ~/.zgen-github/zgen.zsh
+function zgen-config() {
+    echo "Creating a zgen save"
+    zgen oh-my-zsh
+    # plugins
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/bgnotify
+    zgen oh-my-zsh plugins/tmux
+    zgen oh-my-zsh plugins/screen
+    zgen oh-my-zsh plugins/z
+    zgen oh-my-zsh plugins/rsync
+    zgen oh-my-zsh plugins/debian
+    zgen oh-my-zsh plugins/colorize
+    zgen oh-my-zsh plugins/colored-man
+    zgen oh-my-zsh plugins/golang
+    zgen oh-my-zsh plugins/go
+    zgen oh-my-zsh plugins/python
+    zgen oh-my-zsh plugins/pylint
+    zgen oh-my-zsh plugins/pep8
+    zgen oh-my-zsh plugins/autopep8
+    zgen oh-my-zsh plugins/docker
+    zgen oh-my-zsh plugins/cp
+    zgen load zsh-users/zsh-completions
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+    # dircolors
+    zgen load joel-porquet/zsh-dircolors-solarized
+    # theme
+    zgen oh-my-zsh themes/terminalparty
+    #zgen oh-my-zsh themes/agnoster
+    # save all to init script
+    zgen save
+}
+if ! zgen saved; then
+    zgen-config
+fi
+
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+setupsolarized dircolors.ansi-dark
+PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
+
+# Custom configs:
+WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
+setopt no_share_history
+
+# Unaliases:
+unalias gk
+
+# Hotkeys:
+bindkey -M menuselect '^J' accept-and-infer-next-history
+bindkey -M menuselect '^H' undo
+bindkey -M menuselect '^K' vi-insert
+bindkey "\ej" accept-and-menu-complete
+bindkey "\el" copy-prev-shell-word
+bindkey -s "\e[21~" "\033q\025mymake\012"
+bindkey -s "\er" "\033q\025while ! !!; do sleep 1; done"
+
+# Environment:
+export PATH=~/bin:$PATH:~/.local/bin
+export CVSIGNORE=".*.swp .*.swo .swp .swo cscope.out *.o.flags .depend"
+export CVS_RSH="ssh"
+export GTK2_RC_FILES=$HOME/.gtkrc-2.0
+export LUA_HISTORY=$HOME/.lua_history
+export MANPATH=:$HOME/.man
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en
+export VISUAL=/usr/bin/vim
+export EDITOR=$VISUAL
+export PYTHONSTARTUP=~/.pystartup
+export XAUTHORITY=~/.Xauthority
+
+# Load keychain
+eval `keychain -q --eval --agents ssh id_dsa`
+
+ulimit -v 1200000
+
+# Runs before showing the prompt
+function penz_precmd {
+  title "%m:%~" "%m:%~"
+}
+
+# Runs before executing the command
+function penz_preexec {
+  emulate -L zsh
+  setopt extended_glob
+
+  # cmd name only, or if this is sudo or ssh, the next cmd
+  local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]:gs/%/%%}
+  local LINE="${2:gs/%/%%}"
+
+  title '$CMD' '%100>...>$LINE%<<'
+}
+
+precmd_functions+=(penz_precmd)
+preexec_functions+=(penz_preexec)
+
+
+# Local customizations
+if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
+
