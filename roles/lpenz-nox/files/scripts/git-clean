@@ -1,45 +1,83 @@
-#!/bin/sh
+#!/usr/bin/python
+'''Cleans a git repository, but maintains certain files'''
 
-TMP=$(tempfile)
-trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
+import os
+import sys
+import tarfile
+import tempfile
+import subprocess
+import logging
+from optparse import OptionParser
 
-FILES=
 
-for i in \
-	.glimpse_exclude \
-	.glimpse_filenames \
-	.glimpse_filenames_index \
-	.glimpse_filetimes \
-	.glimpse_index \
-	.glimpse_messages \
-	.glimpse_partitions \
-	.glimpse_statistics \
-	ID \
-	.slocatedb \
-	cvsps.txt \
-	cvscs.txt \
-	.find.txt.gz \
-	tags \
-	config.mk \
-	equip.mk \
-	common/include/debugDefines.h \
-; do
-	if [ -e $i ]; then
-		FILES="$FILES $i"
-	fi
-done
+KEEPERS = [
+    ".glimpse_exclude",
+    ".glimpse_filenames",
+    ".glimpse_filenames_index",
+    ".glimpse_filetimes",
+    ".glimpse_index",
+    ".glimpse_messages",
+    ".glimpse_partitions",
+    ".glimpse_statistics",
+    "ID",
+    ".slocatedb",
+    "cvsps.txt",
+    "cvscs.txt",
+    ".find.txt.gz",
+    ".find.txt",
+    "tags",
+    "config.mk",
+    "equip.mk",
+]
 
-if [ -n "$FILES" ]; then
-	echo Saving $FILES
-	tar -czf $TMP $FILES
-fi
 
-git clean -xfd
-git submodule foreach git clean -xfd
+def doit():
+    tokeep = []
+    for f in KEEPERS:
+        if not os.path.exists(f):
+            continue
+        tokeep.append(f)
+    tmp = tempfile.NamedTemporaryFile(suffix='.tar', delete=False)
+    t = tarfile.open(tmp.name, 'w')
+    for f in tokeep:
+        t.add(f)
+    logging.info('Saving ' + str(tokeep))
+    t.close()
+    rv = subprocess.call(['git', 'clean', '-xfd'])
+    if rv == 0:
+        rv = subprocess.call(
+            ['git', 'submodule', 'foreach', 'git', 'clean', '-xfd'])
+    t = tarfile.open(tmp.name, 'r')
+    os.unlink(tmp.name)
+    logging.info('Restoring ' + str(tokeep))
+    t.extractall()
+    t.close()
+    return rv
 
-echo Restoring $FILES
 
-if [ -s "$TMP" ]; then
-	tar -xzf $TMP
-fi
+def _logging_verbose(option, opt, value, parser):
+    logging.getLogger().setLevel(logging.INFO)
 
+
+def _logging_debug(option, opt, value, parser):
+    logging.getLogger().setLevel(logging.WARN)
+
+
+def main():
+    parser = OptionParser(usage="Usage: %prog",
+                          description=__doc__)
+    parser.add_option('-v', '--verbose',
+                      action="callback", callback=_logging_verbose,
+                      help='Be more verbose.')
+    parser.add_option('-d', '--debug',
+                      action="callback", callback=_logging_debug,
+                      help='Show debug messages.')
+    (cfg, args) = parser.parse_args()
+    if len(args) > 0:
+        parser.error('Invalid arguments.')
+    prog = os.path.basename(sys.argv[0])
+    logging.basicConfig(format=prog + ': %(message)s')
+    sys.exit(doit())
+
+if __name__ == '__main__':
+    main()

@@ -5,8 +5,6 @@ set -e
 TMP=$(tempfile)
 trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 
-ulimit -v unlimited
-
 git-prune
 
 if git --version | grep -q 'git version 1.5'; then
@@ -17,5 +15,5 @@ else
 fi
 
 sed -n "s@warning: reflog of 'refs/remotes/origin/\([^']\+\)' references pruned commits@\1@p" "$TMP" \
-	| xargs -I{} -n 1 git update-ref -d 'refs/remotes/origin/{}'
+	| xargs '-I{}' -n 1 git update-ref -d 'refs/remotes/origin/{}'
 

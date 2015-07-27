@@ -5,11 +5,11 @@ set -e
 TMP=$(tempfile)
 trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 
-git remote prune origin > /dev/null 2> $TMP
+git remote prune origin > /dev/null 2> "$TMP"
 
-sed -n 's@^error: \([^ ]\+\) does not point to a valid object.*@\1@p' $TMP \
-	| xargs -I{} -n 1 git update-ref -d '{}'
+sed -n 's@^error: \([^ ]\+\) does not point to a valid object.*@\1@p' "$TMP" \
+	| xargs '-I{}' -n 1 git update-ref -d '{}'
 
-sed -n "s@warning: reflog of 'refs/remotes/origin/\([^']\+\)' references pruned commits@\1@p" $TMP \
-	| xargs -I{} -n 1 git update-ref -d 'refs/remotes/origin/{}'
+sed -n "s@warning: reflog of 'refs/remotes/origin/\([^']\+\)' references pruned commits@\1@p" "$TMP" \
+	| xargs '-I{}' -n 1 git update-ref -d 'refs/remotes/origin/{}'
 

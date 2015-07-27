@@ -1,6 +1,16 @@
+language: python
 sudo: required
-before_install:
+addons:
+  apt:
+    packages:
+      - cabal-install
+      - haskell-platform
+      - ansible # https://github.com/travis-ci/apt-package-whitelist/issues/495
+install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq ansible
+  - sudo apt-get install -qq ansible cabal-install haskell-platform
+  - cabal update
+  - cabal install shellcheck
 script:
   - ansible-playbook -i localhost, -c local playbook-lpenz-nox.yml
+  - grep -l '#!/bin/sh' roles/lpenz-nox/files/scripts/* | xargs ~/.cabal/bin/shellcheck
