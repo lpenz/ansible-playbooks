@@ -1,0 +1,59 @@
+#!/bin/bash
+
+function usage {
+	cat <<-EOF
+	Usage: $0 [-R] <shell commands>
+	       $0 <-h>
+	Enters each subdirectory of current directory and performs the supplied shell commands.
+
+	-R               Recursive.
+	-h               This help message.
+	<shell commands> Shell commands to execute in each dir.
+	EOF
+}
+
+while getopts ":Rh" opt; do
+   case $opt in
+   R )  RECURSIVE=1;;
+   h )  usage; exit 0;;
+   \?)  usage; exit 1;;
+   esac
+done
+
+shift $((OPTIND - 1))
+
+if [ $# -lt 1 ]; then
+	echo "Wrong number of arguments."
+	usage
+	exit 1
+fi
+
+if [ -z "$DODIRSLVL" ]; then
+	export DODIRSLVL=0
+fi
+
+DODIRSLVL=$((DODIRSLVL+1))
+
+RV=0
+
+for i in *; do
+	if [ -d "$i" ]; then
+		echo "dodirs[$DODIRSLVL]: Entering directory \`$PWD/$i'"
+		(cd "$i"; /bin/sh -c "$*")
+		R=$?
+		if [ "$RV" = "0" ]; then RV=$R; fi
+		if [ $RECURSIVE ]; then
+			dodirs "$*"
+			if [ "$RV" = "0" ]; then RV=$R; fi
+		fi
+		echo -n "dodirs[$DODIRSLVL]: Leaving directory \`$PWD/$i'"
+		if [ $? == 0 ]; then
+			echo
+		else
+			echo , error $?
+		fi
+	fi
+done
+
+exit $RV
+
