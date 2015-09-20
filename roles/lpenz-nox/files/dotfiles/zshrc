@@ -7,32 +7,15 @@ function zgen-config() {
     echo "Creating a zgen save"
     zgen oh-my-zsh
     # plugins
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/bgnotify
-    zgen oh-my-zsh plugins/tmux
-    zgen oh-my-zsh plugins/screen
     zgen oh-my-zsh plugins/z
-    zgen oh-my-zsh plugins/rsync
-    zgen oh-my-zsh plugins/debian
-    zgen oh-my-zsh plugins/colorize
     zgen oh-my-zsh plugins/colored-man
-    zgen oh-my-zsh plugins/golang
     zgen oh-my-zsh plugins/go
-    zgen oh-my-zsh plugins/python
-    zgen oh-my-zsh plugins/pylint
-    zgen oh-my-zsh plugins/pep8
-    zgen oh-my-zsh plugins/autopep8
-    zgen oh-my-zsh plugins/docker
-    zgen oh-my-zsh plugins/cp
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
     # dircolors
     zgen load joel-porquet/zsh-dircolors-solarized
-    # theme
-    zgen oh-my-zsh themes/terminalparty
-    #zgen oh-my-zsh themes/agnoster
     # save all to init script
     zgen save
 }
@@ -50,9 +33,6 @@ PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
 setopt no_share_history
-
-# Unaliases:
-unalias gk
 
 # Hotkeys:
 bindkey -M menuselect '^J' accept-and-infer-next-history
