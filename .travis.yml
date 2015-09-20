@@ -10,7 +10,7 @@ install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq ansible cabal-install haskell-platform
   - cabal update
-  - cabal install shellcheck
+  - cabal install --force-reinstalls shellcheck
   - pip install pyflakes
 script:
   - ansible-playbook -i localhost, -c local playbook-lpenz-nox.yml
