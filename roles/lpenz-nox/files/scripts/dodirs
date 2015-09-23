@@ -39,7 +39,7 @@ RV=0
 for i in *; do
 	if [ -d "$i" ]; then
 		echo "dodirs[$DODIRSLVL]: Entering directory \`$PWD/$i'"
-		(cd "$i"; /bin/sh -c "$*")
+		(cd "$i" || /bin/sh -c "$*")
 		R=$?
 		if [ "$RV" = "0" ]; then RV=$R; fi
 		if [ $RECURSIVE ]; then

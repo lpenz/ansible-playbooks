@@ -10,7 +10,7 @@ killtree() {
     kill "-${_sig}" "${_pid}"
 }
 
-if [ $# -eq 0 -o $# -gt 2 ]; then
+if [ $# -eq 0 ] || [ $# -gt 2 ]; then
     echo "Usage: $(basename "$0") <pid> [signal]"
     exit 1
 fi
