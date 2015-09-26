@@ -11,4 +11,9 @@ My user configuration, no X:
 ansible-playbook -i localhost, playbook-lpenz-nox.yml
 ```
 
+Or, remotely (no download required):
+```shell
+ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, playbook-lpenz-nox.yml
+```
+
 
