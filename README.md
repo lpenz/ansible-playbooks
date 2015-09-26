@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/lpenz/ansible-playbooks.svg?branch=master)](https://travis-ci.org/lpenz/ansible-playbooks)
 
 lpenz ansible provisioner
 =============================
