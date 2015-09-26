@@ -11,10 +11,12 @@ install:
   - sudo apt-get install -qq ansible cabal-install haskell-platform
   - cabal update
   - cabal install --force-reinstalls shellcheck
-  - pip install pyflakes
+  - pip install flake8 py3kwarn
 script:
   - ansible-playbook -i localhost, -c local playbook-lpenz-nox.yml
   - nosetests --with-doctest
   - grep -l '#!/bin/sh'   roles/*/files/scripts/* | xargs ~/.cabal/bin/shellcheck
   - grep -l '#!/bin/bash' roles/*/files/scripts/* | xargs ~/.cabal/bin/shellcheck
-  - grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs pyflakes
+  - grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs flake8
+  - grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs py3kwarn
+  - nosetests --with-doc --exe
