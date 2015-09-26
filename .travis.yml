@@ -4,11 +4,8 @@ addons:
     packages:
       - cabal-install
       - haskell-platform
-      - ansible # https://github.com/travis-ci/apt-package-whitelist/issues/495
-sudo: required
+      - ansible
 install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq ansible cabal-install haskell-platform
   - cabal update
   - cabal install --force-reinstalls shellcheck
   - pip install flake8 py3kwarn
