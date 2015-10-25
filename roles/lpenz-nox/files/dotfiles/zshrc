@@ -9,7 +9,7 @@ function zgen-config() {
     # plugins
     zgen oh-my-zsh plugins/bgnotify
     zgen oh-my-zsh plugins/z
-    zgen oh-my-zsh plugins/colored-man
+    zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/go
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-syntax-highlighting
