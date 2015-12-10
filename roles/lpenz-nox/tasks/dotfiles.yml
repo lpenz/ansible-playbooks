@@ -1,3 +1,4 @@
+---
 - file: name="{{lookup('env','HOME')}}/.mc" state=directory
 - copy: src="{{item.src}}" dest="{{item.dest}}"
   with_items:
