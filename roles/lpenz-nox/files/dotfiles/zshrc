@@ -58,7 +58,9 @@ export PYTHONSTARTUP=~/.pystartup
 export XAUTHORITY=~/.Xauthority
 
 # Load keychain
-eval `keychain -q --eval --agents ssh id_dsa`
+for f in $HOME/.ssh/id_[dr]sa; do
+    eval `keychain -q --eval --agents ssh $f`
+done
 
 ulimit -v 1200000
 
@@ -85,4 +87,3 @@ preexec_functions+=(penz_preexec)
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
-
