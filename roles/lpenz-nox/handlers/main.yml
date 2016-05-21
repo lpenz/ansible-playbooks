@@ -1,0 +1,12 @@
+---
+# (tmux handlers here because of https://github.com/ansible/ansible/issues/13485)
+- name: tmux_plugins_install
+  command: tmux new -s install_plugins -d
+  notify: tmux_plugins_install_2
+
+- name: tmux_plugins_install_2
+  command: ~/.tmux/plugins/tpm/bindings/install_plugins
+  notify: tmux_plugins_install_kill
+
+- name: tmux_plugins_install_kill
+  command: tmux kill-session -t install_plugins

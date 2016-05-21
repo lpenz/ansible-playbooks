@@ -2,3 +2,4 @@
 - include: scripts.yml
 - include: dotfiles.yml
 - include: zsh.yml
+- include: tmux.yml
