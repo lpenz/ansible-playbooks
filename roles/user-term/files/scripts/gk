@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gitk --all &
+disown
