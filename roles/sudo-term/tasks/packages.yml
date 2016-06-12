@@ -1,0 +1,9 @@
+---
+- apt: package={{item}} state=present
+  with_items:
+    - vim
+    - zsh
+    - ansible
+    - keychain
+    - tmux
+    - git

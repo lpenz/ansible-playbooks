@@ -1,2 +1,4 @@
 ---
 - include: packagecloud.yml
+
+- include: packages.yml
