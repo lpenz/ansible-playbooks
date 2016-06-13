@@ -2,4 +2,4 @@
 - copy: src="dotfiles/zshrc" dest="~/.zshrc"
 - git: repo="https://github.com/tarjoilija/zgen.git" dest="{{lookup('env','HOME')}}/.zgen-github"
 - command: /usr/bin/zsh -i -c "zgen-config"
-  when: ansible_env.SHELL == "/usr/bin/zsh"
+  when: ansible_user_shell == "/usr/bin/zsh"

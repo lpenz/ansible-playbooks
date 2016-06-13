@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/lpenz/ansible-playbooks.svg?branch=master)](https://travis-ci.org/lpenz/ansible-playbooks)
+[![Run Status](https://api.shippable.com/projects/568983d11895ca4474674113/badge?branch=master)](https://app.shippable.com/projects/568983d11895ca4474674113)
 
 lpenz ansible provisioner
 =============================
@@ -9,13 +9,13 @@ a given Linux system. It is based on ansible-pull operation.
 - My user configuration, with everything that does not require X:
 
   ```shell
-  ansible-playbook -i localhost, playbook-user-term.yml
+  ansible-playbook -i localhost, -c local playbook-user-term.yml
   ```
 
   Or, remotely (no download required):
 
   ```shell
-  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, playbook-user-term.yml
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-user-term.yml
   ```
 
 - Configurations that require sudo, mostly installing packages and
@@ -24,13 +24,13 @@ a given Linux system. It is based on ansible-pull operation.
   at [packagecloud.io](https://packagecloud.io):
 
   ```shell
-  ansible-playbook -i localhost, playbook-sudo-term.yml
+  ansible-playbook -i localhost, -c local playbook-sudo-term.yml
   ```
 
   Or, remotely (no download required):
 
   ```shell
-  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, playbook-sudo-term.yml
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-term.yml
   ```
 
 

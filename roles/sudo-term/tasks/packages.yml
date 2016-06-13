@@ -7,3 +7,4 @@
     - keychain
     - tmux
     - git
+    - apt-transport-https
