@@ -24,13 +24,13 @@ a given Linux system. It is based on ansible-pull operation.
   at [packagecloud.io](https://packagecloud.io):
 
   ```shell
-  ansible-playbook -i localhost, -c local playbook-sudo-term.yml
+  ansible-playbook -i localhost, -c local playbook-sudo-term.yml -K
   ```
 
   Or, remotely (no download required):
 
   ```shell
-  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-term.yml
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-term.yml -K
   ```
 
 
