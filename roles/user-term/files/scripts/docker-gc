@@ -3,8 +3,9 @@
 set -x -e
 
 : gc conteiners
-docker ps --filter 'status=exited' -q | xargs docker rm
+docker ps --filter 'status=exited'  -q | xargs -r docker rm
+docker ps --filter 'status=created' -q | xargs -r docker rm
 
 : gc images
-docker images --filter "dangling=true" -q | xargs docker rmi
+docker images --filter "dangling=true" -q | xargs -r docker rmi
 
