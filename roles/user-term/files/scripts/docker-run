@@ -1,6 +1,7 @@
 #!/bin/bash
 
+NAME="${PWD##*/}"
+
 set -x -e
 
-docker run -it --rm -v "$PWD:/home/user/work" -e "MY_UID=$UID" "${PWD##*/}" "$@"
-
+docker run -it --rm -P -v "$PWD:/home/user/work" -e "MY_UID=$UID" --name "$NAME" "$NAME" "$@"
