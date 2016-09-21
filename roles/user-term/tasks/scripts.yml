@@ -17,5 +17,7 @@
     - mymake
     - mymakesee
     - docker-gc
+    - docker-build
+    - docker-run
     - github-clone
     - gk
