@@ -2,5 +2,5 @@
 
 set -x -e
 
-docker run -it --rm -v "$PWD:/home/user/work" -e "MY_UID=$UID" "${PWD##*/}"
+docker run -it --rm -v "$PWD:/home/user/work" -e "MY_UID=$UID" "${PWD##*/}" "$@"
 
