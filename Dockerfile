@@ -10,6 +10,7 @@ RUN set -x -e; \
         flake8 python-nosexcover \
         ansible \
         shellcheck \
+        gnupg \
         gosu sudo
 
 # setup sudo and locale
