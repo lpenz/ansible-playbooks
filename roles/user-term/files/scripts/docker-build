@@ -1,6 +1,9 @@
 #!/bin/bash
 
+NAME="${PWD##*/}"
+NAME="${NAME,,}"
+
 set -x -e
 
-docker build -t "${PWD##*/}" . "$@"
+docker build -t "$NAME" . "$@"
 

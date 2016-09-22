@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NAME="${PWD##*/}"
+NAME="${NAME,,}"
 
 set -x -e
 
