@@ -6,10 +6,14 @@
 
 - get_url: dest=/var/cache/apt/archives url="https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_{{debian_arch}}.deb"
 
-- apt: package={{item}} state=present
+- apt: package={{item}} state=present # required by dropbox
   with_items:
-    - python-gpgme # required by dropbox
-    - dropbox
+    - python-gpgme
+    - python-libxslt1
+
+- apt: deb={{item}} state=present
+  with_items:
+    - "/var/cache/apt/archives/dropbox_2015.10.28_{{debian_arch}}.deb"
 
 - copy: dest=/etc/sysctl.d/local-dropbox.conf src=sysctl-local-dropbox.conf owner=root group=root mode=0644
 
