@@ -12,6 +12,7 @@
     - root-tail
     - xfonts-jmk
     - xfonts-terminus
+    - dbus-x11 # dep of xselctrl and others
 
 - name: setup rxvt-unicode-256-colors alternative
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
