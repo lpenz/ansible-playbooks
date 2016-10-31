@@ -1,0 +1,12 @@
+---
+- apt: package={{item}} state=present
+  with_items:
+    - vim-gtk3
+    - rxvt-unicode-256color
+    - notion
+    - gitk
+    - git-gui
+    - xserver-xorg
+
+- name: setup rxvt-unicode-256-colors alternative
+  alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode

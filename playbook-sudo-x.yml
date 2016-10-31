@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - sudo-x
+  become: yes
+  become_user: root
