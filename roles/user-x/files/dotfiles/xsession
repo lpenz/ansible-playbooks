@@ -7,6 +7,7 @@ if [ -z "$LC_ALL" ]; then
 	export LC_ALL=en_US.UTF-8
 fi
 
+xset b off
 xsetroot -solid black
 
 nice -n 19 ~/bin/warnd.py -f ~/.warnd_fifo -l "$HOME/.warnd_log1,$HOME/.warnd_log2" > /dev/null &
@@ -21,3 +22,6 @@ nice -n 19 ~/bin/xselctrl.py &
 ~/bin/gkrellmstart
 (sleep 30; dropbox start) &
 
+if [ -z "$XSESSION_SKIP_NOTION" ]; then
+    exec /usr/bin/notion 
+fi
