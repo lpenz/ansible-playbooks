@@ -84,7 +84,7 @@ function penz_preexec {
 precmd_functions+=(penz_precmd)
 preexec_functions+=(penz_preexec)
 
-setterm --blength 0
+setterm --blength 0 2>/dev/null 
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
