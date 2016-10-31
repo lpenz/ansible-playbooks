@@ -1,4 +1,4 @@
 ---
+- include: aptcfg.yml
 - include: packagecloud.yml
-
 - include: packages.yml
