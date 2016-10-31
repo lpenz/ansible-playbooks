@@ -1,0 +1,10 @@
+---
+- file: name="{{lookup('env','HOME')}}/bin" state=directory
+- copy: src="scripts/{{item}}" dest="~/bin/{{item}}" mode=0755
+  with_items:
+    - clipinfo.py
+    - gkrellmstart
+    - myroottail
+    - warn
+    - warnd.py
+    - xselctrl.py

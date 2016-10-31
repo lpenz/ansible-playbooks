@@ -1,0 +1,49 @@
+#!/bin/bash
+
+export PATH=~/bin:$PATH
+
+XM=$(xwininfo -root | sed -n 's@\s*Width:\s*\([0-9]\+\)\s*@\1@p')
+YM=$(xwininfo -root | sed -n 's@\s*Height:\s*\([0-9]\+\)\s*@\1@p')
+X1=${X1:=1024}
+Y2=${Y2:=14}
+
+QUERY=false
+
+function usage () {
+	cat <<-END
+	Usage: $0 <-h>
+	       $0 <-q>
+	       $0 <-r ROOT_WINDOW_ID>
+	Initializes standard roottails.
+
+	-q          Queries root-window, by using xwininfo.
+	-r <ID>     Use ID as the root-window.
+	-h          This help.
+	END
+}
+
+while getopts "r:q" opt; do
+   case $opt in
+   h ) usage; exit 0;;
+   r ) PAR="-id $OPTARG" ;;
+   q ) QUERY=true ;;
+   \?) usage; exit 1;;
+   esac
+done
+
+if $QUERY; then
+	WIN="$(xwininfo -tree -root | sed -e "/${XM}x${YM}/!d" -e '/screensaver/d' -e 's,^\s\+\(0x[0-9a-f]\+\).*,\1,')"
+	if [ -z "$WIN" ]; then
+		echo unable to discover root win >&2
+		exit 1
+	fi
+	PAR="-id $WIN"
+fi
+
+xsetroot -solid black
+set -x
+nice -n 19 root-tail $PAR --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g ${X1}x${YM}+0+0 /var/log/roottailyellow.log,yellow, /var/log/roottailblue.log,lightblue, /var/log/roottailgreen.log,lightgreen, /var/log/roottailred.log,red, $HOME/.warnd_log1,white, $HOME/.warnd_log2,gray, &
+nice -n 19 root-tail $PAR --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g $((XM-X1-2))x${Y2}+$((X1+2))+$((YM-Y2)) $HOME/.clipinfo.txt,CadetBlue1 &
+nice -n 19 root-tail $PAR --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g $((XM-X1-2))x${Y2}+$((X1+2))+$((YM-2*Y2)) $HOME/.clipinfo2.txt,CadetBlue2 &
+test -n "$EXTRATAIL" && nice -n 19 root-tail -id $id --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g $((XM-X1-2))x$((YM-Y2))+$((X1+2))+0 ${EXTRATAIL},Orange &
+
