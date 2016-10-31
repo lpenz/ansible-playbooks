@@ -7,6 +7,11 @@
     - gitk
     - git-gui
     - xserver-xorg
+    - gkrellm
+    - stalonetray
+    - root-tail
+    - xfonts-jmk
+    - xfonts-terminus
 
 - name: setup rxvt-unicode-256-colors alternative
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
