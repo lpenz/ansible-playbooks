@@ -1,0 +1,9 @@
+---
+- name: gkrellm | create ~/.gkrellm2
+  file: name="{{lookup('env','HOME')}}/.gkrellm2" state=directory
+
+- name: gkrellm | set docking
+  lineinfile: dest="{{lookup('env','HOME')}}/.gkrellm2/user-config" line="dock_type 1" regexp="^dock_type " create=yes
+
+- name: gkrellm | set width to 60
+  lineinfile: dest="{{lookup('env','HOME')}}/.gkrellm2/user-config" line="chart_width 60" regexp="^chart_width " create=yes
