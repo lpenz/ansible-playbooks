@@ -8,3 +8,4 @@
     - tmux
     - git
     - apt-transport-https
+    - htop
