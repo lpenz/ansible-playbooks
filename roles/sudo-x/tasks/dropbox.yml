@@ -1,0 +1,28 @@
+---
+- set_fact: debian_arch="amd64"
+  when: ansible_userspace_bits == "64"
+- set_fact: debian_arch="i386"
+  when: ansible_userspace_bits == "32"
+
+- name: apt install packages required by dropbox
+  apt: package={{item}} state=present
+  with_items:
+    - python-gpgme
+    - python-libxslt1
+
+- apt: deb={{item}} state=present
+  with_items:
+    - "https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_{{debian_arch}}.deb"
+
+- name: configure sysctl inotify max
+  sysctl: name="fs.inotify.max_user_watches" value=100000 sysctl_set=yes
+
+- name: check if ufw installed
+  stat: path=/usr/sbin/ufw
+  register: stat_ufw
+- name: add ufw rule for dropbox
+  copy: src=ufw-dropbox.conf dest=/etc/ufw/applications.d/lpenz-dropbox owner=root group=root mode=0644
+  when: stat_ufw.stat.exists == True
+- name: configure ufw
+  ufw: rule=allow name=dropbox
+  when: stat_ufw.stat.exists == True
