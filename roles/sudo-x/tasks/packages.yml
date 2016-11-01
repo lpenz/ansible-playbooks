@@ -10,6 +10,8 @@
     - stalonetray
     - root-tail
     - suckless-tools
+    - libnotify-bin
+    - mate-notification-daemon
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
