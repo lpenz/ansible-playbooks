@@ -1,8 +1,8 @@
 #!/bin/sh
 
-FILE=$(cat $HOME/.warnd.cfg)
+FILE=$(cat "$HOME/.warnd.cfg")
 
-[ -e "$FILE" ] && echo $* > "$FILE"
+[ -e "$FILE" ] && echo "$@" > "$FILE"
 
 TITLE=$1
 shift
