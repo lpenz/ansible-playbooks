@@ -1,0 +1,33 @@
+---
+- name: create ~/.notion
+  file: name="{{lookup('env','HOME')}}/.notion" state=directory
+
+- name: install notion config
+  copy: src="notion/{{item}}" dest="~/.notion/{{item}}"
+  with_items:
+    - cfg_debian_ext.lua
+    - cfg_defaults.lua
+    - cfg_dock.lua
+    - cfg_kludges.lua
+    - cfg_layouts.lua
+    - cfg_menu.lua
+    - cfg_notioncore.lua
+    - cfg_notion.lua
+    - cfg_query.lua
+    - cfg_sp.lua
+    - cfg_statusbar.lua
+    - cfg_tiling.lua
+    - cfg_xrandr.lua
+    - look_brownsteel.lua
+    - look_cleanios.lua
+    - look_clean.lua
+    - look_cleanviolet.lua
+    - lookcommon_clean.lua
+    - lookcommon_emboss.lua
+    - look_dusky.lua
+    - look_greenlight.lua
+    - look_greyviolet.lua
+    - look_ios.lua
+    - look.lua
+    - look_newviolet.lua
+    - look_simpleblue.lua
