@@ -1,4 +1,9 @@
 ---
+- name: install packages required by apt_repository
+  apt: package={{item}} state=present
+  with_items:
+    - python-apt
+
 - name: setup pinning
   copy: dest=/etc/apt/preferences.d/apt-pinning src=apt-pinning owner=root group=root mode=0644
 
