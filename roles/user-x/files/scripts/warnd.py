@@ -1,30 +1,36 @@
-#!/usr/bin/python
-# -*- coding: latin1 -*-
+#!/usr/bin/env python
 
-import getopt, sys, string, os, textwrap
+import getopt
+import sys
+import string
+import os
 
 Options = {
     'daemon': False,
     'fifo': os.environ['HOME'] + '/warnd_fifo',
     'log': [],
-    'time' : 2,
-    'size' : 54,
-    'wrap' : 0,
-    }
+    'time': 2,
+    'size': 54,
+    'wrap': 0,
+}
 
 State = {
-    'currentlog' : 0,
-    }
+    'currentlog': 0,
+}
 
 USAGE = string.join([
     'Usage: %s' % sys.argv[0],
     '  Warns the user about something, one-liner.',
-    '  -f, --fifo FIFO            Create designed fifo. Default is %s.' % Options['fifo'],
-    '  -l, --log LOG1,LOG2,...    Where to log the messages. Userfull with root-tail. Default: no log.',
-    ], '\n')
+    '  -f, --fifo FIFO            Create designed fifo. Default is %s.'
+    % Options['fifo'],
+    '  -l, --log LOG1,LOG2,...    Where to log the messages. '
+    'Userfull with root-tail. Default: no log.',
+], '\n')
+
 
 def usage():
-    print USAGE
+    print(USAGE)
+
 
 def loga(lines):
     if len(Options['log']) == 0:
@@ -34,17 +40,20 @@ def loga(lines):
     line = hoje.read()[:-1] + ' ' + os.environ['USER'] + ' ' + "".join(lines)
     hoje.close()
     log.write(line + "\n")
-    print line
+    print(line)
     log.flush()
     State['currentlog'] = (State['currentlog'] + 1) % len(Options['log'])
+
 
 def doline(lines):
     loga(lines)
     os.system("xkbbell")
 
+
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hf:l:t:s:w:', ['help', 'fifo', 'log', 'wrap'])
+        opts, args = getopt.getopt(
+            sys.argv[1:], 'hf:l:t:s:w:', ['help', 'fifo', 'log', 'wrap'])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -59,14 +68,15 @@ def main():
                 Options['log'].append(open(log, 'a'))
 
     cfg = open('%s/.warnd.cfg' % os.environ['HOME'], 'w+')
-    cfg.write(Options['fifo']+'\n')
+    cfg.write(Options['fifo'] + '\n')
     cfg.close()
 
-    os.system('mkfifo %s 2>/dev/null; chmod 0660 %s' % (Options['fifo'], Options['fifo']))
+    os.system('mkfifo %s 2>/dev/null; chmod 0660 %s' %
+              (Options['fifo'], Options['fifo']))
 
     while True:
         lines = []
-        fifo = open(Options['fifo'],'r')
+        fifo = open(Options['fifo'], 'r')
         for line in fifo.readlines():
             lines.append(line.strip())
         fifo.close()
@@ -74,4 +84,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

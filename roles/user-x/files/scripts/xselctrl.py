@@ -4,12 +4,12 @@
 import sys
 import getopt
 import pygtk
-pygtk.require('2.0')
 import gtk
 import gobject
 import dbus
 import dbus.service
 import dbus.glib
+pygtk.require('2.0')
 
 # Usage: #####################################################################
 
@@ -18,58 +18,65 @@ USAGE = '\n'.join([
     '  Sincronizes primary and clipboard selections.',
     '    -g, --get: gets secondary clipboard.',
     '    -s, --set: sets secondary clipboard.'
-    ])
+])
+
 
 def usage():
     '''Prints usage information.'''
-    print USAGE
+    print(USAGE)
 
 # General functions: #########################################################
 
+
 def txtsumm(txt, size):
-    '''Returns summary-text - txt with no newlines and trimmed to size bytes.'''
-    return (''.join(txt.split('\n')))[0:size-1]
+    '''Returns summary-text - txt with no newlines and trimmed to size
+    bytes.'''
+    return (''.join(txt.split('\n')))[0:size - 1]
 
 
 def servicedbusget():
     '''Gets xselctrl service from DBUS.'''
     bus = dbus.SessionBus()
-    return bus.get_object('org.x.selection.xselctrl', '/org/x/selection/xselctrl')
+    return bus.get_object('org.x.selection.xselctrl',
+                          '/org/x/selection/xselctrl')
 
 # Specific implementation: ###################################################
 
+
 class Selection:
+
     '''Class that deals with selection changes and syncs the others.'''
 
     def secondary_set(self):
         '''Sets secondary with my self text.'''
-        print 'secondary set from %s' % self.name
+        print('secondary set from %s' % self.name)
         self.selection.request_text(self.text_received_secondaryset)
 
     def text_received_secondaryset(self, _unused1, text, _unused2):
         '''Helper for self.secondary_set.'''
-        print '%-9s <- %-9s [%-30s]' % ('secondary', self.name, txtsumm(text, 30))
+        print('%-9s <- %-9s [%-30s]' %
+              ('secondary', self.name, txtsumm(text, 30)))
         self.allselections['secondary'].set_text(text)
-
 
     def spread(self):
         '''Spreads self.text to other selections.'''
-        print 'spread from %s' % self.name
+        print('spread from %s' % self.name)
         self.selection.request_text(self.text_received_spread)
 
     def text_received_spread(self, _unused1, text, _unused2):
         '''Helper for self.spread.'''
-        for sel in self.allselections.itervalues():
+        for sel in self.allselections.values():
             if sel.auto and sel != self:
-                print '%-9s <- %-9s [%-30s]' % (sel.name, self.name, txtsumm(text, 30))
+                print('%-9s <- %-9s [%-30s]' %
+                      (sel.name, self.name, txtsumm(text, 30)))
                 sel.set_text(text)
-
 
     def text_received_checkchanged(self, _unused1, text, _unused2):
         '''Signal handler called when the selection returns text data.'''
         if not text or text == '' or text == self.last:
             return
-        #print '%-9s changed! [%-30s]->[%-30s]' % (self.name, txtsumm(self.last, 30), txtsumm(text, 30))
+        # print '%-9s changed! [%-30s]->[%-30s]' % (self.name,
+        # txtsumm(self.last, 30), txtsumm(text, 30))
         self.text_received_spread(_unused1, text, _unused2)
         self.last = text
 
@@ -78,12 +85,10 @@ class Selection:
         self.selection.request_text(self.text_received_checkchanged)
         return True
 
-
     def set_text(self, text):
         '''Sets selection text, to be called by other selections.'''
         self.selection.set_text(text)
         self.last = text
-
 
     def __init__(self, selinfo, allselections):
         self.info = selinfo
@@ -100,12 +105,17 @@ class Selection:
 
 # dbus server: ###############################################################
 
+
 class SelectionDBUSServer(dbus.service.Object):
+
     '''DBUS server class.'''
+
     def __init__(self, allselections):
         self.allselections = allselections
-        bus_name = dbus.service.BusName('org.x.selection.xselctrl', bus=dbus.SessionBus())
-        dbus.service.Object.__init__(self, bus_name, '/org/x/selection/xselctrl')
+        bus_name = dbus.service.BusName(
+            'org.x.selection.xselctrl', bus=dbus.SessionBus())
+        dbus.service.Object.__init__(
+            self, bus_name, '/org/x/selection/xselctrl')
 
     @dbus.service.method('org.x.selection.xselctrl')
     def get(self):
@@ -119,6 +129,7 @@ class SelectionDBUSServer(dbus.service.Object):
 
 # Server main function: ######################################################
 
+
 def servermain():
     '''Main function of server.'''
     started = True
@@ -127,14 +138,26 @@ def servermain():
     except dbus.exceptions.DBusException:
         started = False
     if started:
-        print 'Server already started.'
+        print('Server already started.')
         usage()
         sys.exit(1)
     selectioninfo = [
-            { 'name': 'clipboard', 'type': gtk.gdk.SELECTION_CLIPBOARD , 'auto': True },
-            { 'name': 'primary',   'type': gtk.gdk.SELECTION_PRIMARY   , 'auto': True },
-            { 'name': 'secondary', 'type': gtk.gdk.SELECTION_SECONDARY , 'auto': False },
-            ]
+        {
+            'name': 'clipboard',
+            'type': gtk.gdk.SELECTION_CLIPBOARD,
+            'auto': True
+        },
+        {
+            'name': 'primary',
+            'type': gtk.gdk.SELECTION_PRIMARY,
+            'auto': True
+        },
+        {
+            'name': 'secondary',
+            'type': gtk.gdk.SELECTION_SECONDARY,
+            'auto': False
+        },
+    ]
     allselections = {}
     for selinfo in selectioninfo:
         allselections[selinfo['name']] = Selection(selinfo, allselections)
@@ -143,6 +166,7 @@ def servermain():
 
 # Client main function: ######################################################
 
+
 def clientmain(cmd):
     '''Client main function.'''
     service = servicedbusget()
@@ -150,6 +174,7 @@ def clientmain(cmd):
     func()
 
 # Main function: #############################################################
+
 
 def main():
     '''Main function.'''
@@ -160,7 +185,6 @@ def main():
         usage()
         sys.exit(2)
     for opt, _ in opts:
-        print opt
         if opt in ('-h', '--help'):
             usage()
             sys.exit(0)
@@ -183,4 +207,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
