@@ -9,6 +9,7 @@
     - xserver-xorg
     - stalonetray
     - root-tail
+    - suckless-tools
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
