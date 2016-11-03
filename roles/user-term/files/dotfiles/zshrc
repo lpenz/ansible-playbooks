@@ -62,7 +62,7 @@ for f in $HOME/.ssh/id_[dr]sa; do
     eval `keychain -q --eval --agents ssh $f`
 done
 
-ulimit -v 1200000
+ulimit -v 4000000
 
 # Runs before showing the prompt
 function penz_precmd {
