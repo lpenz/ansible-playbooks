@@ -1,0 +1,8 @@
+# /etc/cryptmount/cmtab - encrypted filesystem information for cryptmount
+# try 'man 8 cryptmount' or 'man 5 cmtab' for more details
+dropboxcrypted {
+    dev=/home/$(USERNAME)/Dropbox/private/crypted.vol
+    dir=/home/$(USERNAME)/dropboxcrypted
+    fstype=auto
+    keyformat=luks
+}

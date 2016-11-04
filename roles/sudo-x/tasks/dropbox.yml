@@ -4,11 +4,12 @@
 - set_fact: debian_arch="i386"
   when: ansible_userspace_bits == "32"
 
-- name: apt install packages required by dropbox
+- name: apt install packages required by dropbox or by my usage
   apt: package={{item}} state=present
   with_items:
     - python-gpgme
     - python-libxslt1
+    - cryptmount # to mount dropboxcrypted
 
 - apt: deb={{item}} state=present
   with_items:
@@ -26,3 +27,6 @@
 - name: configure ufw
   ufw: rule=allow name=dropbox
   when: stat_ufw.stat.exists == True
+
+- name: install cmtab to mount dropboxcrypted
+  copy: dest=/etc/cryptmount/cmtab src=cmtab owner=root group=root mode=0644
