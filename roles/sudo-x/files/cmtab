@@ -4,5 +4,6 @@ dropboxcrypted {
     dev=/home/$(USERNAME)/Dropbox/private/crypted.vol
     dir=/home/$(USERNAME)/dropboxcrypted
     fstype=auto
+    mountoptions=uid=$(UID)
     keyformat=luks
 }
