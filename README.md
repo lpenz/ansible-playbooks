@@ -33,5 +33,11 @@ a given Linux system. It is based on ansible-pull operation.
   ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-term.yml -K
   ```
 
-
+- Configurations that require X, in the same order:
+  ```shell
+  ansible-playbook -i localhost, -c local playbook-user-x.yml -K
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-user-x.yml -K
+  ansible-playbook -i localhost, -c local playbook-sudo-x.yml -K
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-x.yml -K
+  ```
 
