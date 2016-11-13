@@ -9,6 +9,7 @@ fi
 
 xset b off
 xsetroot -solid black
+setxkbmap -option compose:ralt
 
 nice -n 19 ~/bin/warnd.py -f ~/.warnd_fifo -l "$HOME/.warnd_log1,$HOME/.warnd_log2" > /dev/null &
 
