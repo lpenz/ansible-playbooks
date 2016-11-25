@@ -89,8 +89,8 @@ defbindings("WMPlex.toplevel", {
 	-- Look at /usr/include/X11/keysymdef.h
 
     bdoc("Go to next/previous screen on multihead setup."),
-    kpress(META.."Mod1+Left", "ioncore.goto_prev_screen()"),
-    kpress(META.."Mod1+Right", "ioncore.goto_next_screen()"),
+    kpress(META.."Shift+Left", "ioncore.goto_prev_screen()"),
+    kpress(META.."Shift+Right", "ioncore.goto_next_screen()"),
     kpress(META.."Shift+comma", "ioncore.goto_prev_screen()"),
     kpress(META.."Shift+period", "ioncore.goto_next_screen()"),
     kpress(META.."Shift+1", "ioncore.goto_nth_screen(0)"),
