@@ -113,9 +113,13 @@ defbindings("WMPlex.toplevel", {
 
     bdoc("Sound volume increase"),
     kpress(META.."KP_Add", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
-
     bdoc("Sound volume decrease"),
     kpress(META.."KP_Subtract", "ioncore.exec_on(_, 'amixer sset Master 5%-')"),
+
+    bdoc("Sound volume increase"),
+    kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
+    bdoc("Sound volume decrease"),
+    kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'amixer sset Master 5%-')"),
 
     bdoc("Run a terminal emulator."),
     kpress("Menu", "ioncore.exec_on(_, 'x-terminal-emulator')"),
