@@ -132,10 +132,10 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."c", "ioncore.exec_on(_, 'mpc toggle')"),
 
     bdoc("Display pidgin pending event"),
-    kpress(META.."equal", "ioncore.exec_on(_, '/home/penz/bin/pidgin-click')"),
+    kpress(META.."equal", "ioncore.exec_on(_, 'winclick Pidgin')"),
 
     bdoc("Turn on all displays"),
-    kpress(META.."Z", "ioncore.exec_on(_, '/home/penz/bin/xrandr-all-on')"),
+    kpress(META.."Z", "ioncore.exec_on(_, 'xrandr --auto')"),
 
     bdoc("Run a screen lock."),
     kpress(META.."Scroll_Lock", "ioncore.exec_on(_, 'xscreensaver-command -lock')"),
