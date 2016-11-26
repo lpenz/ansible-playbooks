@@ -26,6 +26,7 @@ nice -n 19 ~/bin/xselctrl.py &
 (sleep 30; ~/bin/myroottail) &
 
 ~/bin/gkrellmstart
+(sleep 30; nm-applet) &
 
 if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
     (sleep 30; dropbox start) &
