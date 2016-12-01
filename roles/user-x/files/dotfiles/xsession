@@ -27,6 +27,7 @@ nice -n 19 ~/bin/xselctrl.py &
 
 ~/bin/gkrellmstart
 (sleep 30; nm-applet) &
+(sleep 30; /usr/lib/gpaste/gpaste/gpaste-applet) &
 
 if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
     (sleep 30; dropbox start) &
