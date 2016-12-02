@@ -19,7 +19,6 @@
     - gkrellm
     - gkrellshoot
     - gkrelltop
-    - gkrellweather
     - gpaste-applet
 
 - name: setup rxvt-unicode-256-colors alternative
