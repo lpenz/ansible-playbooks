@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+TMP_DOT=$(mktemp --suffix=dot)
+TMP_PDF=$(mktemp --suffix=pdf)
+trap 'rm -f "$TMP_DOT" "$TMP_PDF"' EXIT
+
+tee "$TMP_DOT"
+dot -Tpdf "-o$TMP_PDF" "$TMP_DOT"
+see "$TMP_PDF" 2>/dev/null
+
