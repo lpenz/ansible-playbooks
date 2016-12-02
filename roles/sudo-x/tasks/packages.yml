@@ -15,7 +15,7 @@
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
-    - dbus-x11 # dep of xselctrl and others
+    - dbus-x11 # dep
     - gkrellm
     - gkrellshoot
     - gkrelltop

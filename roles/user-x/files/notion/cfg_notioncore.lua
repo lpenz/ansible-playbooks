@@ -136,12 +136,6 @@ defbindings("WMPlex.toplevel", {
     bdoc("Run a screen lock."),
     kpress(META.."Scroll_Lock", "ioncore.exec_on(_, 'xscreensaver-command -lock')"),
 
-    bdoc("X selection save"),
-    kpress(META.."Page_Up", "ioncore.exec_on(_, 'xselctrl.py -s')"),
-
-    bdoc("X selection load"),
-    kpress(META.."Page_Down", "ioncore.exec_on(_, 'xselctrl.py -g')"),
-
     bdoc("Run warn."),
     kpress(META.."W", "ioncore.exec_on(_, 'warnready')"),
 

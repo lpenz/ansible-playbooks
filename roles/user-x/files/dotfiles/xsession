@@ -21,8 +21,6 @@ nice -n 19 ~/bin/warnd.py -f ~/.warnd_fifo -l "$HOME/.warnd_log1,$HOME/.warnd_lo
 nice -n 19 ~/bin/clipinfo.py -m 79 -c -b -o ~/.clipinfo.txt &
 nice -n 19 ~/bin/clipinfo.py -m 79 -s -b -o ~/.clipinfo2.txt &
 
-nice -n 19 ~/bin/xselctrl.py &
-
 (sleep 30; ~/bin/myroottail) &
 
 ~/bin/gkrellmstart
