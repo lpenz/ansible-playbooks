@@ -79,5 +79,6 @@ def main():
     logging.basicConfig(format=prog + ': %(message)s')
     sys.exit(doit())
 
+
 if __name__ == '__main__':
     main()
