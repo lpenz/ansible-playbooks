@@ -1,18 +1,9 @@
-language: python
-addons:
-  apt:
-    packages:
-      - cabal-install
-      - haskell-platform
-      - ansible
+sudo: required
+services:
+  - docker
+language: bash
 install:
-  - cabal update
-  - cabal install --force-reinstalls shellcheck
-  - pip install flake8 py3kwarn
+  - docker build -t ansible-playbooks:latest .
+  - docker ps -a
 script:
-  - ansible-playbook -i localhost, -c local playbook-user-term.yml
-  - grep -l '#!/bin/sh'   roles/*/files/scripts/* | xargs ~/.cabal/bin/shellcheck
-  - grep -l '#!/bin/bash' roles/*/files/scripts/* | xargs ~/.cabal/bin/shellcheck
-  - grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs flake8
-  - grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs py3kwarn
-  - nosetests --with-doc --exe
+  - docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID ansible-playbooks

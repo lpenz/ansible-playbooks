@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e -x
+
+grep -l '#!/bin/sh'   roles/*/files/scripts/* | xargs shellcheck
+grep -l '#!/bin/bash' roles/*/files/scripts/* | xargs shellcheck
+grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs flake8
+grep -l '#!/usr/bin/python' roles/*/files/scripts/* | xargs py3kwarn
+nosetests --with-doc --exe
+# sudo ansible-playbook -i localhost, -c local playbook-sudo-term.yml # unable to test this on travis for now
+ansible-playbook -i localhost, -c local playbook-user-term.yml
+

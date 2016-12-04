@@ -11,6 +11,7 @@ RUN set -x -e; \
         ansible \
         shellcheck \
         gnupg \
+        git tmux \
         gosu sudo
 
 # setup sudo and locale
@@ -39,6 +40,8 @@ RUN set -x -e; \
     ) > /usr/local/bin/entrypoint.sh; \
     chmod a+x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["./test"]
 
 # If your UID is 1000, you can simply run the container as
 # docker run -it --rm -v $PWD:/home/user/work ansible-playbooks
