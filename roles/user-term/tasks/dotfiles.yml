@@ -10,3 +10,4 @@
     - { src: "dotfiles/mc.ini"       , dest: "~/.mc/ini"       }
     - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
     - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }
+    - { src: "dotfiles/pdbrc"        , dest: "~/.pdbrc"        }

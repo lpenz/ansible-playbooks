@@ -1,0 +1,5 @@
+import rlcompleter, pdb
+
+pdb.Pdb.complete = rlcompleter.Completer(locals()).complete
+
+# vim: ft=python
