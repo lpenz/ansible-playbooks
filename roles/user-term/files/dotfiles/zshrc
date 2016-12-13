@@ -44,7 +44,10 @@ bindkey -s "\e[21~" "\033q\025mymake\012"
 bindkey -s "\er" "\033q\025while ! !!; do sleep 1; done"
 
 # Environment:
-export PATH=~/bin:$PATH:~/.local/bin:~/.cargo/bin
+typeset -U path
+path+=~/bin
+path+=~/.local/bin
+path+=~/.cargo/bin
 export CVSIGNORE=".*.swp .*.swo .swp .swo cscope.out *.o.flags .depend"
 export CVS_RSH="ssh"
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
