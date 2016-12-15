@@ -16,3 +16,5 @@ export EDITOR=$VISUAL
 export PYTHONSTARTUP=~/.pystartup
 export XAUTHORITY=~/.Xauthority
 
+# Local customizations
+if test -r ~/.zshenv.local; then . ~/.zshenv.local; fi
