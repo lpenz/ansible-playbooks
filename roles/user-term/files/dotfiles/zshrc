@@ -44,8 +44,10 @@ bindkey -s "\e[21~" "\033q\025mymake\012"
 bindkey -s "\er" "\033q\025while ! !!; do sleep 1; done"
 
 # Load keychain
-for f in $HOME/.ssh/id_[dr]sa; do
-    eval `keychain -q --eval --agents ssh $f`
+for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
+    if [ -e "$f" ]; then
+        eval `keychain -q --eval --agents ssh $f`
+    fi
 done
 
 ulimit -v 4000000
