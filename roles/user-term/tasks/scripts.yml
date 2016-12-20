@@ -21,3 +21,4 @@
     - docker-run
     - github-clone
     - gk
+    - emacskill
