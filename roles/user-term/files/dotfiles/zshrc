@@ -43,6 +43,14 @@ bindkey "\el" copy-prev-shell-word
 bindkey -s "\e[21~" "\033q\025mymake\012"
 bindkey -s "\er" "\033q\025while ! !!; do sleep 1; done"
 
+# env config
+export VISUAL=emacsclient\ -c
+export EDITOR=/usr/bin/vim
+export ALTERNATE_EDITOR=/usr/bin/vim
+
+# aliases
+alias vi=emacsclient\ -t
+
 # Load keychain
 for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
     if [ -e "$f" ]; then
@@ -72,7 +80,13 @@ function penz_preexec {
 precmd_functions+=(penz_precmd)
 preexec_functions+=(penz_preexec)
 
+# do not beep
 setterm --blength 0 2>/dev/null 
+
+# start emacs server if not started
+if ! pgrep -u "$USER" -f '^emacs --daemon$' > /dev/null; then
+    emacs --daemon >/dev/null 2>&1
+fi
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi

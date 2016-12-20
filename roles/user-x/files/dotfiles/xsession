@@ -27,6 +27,11 @@ nice -n 19 ~/bin/clipinfo.py -m 79 -s -b -o ~/.clipinfo2.txt &
 (sleep 30; nm-applet) &
 (sleep 30; /usr/lib/gpaste/gpaste/gpaste-applet) &
 
+# start emacs server if not started
+if ! pgrep -u "$USER" -f '^emacs --daemon$' > /dev/null; then
+    emacs --daemon &
+fi
+
 if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
     (sleep 30; dropbox start) &
 fi

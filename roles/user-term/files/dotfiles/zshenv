@@ -11,8 +11,6 @@ export LUA_HISTORY=$HOME/.lua_history
 export MANPATH=:$HOME/.man
 export LC_ALL=en_US.UTF-8
 export LANGUAGE=en
-export VISUAL=/usr/bin/vim
-export EDITOR=$VISUAL
 export PYTHONSTARTUP=~/.pystartup
 export XAUTHORITY=~/.Xauthority
 
