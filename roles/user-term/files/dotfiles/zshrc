@@ -50,7 +50,6 @@ export ALTERNATE_EDITOR=/usr/bin/vim
 
 # aliases
 alias vi=emacsclient\ -t
-alias ec=emacsclient\ -c
 
 # Load keychain
 for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
