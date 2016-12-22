@@ -1,12 +1,10 @@
 #!/bin/bash
 
-if ! pgrep -u "$USER" '[e]macs$'; then
+if ! pgrep -u "$USER" -f '[e]macs --daemon$'; then
     exit 0
 fi
 
-export ALTERNATE_EDITOR=
-
 set -e -x
 
-emacsclient -t --eval '(kill-emacs)'
+emacsclient -t --eval '(kill-emacs)' -a 'true'
 
