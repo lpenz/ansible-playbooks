@@ -33,6 +33,7 @@ PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
 setopt no_share_history
+setopt clobber
 
 # Hotkeys:
 bindkey -M menuselect '^J' accept-and-infer-next-history
