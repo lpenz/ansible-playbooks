@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT
+
+LOGDIR=${LOGDIR:-$HOME/logs}
+
+mkdir -p "$LOGDIR"
+
+echo LOGDIR="$LOGDIR"
+
+i=0
+until read -t 1 -r; do
+   i=$((i+1))
+   L="$LOGDIR/log-$(date +%s).txt"
+   (
+   printf "=====> I %6d <===== %s\n" "$i" "$(date)"
+   echo + "$@"
+   /usr/bin/time -o "$TMP" "$@" 2>&1
+   ret=$?
+   printf "=====> F %6d <===== %s\n" "$i" "$(date)"
+   echo "\$?" = "$ret" "(" "$@" ")"
+   cat "$TMP"
+   ) | tee "$L"
+done
