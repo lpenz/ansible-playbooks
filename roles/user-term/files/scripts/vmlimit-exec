@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ulimit -v 4000000
+base=${0##*/}
+
+bin="/usr/bin/$base"
+if ! [ -x "$bin" ]; then
+    bin="/bin/$base"
+fi
+if ! [ -x "$bin" ]; then
+    bin="/usr/sbin/$base"
+fi
+if ! [ -x "$bin" ]; then
+    bin="/sbin/$base"
+fi
+if ! [ -x "$bin" ]; then
+    echo "$base" not found >&2
+    exit 1
+fi
+
+exec "$bin" "$@"
