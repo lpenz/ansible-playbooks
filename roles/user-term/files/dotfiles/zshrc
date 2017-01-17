@@ -84,10 +84,5 @@ preexec_functions+=(penz_preexec)
 # do not beep
 setterm --blength 0 2>/dev/null 
 
-# start emacs server if not started
-if ! pgrep -u "$USER" -f '^emacs --daemon$' > /dev/null; then
-    emacs --daemon >/dev/null 2>&1
-fi
-
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
