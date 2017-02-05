@@ -25,6 +25,7 @@ nice -n 19 ~/bin/clipinfo.py -m 79 -s -b -o ~/.clipinfo2.txt &
 
 ~/bin/gkrellmstart
 (sleep 30; nm-applet) &
+(sleep 30; pasystray) &
 (sleep 30; /usr/lib/gpaste/gpaste/gpaste-applet) &
 
 # start emacs server if not started
