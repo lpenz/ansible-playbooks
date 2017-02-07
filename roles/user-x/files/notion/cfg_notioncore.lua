@@ -108,8 +108,8 @@ defbindings("WMPlex.toplevel", {
     bdoc("Terminal"),
     kpress(META.."F1", "ioncore.exec_on(_, 'x-terminal-emulator')"),
 
-    bdoc("Mail"),
-    kpress(META.."F2", "ioncore.exec_on(_, 'x-terminal-emulator -e mutt')"),
+    bdoc("Synapse"),
+    kpress(META.."F2", "ioncore.exec_on(_, 'synapse')"),
 
     bdoc("Sound volume increase"),
     kpress(META.."KP_Add", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
@@ -142,8 +142,11 @@ defbindings("WMPlex.toplevel", {
     bdoc("Run warn."),
     kpress(META.."W", "ioncore.exec_on(_, 'warnready')"),
 
+    bdoc("Synapse"),
+    kpress(META.."R", "ioncore.exec_on(_, 'synapse')"),
+
     bdoc("Query for command line to execute."),
-    kpress(META.."R", "mod_query.query_exec(_)"),
+    kpress(META.."C", "mod_query.query_exec(_)"),
 
     bdoc("Query for Lua code to execute."),
     kpress(META.."P", "mod_query.query_lua(_)"),
