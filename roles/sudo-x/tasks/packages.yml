@@ -20,6 +20,8 @@
     - gkrellshoot
     - gkrelltop
     - gpaste-applet
+    - synapse
+    - pasystray
 
 - name: setup rxvt-unicode-256-colors alternative
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
