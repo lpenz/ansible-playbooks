@@ -1,4 +1,4 @@
-[![Run Status](https://api.shippable.com/projects/568983d11895ca4474674113/badge?branch=master)](https://app.shippable.com/projects/568983d11895ca4474674113)
+[![Build Status](https://travis-ci.org/lpenz/ansible-playbooks.svg?branch=master)](https://travis-ci.org/lpenz/ansible-playbooks)
 
 lpenz ansible provisioner
 =============================
