@@ -10,3 +10,4 @@
     - apt-transport-https
     - htop
     - mc
+    - at-spi2-core # avoid spacemacs warning
