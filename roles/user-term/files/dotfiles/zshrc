@@ -76,12 +76,7 @@ done
 
 ulimit -v 4000000
 
-# Runs before showing the prompt
-function penz_precmd {
-  title "%m:%~" "%m:%~"
-}
-
-# Runs before executing the command
+# Runs before executing a command
 function penz_preexec {
   emulate -L zsh
   setopt extended_glob
@@ -93,8 +88,13 @@ function penz_preexec {
   title '$CMD' '%100>...>$LINE%<<'
 }
 
-precmd_functions+=(penz_precmd)
+# Runs after executing a command, before showing the prompt
+function penz_precmd {
+  title "%m:%~" "%m:%~"
+}
+
 preexec_functions+=(penz_preexec)
+precmd_functions+=(penz_precmd)
 
 # do not beep
 setterm --blength 0 2>/dev/null 
