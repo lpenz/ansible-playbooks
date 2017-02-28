@@ -78,7 +78,7 @@
 
 ! Penz config:
 
-*font: -*-neep alt-medium-*-*-*-16-*-*-*-*-*-iso10646-1
+*font: xft:DejaVuSansMono:size=14
 
 *Text.borderWidth: 1
 *Canvas.borderWidth: 1
@@ -94,11 +94,14 @@
 *Listbox.selectForeground: #ffffff
 *Listbox.background: #ffffff
 
+! emacs support
+Emacs.font: DejaVuSansMono:size=14
+
 ! rxvt uses dark solarize:
 URxvt.scrollBar_right: true
 URxvt.foreground: grey
 URxvt.background: black
-URxvt.font: -*-neep alt-medium-*-*-*-20-*-*-*-*-*-iso10646-1,xft:Monospace:size=20
+URxvt.font: xft:DejaVuSansMono:size=14
 URxvt.saveLines: 5000
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
