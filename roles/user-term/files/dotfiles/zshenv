@@ -1,18 +1,25 @@
 # lpenz .zshenv
 
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en
+
 typeset -U path
 path=(~/.cargo/bin "$path[@]")
 path=(~/.local/bin "$path[@]")
 path=(~/bin "$path[@]")
+
 export CVSIGNORE=".*.swp .*.swo .swp .swo cscope.out *.o.flags .depend"
 export CVS_RSH="ssh"
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export LUA_HISTORY=$HOME/.lua_history
 export MANPATH=:$HOME/.man
-export LC_ALL=en_US.UTF-8
-export LANGUAGE=en
 export PYTHONSTARTUP=~/.pystartup
 export XAUTHORITY=~/.Xauthority
+export RUST_SRC_PATH=/usr/src/rust/src
+
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
 
 # Local customizations
 if test -r ~/.zshenv.local; then . ~/.zshenv.local; fi
