@@ -120,15 +120,15 @@ defbindings("WMPlex.toplevel", {
     kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
     bdoc("Sound volume decrease"),
     kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'amixer sset Master 5%-')"),
+    bdoc("Sound volume mute"),
+    kpress("XF86AudioMute", "ioncore.exec_on(_, 'amixer sset Master toggle')"),
 
-    bdoc("Run a terminal emulator."),
-    kpress("Menu", "ioncore.exec_on(_, 'x-terminal-emulator')"),
+    -- bdoc("Run a terminal emulator."),
+    -- kpress("Menu", "ioncore.exec_on(_, 'x-terminal-emulator')"),
+    -- kpress("Multi_key", "ioncore.exec_on(_, 'x-terminal-emulator')"),
 
     bdoc("Toggles Touchpad."),
     kpress(META.."slash", "ioncore.exec_on(_, 'touchpad-toggle')"),
-
-    bdoc("Toggles MPD."),
-    kpress(META.."c", "ioncore.exec_on(_, 'mpc toggle')"),
 
     bdoc("Display pidgin pending event"),
     kpress(META.."equal", "ioncore.exec_on(_, 'winclick Pidgin')"),
