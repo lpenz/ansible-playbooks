@@ -27,3 +27,4 @@
     - echoexec
     - stressnlog
     - vmlimit-exec
+    - repeater
