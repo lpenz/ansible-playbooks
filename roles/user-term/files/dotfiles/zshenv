@@ -12,7 +12,6 @@ export CVSIGNORE=".*.swp .*.swo .swp .swo cscope.out *.o.flags .depend"
 export CVS_RSH="ssh"
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export LUA_HISTORY=$HOME/.lua_history
-export MANPATH=:$HOME/.man
 export PYTHONSTARTUP=~/.pystartup
 export XAUTHORITY=~/.Xauthority
 export RUST_SRC_PATH=/usr/src/rust/src
