@@ -1,0 +1,5 @@
+---
+- git_config:
+    name: alias.k
+    scope: global
+    value: log --graph --decorate --oneline --all

@@ -3,3 +3,4 @@
 - include: dotfiles.yml
 - include: zsh.yml
 - include: tmux.yml
+- include: git.yml
