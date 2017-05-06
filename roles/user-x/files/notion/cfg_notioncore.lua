@@ -137,7 +137,7 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."Z", "ioncore.exec_on(_, 'xrandr --auto')"),
 
     bdoc("Run a screen lock."),
-    kpress(META.."Scroll_Lock", "ioncore.exec_on(_, 'xscreensaver-command -lock')"),
+    kpress(META.."Scroll_Lock", "ioncore.exec_on(_, 'slock')"),
 
     bdoc("Run warn."),
     kpress(META.."W", "ioncore.exec_on(_, 'warnready')"),
