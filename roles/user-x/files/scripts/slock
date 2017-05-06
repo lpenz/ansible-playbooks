@@ -1,10 +1,12 @@
 #!/bin/bash
 
+TAG=${0##*/}
+
 set -e -x -o pipefail
 
-logger "ini locking for user $USER"
+logger -t "$TAG" "ini locking for user $USER"
 I=$(date '+%s')
 /usr/bin/slock
 F=$(date '+%s')
 S=$((F-I))
-printf 'fin locking for user %s after %02d:%02d:%02d' "$USER" "$((S/3600))" "$(((S%3600)/60))" "$((S%60))" | logger
+printf 'fin locking for user %s after %02d:%02d:%02d' "$USER" "$((S/3600))" "$(((S%3600)/60))" "$((S%60))" | logger -t "$TAG"
