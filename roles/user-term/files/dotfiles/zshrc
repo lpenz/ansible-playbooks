@@ -66,6 +66,7 @@ export PAGER=
 
 # aliases
 alias vi=emacsclient\ -t
+alias rxvt-font-set="printf '\e]710;%s\007' "
 
 # Load keychain
 for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
