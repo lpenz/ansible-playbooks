@@ -129,3 +129,29 @@ URxvt.color12:                 S_Dark_base0
 URxvt.color13:                 S_violet
 URxvt.color14:                 S_Dark_base1
 URxvt.color15:                 S_Dark_base3
+
+! xterm, same as URxvt
+XTerm*background:              black
+XTerm*foreground:              gray
+XTerm*fading:                  40
+XTerm*fadeColor:               S_Dark_base03
+XTerm*cursorColor:             S_base1
+XTerm*pointerColorBackground:  S_base01
+XTerm*pointerColorForeground:  S_base1
+XTerm*color0:                  S_Dark_base02
+XTerm*color1:                  S_red
+XTerm*color2:                  S_green
+XTerm*color3:                  S_yellow
+XTerm*color4:                  S_blue
+XTerm*color5:                  S_magenta
+XTerm*color6:                  S_cyan
+XTerm*color7:                  S_Dark_base2
+XTerm*color8:                  S_Dark_base03
+XTerm*color9:                  S_orange
+XTerm*color10:                 S_Dark_base01
+XTerm*color11:                 S_Dark_base00
+XTerm*color12:                 S_Dark_base0
+XTerm*color13:                 S_violet
+XTerm*color14:                 S_Dark_base1
+XTerm*color15:                 S_Dark_base3
+
