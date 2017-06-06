@@ -96,6 +96,7 @@
 Emacs.font: DejaVuSansMono:size=14:antialias=true:autohint=true
 
 ! rxvt uses dark solarize:
+URxvt.termName:         rxvt-256color
 URxvt.iso14755:         False
 URxvt.scrollBar_right: true
 URxvt.foreground: grey
