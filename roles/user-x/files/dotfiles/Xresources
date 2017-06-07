@@ -103,6 +103,7 @@ URxvt.foreground: grey
 URxvt.background: black
 URxvt.font: xft:DejaVuSansMono:size=11:antialias=true:autohint=true
 ! URxvt.font: xft:Inconsolata:size=14:weight=bold
+URxvt.letterSpace:      -1
 URxvt.saveLines: 5000
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
