@@ -65,7 +65,6 @@ export ALTERNATE_EDITOR=/usr/bin/vim
 export PAGER=
 
 # aliases
-alias vi=emacsclient\ -t
 alias rxvt-font-set="printf '\e]710;%s\007' "
 
 # Load keychain
