@@ -1,0 +1,5 @@
+---
+
+- name: fccache
+  command: fc-cache -rv
+

@@ -1,6 +1,16 @@
 ---
+- name: create ~/.config
+  file: state=directory dest=~/.config
+
+- name: create ~/.config
+  file: state=directory dest=~/.config/fontconfig
+
 - name: install dotfiles
   copy: src="{{item.src}}" dest="{{item.dest}}"
   with_items:
     - { src: "dotfiles/Xresources"   , dest: "~/.Xresources" }
     - { src: "dotfiles/xsession"     , dest: "~/.xsession"   }
+
+- name: install fonts.conf
+  template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf
+  notify: fccache
