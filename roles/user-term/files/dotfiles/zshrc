@@ -15,6 +15,10 @@ then
     return
 fi
 
+if [ "$(ps -o ppid= $$ | xargs ps -o fname=)" = "xfce4-te" ]; then
+    # Enable nerdfont in xfce terminal only
+    POWERLEVEL9K_MODE='nerdfont-complete'
+fi
 
 source ~/.zgen-github/zgen.zsh
 function zgen-config() {
@@ -30,6 +34,7 @@ function zgen-config() {
     zgen load zsh-users/zsh-history-substring-search
     # dircolors
     zgen load joel-porquet/zsh-dircolors-solarized
+    zgen load bhilburn/powerlevel9k powerlevel9k
     # save all to init script
     zgen save
 }
@@ -42,7 +47,9 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 setupsolarized dircolors.ansi-dark
-PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
+# PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir root_indicator)
 
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
