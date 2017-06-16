@@ -48,8 +48,8 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 setupsolarized dircolors.ansi-dark
 # PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir root_indicator)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status root_indicator)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir)
 
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
