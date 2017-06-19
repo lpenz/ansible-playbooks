@@ -16,6 +16,10 @@ then
 fi
 
 if [ "$(ps -o ppid= $$ | xargs ps -o fname=)" = "xfce4-te" ]; then
+    export POWERLINE_FONTS=true
+fi
+
+if [ "$POWERLINE_FONTS" = "true" ]; then
     # Enable nerdfont in xfce terminal only
     POWERLEVEL9K_MODE='nerdfont-complete'
 fi
