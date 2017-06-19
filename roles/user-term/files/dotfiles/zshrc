@@ -24,6 +24,18 @@ if [ "$LC_POWERLINE_FONTS" = "true" ]; then
     POWERLEVEL9K_MODE='nerdfont-complete'
 fi
 
+if [[ "$UID" -eq 0 ]]; then
+    prompt_user_indicator() {
+        "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "yellow" "" 'ROOT_ICON'
+    }
+else
+    prompt_user_indicator() {
+        "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "blue" "\uf295" ""
+    }
+fi
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(command_execution_time status user_indicator)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir)
+
 source ~/.zgen-github/zgen.zsh
 function zgen-config() {
     echo "Creating a zgen save"
@@ -52,8 +64,6 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 setupsolarized dircolors.ansi-dark
 # PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status root_indicator)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir)
 
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
