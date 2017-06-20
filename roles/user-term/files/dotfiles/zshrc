@@ -33,7 +33,11 @@ else
         "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "blue" "\uf295" ""
     }
 fi
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(command_execution_time status user_indicator)
+if [ "$USER" = "lpenz" ]; then
+    POWERLEVEL9K_CONTEXT_TEMPLATE=%m
+fi
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context user_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir)
 
 source ~/.zgen-github/zgen.zsh
@@ -98,24 +102,57 @@ done
 ulimit -v 4000000
 
 # Runs before executing a command
-function penz_preexec {
-  emulate -L zsh
-  setopt extended_glob
+function lpenz_preexec {
+    emulate -L zsh
+    setopt extended_glob
 
-  # cmd name only, or if this is sudo or ssh, the next cmd
-  local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]:gs/%/%%}
-  local LINE="${2:gs/%/%%}"
+    # cmd name only, or if this is sudo or ssh, the next cmd
+    local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]:gs/%/%%}
+    local LINE="${2:gs/%/%%}"
 
-  title '$CMD' '%100>...>$LINE%<<'
+    title '$CMD' '%100>...>$LINE%<<'
 }
 
 # Runs after executing a command, before showing the prompt
-function penz_precmd {
-  title "%m:%~" "%m:%~"
+function lpenz_precmd {
+    title "%m:%~" "%m:%~"
+
+    if [ "$RETVAL" != 0 ] || (( _P9K_COMMAND_DURATION > 3 )); then
+        if [ "$RETVAL" != 0 ]; then
+            local color=red
+        else
+            local color=green
+        fi
+        print -nP "%K{$color}\x1b[38;2;0;0;0m\ue0b8%f %f%K{$color}"
+        if [ "$RETVAL" != 0 ]; then
+            print -nP "\ue685 $RETVAL"
+        fi
+        if (( _P9K_COMMAND_DURATION > 3 )); then
+            local humanReadableDuration
+            if (( _P9K_COMMAND_DURATION > 3600 )); then
+                humanReadableDuration=$(TZ=GMT; strftime '%H:%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
+            elif (( _P9K_COMMAND_DURATION > 60 )); then
+                humanReadableDuration=$(TZ=GMT; strftime '%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
+            else
+                # If the command executed in seconds, print as float.
+                # Convert to float
+                if [[ "${POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION}" == "0" ]]; then
+                    # If user does not want microseconds, then we need to convert
+                    # the duration to an integer.
+                    typeset -i humanReadableDuration
+                else
+                    typeset -F ${POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION} humanReadableDuration
+                fi
+                humanReadableDuration=$_P9K_COMMAND_DURATION
+            fi
+            print -nP " ${icons[EXECUTION_TIME_ICON]}  $humanReadableDuration"
+        fi
+        print -P " %K{$color}\x1b[38;2;0;0;0m\ue0ba "
+    fi
 }
 
-preexec_functions+=(penz_preexec)
-precmd_functions+=(penz_precmd)
+preexec_functions+=(lpenz_preexec)
+precmd_functions+=(lpenz_precmd)
 
 # do not beep
 setterm --blength 0 2>/dev/null 
