@@ -33,7 +33,7 @@ else
         "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "blue" "\uf295" ""
     }
 fi
-if [ "$USER" = "lpenz" ]; then
+if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
     POWERLEVEL9K_CONTEXT_TEMPLATE=%m
 fi
 
