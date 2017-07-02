@@ -16,11 +16,18 @@ if [ -e SConstruct ]; then
 	fi
 	scons --max-drift=1 --implicit-cache $A "$@"
 	RV=${pipestatus:0:1}
+elif [ -e Cargo.toml ]; then
+	if $SILENT; then
+		B=
+	else
+		B='-q'
+	fi
+	cargo test "$B" "$@"
 elif [ -e CMakeLists.txt ]; then
 	if $SILENT; then
 		B=
 	else
-		B='VERBSE=1'
+		B='VERBOSE=1'
 	fi
 	cmake "$@"
 	RV=$?
@@ -28,9 +35,6 @@ elif [ -e CMakeLists.txt ]; then
 		make "$B"
 		RV=$?
 	fi
-elif [ -e dmptinfo/platform.json ]; then
-	dmpt build "$@"
-	RV=$?
 elif [ -e Makefile ]; then
 	if $SILENT; then
 		A=-s
