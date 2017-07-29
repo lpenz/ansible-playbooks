@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# From http://askubuntu.com/questions/112968/automatically-disable-wifi-wireless-when-wired
+# Deploy as /etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired
+
+myname=${0##*/}
+log() { logger -p user.info -t "${myname}[$$]" "$*"; }
+
+IFACE=$1
+ACTION=$2
+
+case ${IFACE} in
+    eth*|usb*|en*)
+        case ${ACTION} in
+            up)
+                log "disabling wifi radio"
+                nmcli radio wifi off
+                ;;
+            down)
+                log "enabling wifi radio"
+                nmcli radio wifi on
+                ;;
+        esac
+        ;;
+esac
+
