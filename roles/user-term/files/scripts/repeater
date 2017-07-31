@@ -13,7 +13,9 @@ cat > "$TMP" <<EOF
 echo \$i
 date
 set -e -x
+time (
 $@
+)
 : result \$?
 EOF
 
