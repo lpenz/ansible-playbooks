@@ -93,11 +93,13 @@ export PAGER=
 alias rxvt-font-set="printf '\e]710;%s\007' "
 
 # Load keychain
-for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
-    if [ -e "$f" ]; then
-        eval `keychain -q --eval --agents ssh $f`
-    fi
-done
+if which keychain > /dev/null; then
+   for f in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_dsa"; do
+      if [ -e "$f" ]; then
+         eval `keychain -q --eval --agents ssh $f`
+      fi
+   done
+fi
 
 ulimit -v 4000000
 
