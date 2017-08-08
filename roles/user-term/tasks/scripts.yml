@@ -4,7 +4,14 @@
 - name: install scripts
   copy: src="scripts/{{item}}" dest="~/bin/{{item}}" mode=0755
   with_items:
+    - difffiles
+    - docker-build
+    - docker-gc
+    - docker-run
     - dodirs
+    - ec
+    - echoexec
+    - emacskill
     - emailonerrors
     - findgrep
     - gerrit-config-checkout
@@ -12,21 +19,15 @@
     - git-addremove
     - git-clean
     - git-gc
+    - github-clone
     - git-prune
     - git-rootnew
     - gitup
+    - gk
+    - grepstats
     - killtree
     - mymake
     - mymakesee
-    - docker-gc
-    - docker-build
-    - docker-run
-    - github-clone
-    - gk
-    - emacskill
-    - ec
-    - difffiles
-    - echoexec
+    - repeater
     - stressnlog
     - vmlimit-exec
-    - repeater

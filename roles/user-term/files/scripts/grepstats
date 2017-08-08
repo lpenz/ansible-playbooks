@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+# we are counting files, not matches
+# shellcheck disable=SC2126
+TOTAL=$(grep -lv "$@" | wc -l)
+# shellcheck disable=SC2126
+MATCH=$(grep -l "$@" | wc -l)
+
+printf "k=%d\n" "$MATCH"
+printf "n=%d\n" "$TOTAL"
+printf "p=%f\n" "$(echo "1.0 * $MATCH / $TOTAL" | bc -l)"
+
