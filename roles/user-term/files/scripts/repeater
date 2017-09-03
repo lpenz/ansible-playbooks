@@ -12,17 +12,23 @@ chmod u+x "$TMP"
 cat > "$TMP" <<EOF
 echo \$i
 date
-set -e -x
+set -x
 time (
 $@
 )
-: result \$?
+RV=\$?
+: result \$RV
+exit \$RV
 EOF
 
-export i=0
+set -o pipefail
+i=0
+RV=0
 while ! read -r -t 1; do
     i=$((i+1))
     FILE="$HOME/logs/$NAME/$(date +%s).txt"
     echo "$FILE"
     "$TMP" 2>&1 | tee "$FILE"
+    RV=$?
 done
+exit "$RV"
