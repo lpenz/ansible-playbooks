@@ -82,5 +82,6 @@ def main():
         fifo.close()
         doline(lines)
 
+
 if __name__ == '__main__':
     main()

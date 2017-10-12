@@ -7,8 +7,10 @@ import sys
 import getopt
 import re
 import pygtk
+import gtk
+import gobject
+
 pygtk.require('2.0')
-import gtk, gobject
 
 USAGE = string.join([
     'Usage: %s [-h] [-l] [-f <file>] [-o <file>]' % sys.argv[0],
@@ -23,8 +25,10 @@ USAGE = string.join([
     '  -s, --secondary     Only secondary clipboard.',
     ], '\n')
 
+
 def usage():
-    print USAGE
+    print(USAGE)
+
 
 class Clipboard:
     # signal handler called when the clipboard returns text data
@@ -39,7 +43,8 @@ class Clipboard:
                 if self.bare:
                     syslog.syslog(syslog.LOG_NOTICE | syslog.LOG_USER, text)
                 else:
-                    syslog.syslog(syslog.LOG_NOTICE | syslog.LOG_USER, self.name + ' [' + text + ']')
+                    syslog.syslog(syslog.LOG_NOTICE | syslog.LOG_USER,
+                                  self.name + ' [' + text + ']')
             if self.file:
                 if self.bare:
                     logging.info(text)
@@ -73,6 +78,7 @@ class Clipboard:
         gobject.timeout_add(1500, self.fetch_clipboard_info)
         return
 
+
 def main():
     file = False
     log = False
@@ -84,7 +90,11 @@ def main():
     max = 500
     bare = False
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hlf:o:bcpsm:', ['help', 'log', 'file', 'output', 'bare', 'clipboard', 'primary', 'secondary', 'max'])
+        opts, args = getopt.getopt(sys.argv[1:],
+                                   'hlf:o:bcpsm:',
+                                   ['help', 'log', 'file', 'output', 'bare',
+                                    'clipboard', 'primary', 'secondary',
+                                    'max'])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -96,12 +106,12 @@ def main():
             log = True
         if o in ('-f', '--file'):
             file = True
-            logging.basicConfig(level=logging.INFO
-                    ,format='%(asctime)s %(name)s clipboard: %(message)s'
-                    ,datefmt='%b %d %H:%M:%S'
-                    ,filename=a
-                    ,filemode='a'
-                    )
+            logging.basicConfig(level=logging.INFO,
+                                format='%(asctime)s \
+                                        %(name)s clipboard: %(message)s',
+                                datefmt='%b %d %H:%M:%S',
+                                filename=a,
+                                filemode='a')
         if o in ('-o', '--output'):
             fdout = open(a, 'a')
         if o in ('-b', '--bare'):
@@ -119,15 +129,18 @@ def main():
             max = int(a)
     cbe = []
     if chosec or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_CLIPBOARD, 'clipboard', log, file, fdout, bare, max))
+        cbe.append(Clipboard(gtk.gdk.SELECTION_CLIPBOARD,
+                             'clipboard', log, file, fdout, bare, max))
     if chosep or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_PRIMARY, 'primary', log, file, fdout, bare, max))
+        cbe.append(Clipboard(gtk.gdk.SELECTION_PRIMARY,
+                             'primary', log, file, fdout, bare, max))
     if choses or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_SECONDARY, 'secondary', log, file, fdout, bare, max))
+        cbe.append(Clipboard(gtk.gdk.SELECTION_SECONDARY,
+                             'secondary', log, file, fdout, bare, max))
     syslog.openlog('clipboard')
     gtk.main()
     return 0
 
+
 if __name__ == '__main__':
     main()
-
