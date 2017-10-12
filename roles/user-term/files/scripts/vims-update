@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function vimup {
+    bin="$1"
+    cfg="$2"
+    "$bin" -n -e -u NONE -c "silent! source $cfg" -c 'PlugInstall!' -c 'PlugUpdate!' -c 'PlugClean!' -c 'qa!' > /dev/null
+}
+
+set -e -x
+
+if which nvim > /dev/null; then
+    vimup nvim ~/.config/nvim/init.vim
+fi
+
+if which vim > /dev/null; then
+    vimup vim ~/.vimrc
+fi
+
