@@ -2,17 +2,18 @@
 
 function vimup {
     bin="$1"
-    cfg="$2"
-    "$bin" -n -e -u NONE -c "silent! source $cfg" -c 'PlugInstall!' -c 'PlugUpdate!' -c 'PlugClean!' -c 'qa!' > /dev/null
+    runtimepath="$2"
+    cfg="$3"
+    "$bin" -n -e -u NONE -c "silent! source $runtimepath/autoload/plug.vim" -c "silent! source $cfg" -c 'PlugInstall!' -c 'PlugUpdate!' -c 'PlugClean!' -c 'qa!' > /dev/null
 }
 
 set -e -x
 
 if which nvim > /dev/null; then
-    vimup nvim ~/.config/nvim/init.vim
+    vimup nvim ~/.config/nvim ~/.config/nvim/init.vim
 fi
 
 if which vim > /dev/null; then
-    vimup vim ~/.vimrc
+    vimup vim ~/.vim ~/.vimrc
 fi
 
