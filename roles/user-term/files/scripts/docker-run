@@ -15,5 +15,5 @@ fi
 
 set -x -e
 
-/bin/bash -c "${CMD[*]}"
+/bin/bash -c "${CMD[*]} $*"
 
