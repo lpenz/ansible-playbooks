@@ -21,20 +21,21 @@ nice -n 19 ~/bin/warnd.py -f ~/.warnd_fifo -l "$HOME/.warnd_log1,$HOME/.warnd_lo
 nice -n 19 ~/bin/clipinfo.py -m 79 -c -b -o ~/.clipinfo.txt &
 nice -n 19 ~/bin/clipinfo.py -m 79 -s -b -o ~/.clipinfo2.txt &
 
-(sleep 30; ~/bin/myroottail) &
+(sleep 10; exec ~/bin/myroottail) &
 
-~/bin/gkrellmstart
-(sleep 30; nm-applet) &
-(sleep 30; pasystray) &
-(sleep 30; synapse) &
-(sleep 30; /usr/lib/gpaste/gpaste/gpaste-applet) &
+gkrellm &
+(sleep 15; exec stalonetray --window-type dock --geometry 3x5) &
+(sleep 30; exec nm-applet) &
+(sleep 30; exec pasystray) &
+(sleep 30; exec synapse) &
+(sleep 30; exec /usr/lib/gpaste/gpaste/gpaste-applet) &
 
 if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
     (sleep 30; dropbox start) &
 fi
 
 if [ -z "$XSESSION_SKIP_PIDGIN" ]; then
-    (sleep 30; pidgin) &
+    (sleep 30; exec pidgin) &
 fi
 
 if [ -z "$XSESSION_SKIP_NOTION" ]; then

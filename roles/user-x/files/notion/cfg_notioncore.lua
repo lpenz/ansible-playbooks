@@ -106,10 +106,10 @@ defbindings("WMPlex.toplevel", {
                 "_sub:WClientWin"),
 
     bdoc("Terminal"),
-    kpress(META.."F1", "ioncore.exec_on(_, 'x-terminal-emulator')"),
+    kpress(META.."F1", "ioncore.exec_on(_, 'exec x-terminal-emulator')"),
 
     bdoc("Synapse"),
-    kpress(META.."F2", "ioncore.exec_on(_, 'synapse')"),
+    kpress(META.."F2", "ioncore.exec_on(_, 'exec synapse')"),
 
     bdoc("Sound volume increase"),
     kpress(META.."KP_Add", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
