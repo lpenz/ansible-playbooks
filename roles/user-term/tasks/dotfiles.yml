@@ -13,6 +13,7 @@
     - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
     - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }
     - { src: "dotfiles/pdbrc"        , dest: "~/.pdbrc"        }
+    - { src: "dotfiles/pdbrc.py"     , dest: "~/.pdbrc.py"     }
     - { src: "dotfiles/agignore"     , dest: "~/.agignore"     }
 
 - name: gdbinit save history
