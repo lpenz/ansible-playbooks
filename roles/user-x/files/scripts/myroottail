@@ -52,9 +52,9 @@ done
 xsetroot -solid black
 set -x
 if [ ${#LOGS[@]} -gt 0 ]; then
-    nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "${X1}x${YM}+0+0" "${LOGS[@]}" &
+    nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
 fi
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "$((XM-X1-2))x${Y2}+$((X1+2))+$((YM-Y2))" "$HOME/.clipinfo.txt,CadetBlue1" &
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "$((XM-X1-2))x${Y2}+$((X1+2))+$((YM-2*Y2))" "$HOME/.clipinfo2.txt,CadetBlue2" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+640+$((YM-Y2))" "$HOME/.selection_primary.txt,CadetBlue1" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+1280+$((YM-Y2))" "$HOME/.selection_clipboard.txt,CadetBlue2" &
 wait
 
