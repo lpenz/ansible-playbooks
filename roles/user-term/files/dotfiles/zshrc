@@ -38,7 +38,7 @@ if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
 fi
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context user_indicator)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs background_jobs dir)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs dir)
 
 source ~/.zgen-github/zgen.zsh
 function zgen-config() {
