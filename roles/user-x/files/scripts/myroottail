@@ -54,7 +54,7 @@ set -x
 if [ ${#LOGS[@]} -gt 0 ]; then
     nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
 fi
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+640+$((YM-Y2))" "$HOME/.selection_primary.txt,CadetBlue1" &
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+1280+$((YM-Y2))" "$HOME/.selection_clipboard.txt,CadetBlue2" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+641+$((YM-Y2))" "$HOME/.selection_primary.txt,CadetBlue1" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+1282+$((YM-Y2))" "$HOME/.selection_clipboard.txt,CadetBlue2" &
 wait
 
