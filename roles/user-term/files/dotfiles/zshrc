@@ -152,5 +152,11 @@ precmd_functions+=(lpenz_precmd)
 # do not beep
 setterm --blength 0 2>/dev/null 
 
+# fzf setup, C-r rocks
+if [ -f "$HOME/.nix-profile/share/fzf/completion.zsh" ]; then
+    . "$HOME/.nix-profile/share/fzf/completion.zsh"
+    . "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
+fi
+
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
