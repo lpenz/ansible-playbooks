@@ -4,12 +4,3 @@
   with_items:
     - zshrc
     - zshenv
-  register: zsh_dotfiles
-
-- name: clone zgen
-  git: repo="https://github.com/tarjoilija/zgen.git" dest="{{lookup('env','HOME')}}/.zgen-github"
-  register: zgen
-
-- name: call zgen-config
-  command: /usr/bin/zsh -i -c "zgen-config"
-  when: ansible_user_shell == "/usr/bin/zsh" and (zgen.changed or zsh_dotfiles.changed)
