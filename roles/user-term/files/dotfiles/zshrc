@@ -63,6 +63,8 @@ if ! zplug check --verbose; then
 fi
 zplug load # source plugins and add commands to $PATH
 
+bindkey -e
+
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
