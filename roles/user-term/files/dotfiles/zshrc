@@ -44,11 +44,13 @@ if [[ ! -d ~/.zplug ]]; then
 else
     source ~/.zplug/init.zsh
 fi
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
+zplug "lib/termsupport", from:oh-my-zsh
 zplug "plugins/bgnotify", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/go", from:oh-my-zsh
-zplug "lib/termsupport", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
