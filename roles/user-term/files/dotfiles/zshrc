@@ -2,6 +2,7 @@
 
 DISABLE_AUTO_TITLE=true
 
+
 # tramp (https://www.emacswiki.org/emacs/TrampMode#toc6)
 if [[ "$TERM" == "dumb" ]]
 then
@@ -14,14 +15,15 @@ then
     return
 fi
 
-# POWERLEVEL9K prompt:
 if [ "$(ps -o ppid= $$ | xargs ps -o fname=)" = "xfce4-te" ]; then
     export LC_POWERLINE_FONTS=true
 fi
+
 if [ "$LC_POWERLINE_FONTS" = "true" ]; then
     # Enable nerdfont in xfce terminal only
     POWERLEVEL9K_MODE='nerdfont-complete'
 fi
+
 if [[ "$UID" -eq 0 ]]; then
     prompt_user_indicator() {
         "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "yellow" "" 'ROOT_ICON'
@@ -34,41 +36,37 @@ fi
 if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
     POWERLEVEL9K_CONTEXT_TEMPLATE=%m
 fi
+
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
 
-# zplug:
-if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-    source ~/.zplug/init.zsh && zplug update --self
-else
-    source ~/.zplug/init.zsh
+source ~/.zgen-github/zgen.zsh
+function zgen-config() {
+    echo "Creating a zgen save"
+    zgen oh-my-zsh
+    # plugins
+    zgen oh-my-zsh plugins/bgnotify
+    zgen oh-my-zsh plugins/z
+    zgen oh-my-zsh plugins/colored-man-pages
+    zgen oh-my-zsh plugins/go
+    zgen load zsh-users/zsh-completions
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+    # dircolors
+    zgen load joel-porquet/zsh-dircolors-solarized
+    zgen load bhilburn/powerlevel9k powerlevel9k
+    # save all to init script
+    zgen save
+}
+if ! zgen saved; then
+    zgen-config
 fi
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
-zplug "lib/termsupport", from:oh-my-zsh
-zplug "plugins/bgnotify", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/go", from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized dircolors.ansi-dark"
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-if ! zplug check --verbose; then
-    echo "Plugins not installed, please run"
-    echo "zplug install"
-fi
-zplug load # source plugins and add commands to $PATH
-
-bindkey -e
 
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
+setupsolarized dircolors.ansi-dark
 # PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
 
 # Custom configs:
@@ -77,7 +75,6 @@ setopt no_share_history
 setopt clobber
 
 # Hotkeys:
-zmodload zsh/complist
 bindkey -M menuselect '^J' accept-and-infer-next-history
 bindkey -M menuselect '^H' undo
 bindkey -M menuselect '^K' vi-insert
@@ -95,9 +92,6 @@ export PAGER=
 # aliases
 alias rxvt-font-set="printf '\e]710;%s\007' "
 alias vi=nvim
-alias ls="ls --color"
-alias ll="ls -l"
-alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Load keychain
 if which keychain &> /dev/null; then
