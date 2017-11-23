@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=~/bin:~/.cargo/bin:~/.local/bin:$PATH
+export PATH=~/bin:~/.cargo/bin:~/.local/bin:~/.nix-profile/bin:$PATH
 export LANGUAGE=en
 
 if [ -z "$LC_ALL" ]; then
