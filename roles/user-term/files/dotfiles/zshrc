@@ -141,6 +141,7 @@ function lpenz_precmd {
                 humanReadableDuration=$_P9K_COMMAND_DURATION
             fi
             print -nP " ${icons[EXECUTION_TIME_ICON]}  $humanReadableDuration"
+            print -nP " \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
         print -P " %K{$color}\x1b[38;2;0;0;0m\ue0ba "
     fi
