@@ -5,6 +5,9 @@
 - name: create ~/.tmux/plugins
   file: name="{{lookup('env','HOME')}}/.tmux/plugins" state=directory
 
+- name: create ~/.tmux/sessions
+  file: name="{{lookup('env','HOME')}}/.tmux/sessions" state=directory
+
 - name: clone tmux plugin manager
   git: repo="https://github.com/tmux-plugins/tpm" dest="{{lookup('env','HOME')}}/.tmux/plugins/tpm"
   notify: tmux_plugins_install
