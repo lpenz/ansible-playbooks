@@ -8,5 +8,5 @@ trap 'rm -f $TMP' EXIT
 set -x
 wget https://sh.rustup.rs -O "$TMP"
 bash "$TMP" --no-modify-path --default-toolchain nightly -y
-cargo install clippy rustfmt cargo-update
+cargo install clippy cargo-update
 
