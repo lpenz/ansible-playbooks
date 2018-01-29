@@ -88,7 +88,6 @@ export VISUAL=vim
 export EDITOR=vim
 export ALTERNATE_EDITOR=/usr/bin/vim
 export PAGER=
-export TMUX_TMPDIR=$HOME/.tmux/sessions
 
 # aliases
 alias rxvt-font-set="printf '\e]710;%s\007' "
