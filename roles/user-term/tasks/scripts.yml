@@ -29,6 +29,7 @@
     - mymake
     - mymakesee
     - repeater
+    - rust-install
     - stressnlog
     - vims-update
     - vmlimit-exec
