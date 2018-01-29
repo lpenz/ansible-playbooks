@@ -1,5 +1,16 @@
 ---
-- git_config:
+- name: git config alias.k
+  git_config:
     name: alias.k
     scope: global
     value: log --graph --decorate --oneline --all
+
+- name: git config path must exist
+  file: path={{item}} state=directory
+  with_items: [ ~/.config, ~/.config/git ]
+
+- name: gitignore setup
+  lineinfile: path=~/.config/git/ignore create=yes mode=0644 line={{item}}
+  with_items:
+    - .mypy_cache/
+    - /.sconsign.dblite
