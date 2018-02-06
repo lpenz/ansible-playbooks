@@ -12,15 +12,15 @@
     - notion
     - pasystray
     - root-tail
-    - rxvt-unicode-256color
     - stalonetray
     - suckless-tools
     - synapse
     - vim-gtk3
+    - xfce4-terminal
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
     - xserver-xorg
 
-- name: setup rxvt-unicode-256-colors alternative
-  alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
+- name: setup xfce4 as x-terminal-emulator
+  alternatives: name=x-terminal-emulator path=/usr/bin/xfce4-terminal.wrapper
