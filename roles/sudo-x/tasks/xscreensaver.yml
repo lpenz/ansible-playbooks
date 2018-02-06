@@ -1,0 +1,15 @@
+---
+- name: xscreensaver configure rsyslog
+  copy: src=rsyslog/xscreensaver.conf dest=/etc/rsyslog.d/xscreensaver.conf owner=root group=root mode=0644
+
+- name: xscreensaver check if log file exists
+  stat: path=/var/log/xscreensaver.log
+  register: log
+
+- name: xscreensaver create log file
+  file: path=/var/log/xscreensaver.log state=touch
+  when: not log.stat.exists
+
+- name: xscreensaver set log file permissions
+  file: state=file dest=/var/log/xscreensaver.log owner=root group=adm mode=0644
+

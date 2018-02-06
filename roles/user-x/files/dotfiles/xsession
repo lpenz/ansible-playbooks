@@ -29,6 +29,10 @@ gkrellm &
 (sleep 30; exec nm-applet) &
 (sleep 30; exec pasystray) &
 
+xscreensaver &
+logger -t xscreensaver STARTED
+(sleep 15; set -e -o pipefail; xscreensaver-command -watch | logger -t xscreensaver) &
+
 if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
     (sleep 30; dropbox start) &
 fi

@@ -20,6 +20,7 @@
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
+    - xscreensaver
     - xserver-xorg
 
 - name: setup xfce4 as x-terminal-emulator
