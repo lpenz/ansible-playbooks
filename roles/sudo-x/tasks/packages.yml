@@ -1,26 +1,26 @@
 ---
 - apt: package={{item}} state=present
   with_items:
-    - vim-gtk3
-    - rxvt-unicode-256color
-    - notion
-    - gitk
-    - git-gui
-    - xserver-xorg
-    - stalonetray
-    - root-tail
-    - suckless-tools
-    - libnotify-bin
-    - mate-notification-daemon
-    - xfonts-jmk
-    - xfonts-terminus
-    - xfonts-terminus-dos
     - dbus-x11 # dep
+    - git-gui
+    - gitk
     - gkrellm
     - gkrellshoot
     - gkrelltop
-    - synapse
+    - libnotify-bin
+    - mate-notification-daemon
+    - notion
     - pasystray
+    - root-tail
+    - rxvt-unicode-256color
+    - stalonetray
+    - suckless-tools
+    - synapse
+    - vim-gtk3
+    - xfonts-jmk
+    - xfonts-terminus
+    - xfonts-terminus-dos
+    - xserver-xorg
 
 - name: setup rxvt-unicode-256-colors alternative
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
