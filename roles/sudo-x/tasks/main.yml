@@ -2,5 +2,5 @@
 - include: packages.yml
 - include: google-chrome.yml
 - include: dropbox.yml
-- include: spotify.yml
+# - include: spotify.yml
 - include: xscreensaver.yml
