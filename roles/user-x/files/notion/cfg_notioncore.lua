@@ -112,14 +112,14 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."F2", "ioncore.exec_on(_, 'exec synapse')"),
 
     bdoc("Sound volume increase"),
-    kpress(META.."KP_Add", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
+    kpress(META.."KP_Add", "ioncore.exec_on(_, 'pactl-volume +5%')"),
     bdoc("Sound volume decrease"),
-    kpress(META.."KP_Subtract", "ioncore.exec_on(_, 'amixer sset Master 5%-')"),
+    kpress(META.."KP_Subtract", "ioncore.exec_on(_, 'pactl-volume 5%-')"),
 
     bdoc("Sound volume increase"),
-    kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'amixer sset Master 5%+')"),
+    kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'pactl-volume +5%')"),
     bdoc("Sound volume decrease"),
-    kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'amixer sset Master 5%-')"),
+    kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'pactl-volume -5%')"),
     bdoc("Sound volume mute"),
     kpress("XF86AudioMute", "ioncore.exec_on(_, 'amixer sset Master toggle')"),
 
