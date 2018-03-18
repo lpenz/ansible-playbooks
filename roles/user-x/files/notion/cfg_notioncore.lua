@@ -114,7 +114,7 @@ defbindings("WMPlex.toplevel", {
     bdoc("Sound volume increase"),
     kpress(META.."KP_Add", "ioncore.exec_on(_, 'pactl-volume +5%')"),
     bdoc("Sound volume decrease"),
-    kpress(META.."KP_Subtract", "ioncore.exec_on(_, 'pactl-volume 5%-')"),
+    kpress(META.."KP_Subtract", "ioncore.exec_on(_, 'pactl-volume -5%')"),
 
     bdoc("Sound volume increase"),
     kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'pactl-volume +5%')"),
