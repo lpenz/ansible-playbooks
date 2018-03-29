@@ -101,8 +101,7 @@ URxvt.iso14755:         False
 URxvt.scrollBar_right: true
 URxvt.foreground: grey
 URxvt.background: black
-URxvt.font: xft:DejaVuSansMonoForPowerline Nerd Font:size=11:antialias=true:autohint=true,xft:DejaVuSansMono:size=11:antialias=true:autohint=true
-! URxvt.font: xft:InconsolataForPowerline Nerd Font:size=14:weight=bold,xft:Inconsolata:size=14:weight=bold
+URxvt.font: xft:InconsolataForPowerline Nerd Font:size=14,xft:Inconsolata:size=14,xft:DejaVuSansMono:size=11
 URxvt.letterSpace:      -1
 URxvt.saveLines: 5000
 URxvt.scrollTtyOutput: false

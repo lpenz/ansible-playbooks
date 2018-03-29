@@ -1,16 +1,25 @@
 ---
-- name: create ~/.config
-  file: state=directory dest=~/.config
-
-- name: create ~/.config
-  file: state=directory dest=~/.config/fontconfig
-
 - name: install dotfiles
   copy: src="{{item.src}}" dest="{{item.dest}}"
   with_items:
     - { src: "dotfiles/Xresources"   , dest: "~/.Xresources" }
     - { src: "dotfiles/xsession"     , dest: "~/.xsession"   }
 
-- name: install fonts.conf
+- name: create home dirs ~/{{item}}
+  file: state=directory dest=~/{{item}}
+  with_items:
+    - .config
+    - .config/fontconfig
+    - .local
+    - .local/share
+    - .local/share/fonts
+
+- name: install fonts.conf that gets nix fonts
   template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf
   notify: fccache
+
+- name: install inconsolata nerd font for powerline
+  unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v1.2.0/Inconsolata.zip
+    dest: ~/.local/share/fonts/
+    remote_src: yes
