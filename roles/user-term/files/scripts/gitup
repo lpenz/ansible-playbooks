@@ -2,7 +2,7 @@
 
 set -e
 
-if git status | grep -q 'Changed but not updated:'; then
+if git status --porcelain | grep -q '^.'; then
 	STASH=true
 else
 	STASH=false
@@ -10,8 +10,9 @@ fi
 
 set -x
 
-$STASH && git stash
+if $STASH; then
+    git stash
+    trap 'git stash pop' EXIT
+fi
+
 git pull --rebase
-$STASH && git stash pop
-
-
