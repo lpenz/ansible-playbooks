@@ -21,6 +21,7 @@
     - git-gc
     - github-clone
     - git-prune
+    - git-release
     - git-rootnew
     - gitup
     - gk

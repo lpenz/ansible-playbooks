@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e -o pipefail -x
+
+NAME=${PWD##*/}
+VERSION=$(git describe --tags --exact-match HEAD)
+PREFIX=${NAME}_$VERSION
+
+git archive --format=tar "--output=../${PREFIX}.orig.tar" "--prefix=$PREFIX/" "$VERSION"
+gzip -f "../${PREFIX}.orig.tar"
+ls -l "../${PREFIX}.orig.tar.gz"
+tar -tzf "../${PREFIX}.orig.tar.gz"
+
