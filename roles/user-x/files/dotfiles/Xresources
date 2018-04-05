@@ -157,3 +157,4 @@ XTerm*color13:                 S_violet
 XTerm*color14:                 S_Dark_base1
 XTerm*color15:                 S_Dark_base3
 
+#include ".Xresources.local"
