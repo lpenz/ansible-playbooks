@@ -1,5 +1,12 @@
 #!/bin/bash
 
+export COUNT=-1
+if [ "$1" = "-n" ]; then
+   shift
+   COUNT=$1
+   shift
+fi
+
 NAME=${1?name not found}
 shift
 
@@ -10,19 +17,20 @@ trap 'rm -f $TMP' EXIT
 chmod u+x "$TMP"
 
 cat > "$TMP" <<EOF
-echo \$i
+#!/bin/bash
+
+echo "\$i / \$COUNT"
 date
 set -x
 time (
 $@
 )
-RV=\$?
-: result \$RV
-exit \$RV
+exit \$?
 EOF
+trap 'rm -f $TMP' EXIT
 
 set -o pipefail
-i=0
+export i=0
 RV=0
 while ! read -r -t 1; do
     i=$((i+1))
@@ -30,5 +38,6 @@ while ! read -r -t 1; do
     echo "$FILE"
     "$TMP" 2>&1 | tee "$FILE"
     RV=$?
+    if [ "$i" == "$COUNT" ]; then break; fi
 done
 exit "$RV"
