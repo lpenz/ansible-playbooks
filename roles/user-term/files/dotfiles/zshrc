@@ -126,7 +126,7 @@ function lpenz_precmd {
         else
             local color=green
         fi
-        print -nP "%K{$color}\x1b[38;2;0;0;0m\ue0b8%f %f%K{$color}"
+        print -nP "%K{$color}\e[38;5;16m\ue0b8%f %f%K{$color}"
         if [ "$RETVAL" != 0 ]; then
             print -nP "\ue685 $RETVAL"
         fi
@@ -143,7 +143,7 @@ function lpenz_precmd {
             print -nP " ${icons[EXECUTION_TIME_ICON]}  $humanReadableDuration"
             print -nP " \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
-        print -P " %K{$color}\x1b[38;2;0;0;0m\ue0ba\x1b[0m \n"
+        print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
     fi
 }
 
