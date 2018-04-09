@@ -128,7 +128,10 @@ function lpenz_precmd {
         fi
         print -nP "%K{$color}\e[38;5;16m\ue0b8%f %f%K{$color}"
         if [ "$RETVAL" != 0 ]; then
-            print -nP "\ue685 $RETVAL"
+            print_icon FAIL_ICON
+            print -nP " $RETVAL"
+        else
+            print_icon OK_ICON
         fi
         if (( _P9K_COMMAND_DURATION > 3 )); then
             local humanReadableDuration
@@ -140,8 +143,8 @@ function lpenz_precmd {
                 typeset -F 2 humanReadableDuration
                 humanReadableDuration=$_P9K_COMMAND_DURATION
             fi
-            print -nP " ${icons[EXECUTION_TIME_ICON]}  $humanReadableDuration"
-            print -nP " \u231a $(strftime '%F %T' $EPOCHSECONDS)"
+            print -nP "  ${icons[EXECUTION_TIME_ICON]} $humanReadableDuration"
+            print -nP "  \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
     fi
