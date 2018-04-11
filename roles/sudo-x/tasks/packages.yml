@@ -2,6 +2,9 @@
 - apt: package={{item}} state=present
   with_items:
     - dbus-x11 # dep
+    - fonts-dejavu
+    - fonts-inconsolata
+    - fonts-symbola
     - git-gui
     - gitk
     - gkrellm
@@ -12,11 +15,10 @@
     - notion
     - pasystray
     - root-tail
+    - rxvt-unicode
     - stalonetray
     - suckless-tools
-    - synapse
     - vim-gtk3
-    - xfce4-terminal
     - xfonts-jmk
     - xfonts-terminus
     - xfonts-terminus-dos
