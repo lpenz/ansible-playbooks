@@ -117,9 +117,7 @@ function lpenz_preexec {
 }
 
 # Runs after executing a command, before showing the prompt
-function lpenz_precmd {
-    title "%m:%~" "%m:%~"
-
+function lpenz_lastcmdstatus {
     if [ "$RETVAL" != 0 ] || (( _P9K_COMMAND_DURATION > 3 )); then
         if [ "$RETVAL" != 0 ]; then
             local color=red
@@ -148,6 +146,11 @@ function lpenz_precmd {
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
     fi
+}
+
+function lpenz_precmd {
+    title "%m:%~" "%m:%~"
+    lpenz_lastcmdstatus
 }
 
 preexec_functions+=(lpenz_preexec)
