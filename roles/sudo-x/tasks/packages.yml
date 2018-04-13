@@ -25,5 +25,5 @@
     - xscreensaver
     - xserver-xorg
 
-- name: setup xfce4 as x-terminal-emulator
-  alternatives: name=x-terminal-emulator path=/usr/bin/xfce4-terminal.wrapper
+- name: setup rxvt-unicode as x-terminal-emulator
+  alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
