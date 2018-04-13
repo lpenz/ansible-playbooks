@@ -9,7 +9,7 @@
   git_config:
     name: rerere.enabled
     scope: global
-    value: 1
+    value: true
 
 - name: git config path must exist
   file: dest={{item}} state=directory
