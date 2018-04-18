@@ -33,7 +33,7 @@ defbindings("WScreen", {
     kpress(META.."Tab", "ioncore.goto_previous()"),
 
     bdoc("Go to first region demanding attention or previously active one."),
-    kpress(META.."A", "ioncore.activity_goto()"),
+    kpress(META.."A", "ioncore.goto_activity()"),
 
     bdoc("Clear all tags."),
     kpress(META.."Y", "ioncore.clear_tags()"),
