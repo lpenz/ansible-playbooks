@@ -56,7 +56,6 @@ class Clipboard(object):
                 else:
                     self.fdout.write(self.name + ': ' + text + '\n')
                 self.fdout.flush()
-            print(self.name + ': ' + text)
             self.last = text
         return
 
