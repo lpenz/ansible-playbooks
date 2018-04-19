@@ -6,6 +6,7 @@ RUN set -x -e; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         locales \
+        openssh-client \
         python-pip python-setuptools python-wheel \
         flake8 python-nosexcover \
         ansible \
