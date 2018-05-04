@@ -14,8 +14,11 @@
     - .local/share
     - .local/share/fonts
 
-- name: file ~/.Xresources.local exists
-  copy: dest=~/.Xresources.local content='' force=no
+- name: some dot files exist
+  copy: dest="{{item}}" content='' force=no
+  with_items:
+     - ~/.Xresources.local
+     - ~/.stalonetrayrc
 
 - name: install fonts.conf that gets nix fonts
   template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf
