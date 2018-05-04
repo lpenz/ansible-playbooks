@@ -209,7 +209,7 @@ local mykeys = {
 	{ key = "K"      , strfunc = "m_:dec_index(m_sub)" },
 	{ key = "L"      , strfunc = "m_:inc_index(m_sub)" },
 	{ key = "X"      , strfunc = "ioncore.tagged_attach(_)" },
-	{ key = "N"      , strfunc = "mod_query.query(m_, 'Enter name:', m_:manager():name(), function(mplex, string) print(mplex:manager():name(), string); mplex:manager():set_name(string); end)" },
+	{ key = "N"      , strfunc = "mod_query.query(m_, 'Enter name:', m_:manager():name(), function(mplex, string) mplex:manager():set_name(string); end)" },
 	{ key = "B"      , strfunc = "p_:set_mode('tiled-alt')" },
 	{ key = "V"      , strfunc = "p_:set_mode('tiled')" },
 	{ key = "S"      , strfunc = "p_:begin_kbresize()" },
