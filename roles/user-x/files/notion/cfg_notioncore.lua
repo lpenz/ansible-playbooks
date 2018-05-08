@@ -122,6 +122,8 @@ defbindings("WMPlex.toplevel", {
     kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'pactl-volume -5%')"),
     bdoc("Sound volume mute"),
     kpress("XF86AudioMute", "ioncore.exec_on(_, 'amixer sset Master toggle')"),
+    bdoc("Mic mute"),
+    kpress("XF86AudioMicMute", "ioncore.exec_on(_, 'amixer sset Capture toggle')"),
 
     -- bdoc("Run a terminal emulator."),
     -- kpress("Menu", "ioncore.exec_on(_, 'x-terminal-emulator')"),
