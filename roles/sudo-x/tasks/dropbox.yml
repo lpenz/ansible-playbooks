@@ -29,4 +29,9 @@
   when: stat_ufw.stat.exists == True
 
 - name: install cmtab to mount dropboxcrypted
-  copy: dest=/etc/cryptmount/cmtab src=cmtab owner=root group=root mode=0644
+  template:
+      dest: /etc/cryptmount/cmtab
+      src: cmtab
+      owner: root
+      group: root
+      mode: 0644

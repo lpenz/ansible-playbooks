@@ -1,9 +1,9 @@
 # /etc/cryptmount/cmtab - encrypted filesystem information for cryptmount
 # try 'man 8 cryptmount' or 'man 5 cmtab' for more details
 dropboxcrypted {
-    dev=/home/cmtab/Dropbox/private/crypted.vol
-    dir=/home/cmtab/dropboxcrypted
+    dev=/home/{{ ansible_ssh_user }}/Dropbox/private/crypted.vol
+    dir=/home/{{ ansible_ssh_user }}/dropboxcrypted
     fstype=auto
-    mountoptions=uid=$(UID)
+    mountoptions=uid={{ ansible_ssh_user }}
     keyformat=luks
 }
