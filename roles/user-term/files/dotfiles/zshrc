@@ -79,7 +79,6 @@ bindkey -M menuselect '^J' accept-and-infer-next-history
 bindkey -M menuselect '^H' undo
 bindkey -M menuselect '^K' vi-insert
 bindkey "\ej" accept-and-menu-complete
-bindkey "\el" copy-prev-shell-word
 bindkey -s "\e[21~" "\033q\025mymake\012"
 bindkey -s "\er" "\033q\025i=0; while ! read -t 1 && ! !!; do i=\$((i+1)); echo \"======== \$i \$(date)\";  done"
 
