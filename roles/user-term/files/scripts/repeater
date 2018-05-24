@@ -7,6 +7,12 @@ if [ "$1" = "-n" ]; then
    shift
 fi
 
+export EXIT_ON_ERROR=false
+if [ "$1" = "-e" ]; then
+   EXIT_ON_ERROR=true
+   shift
+fi
+
 NAME=${1?name not found}
 shift
 
@@ -39,5 +45,6 @@ while ! read -r -t 1; do
     "$TMP" 2>&1 | tee "$FILE"
     RV=$?
     if [ "$i" == "$COUNT" ]; then break; fi
+    if $EXIT_ON_ERROR && [ "$RV" != 0 ]; then break; fi
 done
 exit "$RV"
