@@ -9,5 +9,5 @@ set -x
 wget https://sh.rustup.rs -O "$TMP"
 bash "$TMP" --no-modify-path --default-toolchain nightly -y
 cargo install clippy cargo-update
-rustup component add rustfmt
+rustup component add rustfmt-preview
 
