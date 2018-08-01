@@ -90,7 +90,7 @@ bindkey -r "\el"
 export VISUAL=vim
 export EDITOR=vim
 export ALTERNATE_EDITOR=/usr/bin/vim
-export PAGER=
+export PAGER=cat
 
 # aliases
 alias rxvt-font-set="printf '\e]710;%s\007' "
