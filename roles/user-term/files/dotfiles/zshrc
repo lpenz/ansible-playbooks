@@ -95,6 +95,7 @@ export PAGER=cat
 # aliases
 alias rxvt-font-set="printf '\e]710;%s\007' "
 alias vi=nvim
+alias ssh-nohostkey="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 # Load keychain
 if which keychain &> /dev/null; then
