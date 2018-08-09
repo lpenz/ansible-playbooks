@@ -1,16 +1,22 @@
 #!/bin/bash
-
+set -x
 NAME="${PWD##*/}"
 NAME="${NAME,,}"
 
 TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT
 
-CMD=( docker run -it --rm -P -v "$PWD:/home/user/work" -e "MY_UID=$UID" --name "$NAME" "$NAME" "$@" )
-
-if grep -q '^# docker run ' Dockerfile; then
-    sed -n 's@^# \(docker run .*\)$@\1@p' Dockerfile | head -1 > "$TMP"
-    CMD=( $(cat "$TMP") )
+if [ -e Dockerfile ] && grep -q '^# docker run ' Dockerfile; then
+   sed -n 's@^# \(docker run .*\)$@\1@p' Dockerfile | head -1 > "$TMP"
+   IFS=" " read -r -a CMD <<< "$(cat "$TMP")"
+else
+   if [ -e Dockerfile ]; then
+      IMAGE="${PWD##*/}"
+   else
+      IMAGE="${1?no Dockerfile and no image name provided}"
+      shift
+   fi
+   CMD=( docker run -it --rm -P -v "$PWD:/home/user/work" -e "MY_UID=$UID" --name "$NAME" "$IMAGE" )
 fi
 
 set -x -e
