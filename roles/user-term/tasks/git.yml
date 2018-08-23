@@ -3,7 +3,7 @@
   git_config:
     name: alias.k
     scope: global
-    value: log --graph --decorate --oneline --all
+    value: log --graph --decorate --oneline
 
 - name: git config rerere
   git_config:
