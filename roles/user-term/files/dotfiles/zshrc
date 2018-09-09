@@ -96,6 +96,9 @@ export PAGER=cat
 alias rxvt-font-set="printf '\e]710;%s\007' "
 alias vi=nvim
 alias ssh-nohostkey="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+alias ls="ls --color=tty"
+alias ll="ls -l"
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Load keychain
 if which keychain &> /dev/null; then
