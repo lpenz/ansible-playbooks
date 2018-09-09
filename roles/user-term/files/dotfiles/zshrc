@@ -118,6 +118,20 @@ function lpenz_preexec {
     local LINE="${2:gs/%/%%}"
 
     title '$CMD' '%100>...>$LINE%<<'
+    lpenz_lastcmd=$1
+}
+
+function humanReadableDurationRender {
+    local humanReadableDuration
+    if (( _P9K_COMMAND_DURATION > 3600 )); then
+        humanReadableDuration=$(TZ=GMT; strftime '%H:%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
+    elif (( _P9K_COMMAND_DURATION > 60 )); then
+        humanReadableDuration=$(TZ=GMT; strftime '%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
+    else
+        typeset -F 2 humanReadableDuration
+        humanReadableDuration=$_P9K_COMMAND_DURATION
+    fi
+    echo "$humanReadableDuration"
 }
 
 # Runs after executing a command, before showing the prompt
@@ -136,19 +150,20 @@ function lpenz_lastcmdstatus {
             print_icon OK_ICON
         fi
         if (( _P9K_COMMAND_DURATION > 3 )); then
-            local humanReadableDuration
-            if (( _P9K_COMMAND_DURATION > 3600 )); then
-                humanReadableDuration=$(TZ=GMT; strftime '%H:%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
-            elif (( _P9K_COMMAND_DURATION > 60 )); then
-                humanReadableDuration=$(TZ=GMT; strftime '%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
-            else
-                typeset -F 2 humanReadableDuration
-                humanReadableDuration=$_P9K_COMMAND_DURATION
-            fi
+            local humanReadableDuration=$(humanReadableDurationRender $_P9K_COMMAND_DURATION)
             print -nP "  ${icons[EXECUTION_TIME_ICON]} $humanReadableDuration"
             print -nP "  \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
+    fi
+    if [ "$TERM" = "rxvt-256color" ] && (( _P9K_COMMAND_DURATION > 3 )); then
+        local humanReadableDuration=$(humanReadableDurationRender $_P9K_COMMAND_DURATION)
+        local CMD=${lpenz_lastcmd:gs/;/_}
+        local icon=$'\u2714'
+        if [ "$RETVAL" != 0 ]; then
+            icon=$'\u2718'
+        fi
+        printf "\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n${icons[EXECUTION_TIME_ICON]} $humanReadableDuration\a"
     fi
 }
 
