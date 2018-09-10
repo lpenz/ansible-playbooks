@@ -191,14 +191,19 @@ function lpenz_lastcmdstatus {
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
     fi
-    if [ "$TERM" = "rxvt-256color" ] && (( _P9K_COMMAND_DURATION > 3 )); then
+    if (( _P9K_COMMAND_DURATION > 3 )) && ( [ "$TERM" = "rxvt-256color" ] || [ "$TERM" = "screen-256color" ] ); then
         local humanReadableDuration=$(humanReadableDurationRender $_P9K_COMMAND_DURATION)
         local CMD=${lpenz_lastcmd:gs/;/_}
         local icon=$'\u2714'
         if [ "$RETVAL" != 0 ]; then
             icon=$'\u2718'
         fi
-        printf "\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n${icons[EXECUTION_TIME_ICON]} $humanReadableDuration\a"
+        local seq="\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n${icons[EXECUTION_TIME_ICON]} $humanReadableDuration\a"
+        if [ -n "$TMUX" ]; then
+            printf '\ePtmux;\e%s\e\\' "$(printf ${seq})"
+        else
+            echo "$seq"
+        fi
     fi
 }
 
