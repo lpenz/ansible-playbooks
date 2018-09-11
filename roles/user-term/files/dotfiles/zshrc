@@ -198,11 +198,11 @@ function lpenz_lastcmdstatus {
         if [ "$RETVAL" != 0 ]; then
             icon=$'\u2718'
         fi
-        local seq="\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n${icons[EXECUTION_TIME_ICON]} $humanReadableDuration\a"
+        local seq="\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n\uf252 $humanReadableDuration\a"
         if [ -n "$TMUX" ]; then
             printf '\ePtmux;\e%s\e\\' "$(printf ${seq})"
         else
-            echo "$seq"
+            printf "$seq"
         fi
     fi
 }
