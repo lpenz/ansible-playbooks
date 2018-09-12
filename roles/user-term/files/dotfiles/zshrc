@@ -60,6 +60,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized dircolors.ansi-dark"
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+zplug "lpenz/zsh-notify-urxvt"
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 if ! zplug check --verbose; then
     echo "Plugins not installed, please run"
@@ -75,13 +76,13 @@ function zgen-config() {
     echo "Creating a zgen save"
     zgen oh-my-zsh
     # plugins
-    zgen oh-my-zsh plugins/bgnotify
     zgen oh-my-zsh plugins/z
     zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/go
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
+    zgen load lpenz/zsh-notify-urxvt
     # dircolors
     zgen load joel-porquet/zsh-dircolors-solarized
     zgen load bhilburn/powerlevel9k powerlevel9k
@@ -190,20 +191,6 @@ function lpenz_lastcmdstatus {
             print -nP "  \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
-    fi
-    if (( _P9K_COMMAND_DURATION > 3 )) && ( [ "$TERM" = "rxvt-256color" ] || [ "$TERM" = "screen-256color" ] ); then
-        local humanReadableDuration=$(humanReadableDurationRender $_P9K_COMMAND_DURATION)
-        local CMD=${lpenz_lastcmd:gs/;/_}
-        local icon=$'\u2714'
-        if [ "$RETVAL" != 0 ]; then
-            icon=$'\u2718'
-        fi
-        local seq="\e]777;notify;${icon} $CMD;$lpenz_lastcmd\\\n${icon} = $RETVAL\\\n\uf252 $humanReadableDuration\a"
-        if [ -n "$TMUX" ]; then
-            printf '\ePtmux;\e%s\e\\' "$(printf ${seq})"
-        else
-            printf "$seq"
-        fi
     fi
 }
 
