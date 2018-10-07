@@ -207,7 +207,10 @@ precmd_functions+=(lpenz_precmd)
 setterm --blength 0 2>/dev/null 
 
 # fzf setup, C-r rocks
-if [ -f "$HOME/.nix-profile/share/fzf/completion.zsh" ]; then
+if [ -f "/usr/share/zsh/vendor-completions/_fzf" ]; then
+    . "/usr/share/zsh/vendor-completions/_fzf"
+    . "/usr/share/doc/fzf/examples/key-bindings.zsh"
+elif [ -f "$HOME/.nix-profile/share/fzf/completion.zsh" ]; then
     . "$HOME/.nix-profile/share/fzf/completion.zsh"
     . "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
 fi
