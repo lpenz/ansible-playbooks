@@ -1,5 +1,9 @@
 ---
-- apt_key: url='https://packagecloud.io/lpenz/lpenz/gpgkey' id='418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB' state=present
+- name: packagecloud-key-remove-old
+  apt_key: id='D59097AB' state=absent
+
+- name: packagecloud-key-import-new
+  apt_key: url='https://packagecloud.io/lpenz/lpenz/gpgkey' id='3436F2D037B9886CDCA0318C06D53CED378B88C5' state=present
 
 - apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no
   register: aptup3
