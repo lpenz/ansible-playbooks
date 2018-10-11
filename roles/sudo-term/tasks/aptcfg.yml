@@ -16,6 +16,7 @@
     - stable
     - testing
     - unstable
+    - experimental
   register: aptup2
 
 - apt: update_cache=yes
