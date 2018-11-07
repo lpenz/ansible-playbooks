@@ -1,13 +1,16 @@
 ---
 - apt: package={{item}} state=present
   with_items:
+    - ansible
+    - apt-transport-https
+    - emacs
+    - gawk # required by tmux-fingers
+    - git
+    - htop
+    - keychain
+    - mc
+    - neovim
+    - network-manager
+    - tmux
     - vim
     - zsh
-    - ansible
-    - keychain
-    - tmux
-    - git
-    - apt-transport-https
-    - htop
-    - mc
-    - at-spi2-core # avoid spacemacs warning
