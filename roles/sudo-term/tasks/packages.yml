@@ -1,16 +1,17 @@
 ---
-- apt: package={{item}} state=present
-  with_items:
-    - ansible
-    - apt-transport-https
-    - emacs
-    - gawk # required by tmux-fingers
-    - git
-    - htop
-    - keychain
-    - mc
-    - neovim
-    - network-manager
-    - tmux
-    - vim
-    - zsh
+- apt:
+    state: present
+    package:
+      - ansible
+      - apt-transport-https
+      - emacs
+      - gawk # required by tmux-fingers
+      - git
+      - htop
+      - keychain
+      - mc
+      - neovim
+      - network-manager
+      - tmux
+      - vim
+      - zsh

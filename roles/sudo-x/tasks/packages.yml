@@ -1,29 +1,30 @@
 ---
-- apt: package={{item}} state=present
-  with_items:
-    - dbus-x11 # dep
-    - fonts-dejavu
-    - fonts-inconsolata
-    - fonts-symbola
-    - git-gui
-    - gitk
-    - gkrellm
-    - gkrellshoot
-    - gkrelltop
-    - libnotify-bin
-    - mate-notification-daemon
-    - notion
-    - pasystray
-    - root-tail
-    - rxvt-unicode
-    - stalonetray
-    - suckless-tools
-    - vim-gtk3
-    - xfonts-jmk
-    - xfonts-terminus
-    - xfonts-terminus-dos
-    - xscreensaver
-    - xserver-xorg
+- apt:
+    state: present
+    package:
+      - dbus-x11 # dep
+      - fonts-dejavu
+      - fonts-inconsolata
+      - fonts-symbola
+      - git-gui
+      - gitk
+      - gkrellm
+      - gkrellshoot
+      - gkrelltop
+      - libnotify-bin
+      - mate-notification-daemon
+      - notion
+      - pasystray
+      - root-tail
+      - rxvt-unicode
+      - stalonetray
+      - suckless-tools
+      - vim-gtk3
+      - xfonts-jmk
+      - xfonts-terminus
+      - xfonts-terminus-dos
+      - xscreensaver
+      - xserver-xorg
 
 - name: setup rxvt-unicode as x-terminal-emulator
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
