@@ -104,7 +104,7 @@ URxvt.background: black
 URxvt.font: xft:InconsolataForPowerline Nerd Font:size=14,xft:Inconsolata:size=14,xft:Symbola,xft:DejaVuSansMono:size=11
 URxvt.letterSpace:      -1
 URxvt.saveLines: 5000
-URxvt.perl-ext: default,selection-to-clipboard,matcher
+URxvt.perl-ext: default,selection-to-clipboard,matcher,notify-osc
 URxvt.keysym.C-Delete: perl:matcher:list
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
