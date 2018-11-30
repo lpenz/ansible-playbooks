@@ -1,6 +1,10 @@
 ---
 - include: aptcfg.yml
 - include: packagecloud.yml
+
+- name: run apt-update if necessary
+  meta: flush_handlers
+
 - include: packages.yml
 
 - name: install wifi-disable-when-wired

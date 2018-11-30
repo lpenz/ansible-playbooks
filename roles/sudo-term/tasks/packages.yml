@@ -4,6 +4,7 @@
     package:
       - ansible
       - apt-transport-https
+      - debian-archive-keyring
       - emacs
       - gawk # required by tmux-fingers
       - git

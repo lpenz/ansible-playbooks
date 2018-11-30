@@ -8,7 +8,7 @@
 
 - name: rm sources.list
   file: dest=/etc/apt/sources.list state=absent
-  register: aptup1
+  notify: apt-update
 
 - apt_repository: repo='deb http://ftp.debian.org/debian {{item}} main contrib non-free' state=present
   with_items:
@@ -16,8 +16,4 @@
     - testing
     - unstable
     - experimental
-  register: aptup2
-
-- apt: update_cache=yes
-  when: aptup1.changed or aptup2.changed
-
+  notify: apt-update

@@ -6,8 +6,4 @@
   apt_key: url='https://packagecloud.io/lpenz/lpenz/gpgkey' id='3436F2D037B9886CDCA0318C06D53CED378B88C5' state=present
 
 - apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no
-  register: aptup3
-
-- apt: update_cache=yes
-  when: aptup3.changed
-
+  notify: apt-update
