@@ -1,0 +1,25 @@
+{% if ansible_lsb.id == "Raspbian" %}
+Package: *
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 600
+
+Package: *
+Pin: release o=Raspbian
+Pin-Priority: 600
+{% endif %}
+
+Package: *
+Pin: release a=stable
+Pin-Priority: 510
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 520
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 150
+
+Package: *
+Pin: release a=experimental
+Pin-Priority: 120

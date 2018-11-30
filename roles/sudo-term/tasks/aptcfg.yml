@@ -4,7 +4,12 @@
   when: ansible_lsb.id == "Debian"
 
 - name: setup pinning
-  copy: dest=/etc/apt/preferences.d/apt-pinning src=apt-pinning owner=root group=root mode=0644
+  template:
+    src: apt-pinning.j2
+    dest: /etc/apt/preferences.d/99pinning
+    owner: root
+    group: root
+    mode: 0644
 
 - name: rm sources.list
   file: dest=/etc/apt/sources.list state=absent
