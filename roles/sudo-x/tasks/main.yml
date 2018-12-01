@@ -1,7 +1,7 @@
 ---
 - include: packages.yml
-- include: google-chrome.yml
-  when: ansible_lsb.id == "Debian"
-- include: dropbox.yml
-# - include: spotify.yml
+
+- include: debian-x86.yml
+  when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture == "i386" )
+
 - include: xscreensaver.yml
