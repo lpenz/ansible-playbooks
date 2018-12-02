@@ -10,6 +10,7 @@
       - git
       - htop
       - keychain
+      - locales
       - mc
       - neovim
       - network-manager

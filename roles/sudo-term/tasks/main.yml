@@ -7,6 +7,16 @@
 
 - include: packages.yml
 
+- name: setup locales
+  locale_gen:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - "en_US" # ISO-8859-1
+    - "en_US.UTF-8"
+    - "pt_BR" # ISO-8859-1
+    - "pt_BR.UTF-8"
+
 - name: install wifi-disable-when-wired
   copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired owner=root group=root mode=0755
 
