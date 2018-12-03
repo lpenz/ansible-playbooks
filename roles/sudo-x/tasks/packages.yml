@@ -25,6 +25,12 @@
       - xfonts-terminus-dos
       - xscreensaver
       - xserver-xorg
+      # Audio:
+      - gkrellm-volume
+      - pavucontrol
+      - pavumeter
+      - pulseaudio
+      - pulseaudio-utils
 
 - name: setup rxvt-unicode as x-terminal-emulator
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
