@@ -6,6 +6,7 @@
       - apt-transport-https
       - debian-archive-keyring
       - emacs
+      - fzf
       - gawk # required by tmux-fingers
       - git
       - htop
@@ -14,6 +15,7 @@
       - mc
       - neovim
       - network-manager
+      - ripgrep
       - tmux
       - vim
       - zsh
