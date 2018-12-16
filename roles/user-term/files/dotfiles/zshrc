@@ -1,3 +1,5 @@
+# -*- shell-script -*-
+
 # lpenz .zshrc
 
 DISABLE_AUTO_TITLE=true
