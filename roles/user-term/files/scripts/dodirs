@@ -1,59 +1,31 @@
 #!/bin/bash
 
-function usage {
-	cat <<-EOF
-	Usage: $0 [-R] <shell commands>
-	       $0 <-h>
-	Enters each subdirectory of current directory and performs the supplied shell commands.
+TMP=$(mktemp)
+trap 'rm -f $TMP' EXIT
 
-	-R               Recursive.
-	-h               This help message.
-	<shell commands> Shell commands to execute in each dir.
-	EOF
-}
+cat <<END > "$TMP"
+#!/bin/bash
 
-while getopts ":Rh" opt; do
-   case $opt in
-   R )  RECURSIVE=1;;
-   h )  usage; exit 0;;
-   \?)  usage; exit 1;;
-   esac
+RG=0
+
+for d in "\$@"; do
+    printf 'dodirs[1]: Entering directory %s%s%s\\n' "\\\`" "$PWD/\$d" "'"
+    cd "\$d" || continue
+    echo + "$@"
+    $@
+    R=\$?
+    if [ "\$R" != 0 ]; then
+        RG="\$R"
+    fi
+    printf 'dodirs[1]: Leaving directory %s%s%s\\n' "\\\`" "$PWD/\$d" "'"
+    cd "$PWD" || :
 done
 
-shift $((OPTIND - 1))
+exit "\$RG"
 
-if [ $# -lt 1 ]; then
-	echo "Wrong number of arguments."
-	usage
-	exit 1
-fi
+END
 
-if [ -z "$DODIRSLVL" ]; then
-	export DODIRSLVL=0
-fi
+set -x -e
 
-DODIRSLVL=$((DODIRSLVL+1))
-
-RV=0
-
-for i in *; do
-	if [ -d "$i" ]; then
-		echo "dodirs[$DODIRSLVL]: Entering directory \`$PWD/$i'"
-		(cd "$i" || /bin/sh -c "$*")
-		R=$?
-		if [ "$RV" = "0" ]; then RV=$R; fi
-		if [ $RECURSIVE ]; then
-			dodirs "$*"
-			if [ "$RV" = "0" ]; then RV=$R; fi
-		fi
-		echo -n "dodirs[$DODIRSLVL]: Leaving directory \`$PWD/$i'"
-		if [ $? == 0 ]; then
-			echo
-		else
-			echo , error $?
-		fi
-	fi
-done
-
-exit $RV
+find . -mindepth 1 -maxdepth 1 -type d -exec /bin/bash "$TMP" {} +
 
