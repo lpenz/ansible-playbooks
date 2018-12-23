@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TARGET=${1-PWD}
+
+set -x -e
+
+mount -t devtmpfs dev "$TARGET/dev"
+trap 'umount -l "$TARGET/dev"' EXIT
+( mount -t devpts devpts "$TARGET/dev/pts"
+  trap 'umount "$TARGET/dev/pts"' EXIT
+  ( mount -t proc proc "$TARGET/proc"
+    trap 'umount "$TARGET/proc"' EXIT
+    ( mount -t sysfs sysfs "$TARGET/sys"
+      trap 'umount "$TARGET/sys"' EXIT
+      ( mount -t none -o bind /run "$TARGET/run"
+        trap 'umount "$TARGET/run"' EXIT
+
+        chroot "$@"
+
+        ))))
