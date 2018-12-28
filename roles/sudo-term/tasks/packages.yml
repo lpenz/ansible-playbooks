@@ -15,6 +15,7 @@
       - mc
       - neovim
       - network-manager
+      - renameutils
       - ripgrep
       - tmux
       - vim
