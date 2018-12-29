@@ -3,7 +3,6 @@
     state: present
     package:
       - ansible
-      - apt-transport-https
       - debian-archive-keyring
       - emacs
       - fzf
@@ -17,6 +16,7 @@
       - network-manager
       - renameutils
       - ripgrep
+      - rkhunter
       - tmux
       - vim
       - zsh
