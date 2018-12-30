@@ -11,3 +11,9 @@
     - { line: "PermitRootLogin prohibit-password", regex: "^ *#? *PermitRootLogin .*" }
     - { line: "UseDNS no", regex: "^ *#? *UseDNS .*" }
   notify: ssh-server-restart
+
+- name: ufw ssh allow
+  ufw:
+    rule: allow
+    name: OpenSSH
+
