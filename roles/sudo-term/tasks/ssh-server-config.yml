@@ -1,0 +1,13 @@
+---
+- name: ssh server config
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "{{item.line}}"
+    regexp: "{{item.regex}}"
+    state: present
+  with_items:
+    - { line: "PasswordAuthentication no", regex: "^ *#? *PasswordAuthentication .*" }
+    - { line: "ChallengeResponseAuthentication no", regex: "^ *#? *ChallengeResponseAuthentication .*" }
+    - { line: "PermitRootLogin prohibit-password", regex: "^ *#? *PermitRootLogin .*" }
+    - { line: "UseDNS no", regex: "^ *#? *UseDNS .*" }
+  notify: ssh-server-restart

@@ -20,3 +20,4 @@
 - name: install wifi-disable-when-wired
   copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired owner=root group=root mode=0755
 
+- include: ssh-server-config.yml
