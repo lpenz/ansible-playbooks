@@ -9,11 +9,10 @@
   copy:
     content: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
     dest: "/etc/apt/sources.list.d/google-chrome.list"
-  register: google_repo
+  notify: apt-update
 
-- name: "apt | update cache"
-  apt: update_cache=yes
-  when: google_repo.changed
+- name: run apt-update if necessary
+  meta: flush_handlers
 
 - name: "apt | ensure Google chrome present"
   apt: name=google-chrome-stable update_cache=yes
