@@ -12,9 +12,12 @@
       - python-libxslt1
       - cryptmount # to mount dropboxcrypted
 
+- package_facts:
+
 - apt:
     state: present
-    deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_{{debian_arch}}.deb"
+    deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.2_{{debian_arch}}.deb"
+  when: not "dropbox" in ansible_facts.packages
 
 - name: configure sysctl inotify max
   sysctl: name="fs.inotify.max_user_watches" value=100000 sysctl_set=yes
