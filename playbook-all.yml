@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+    - user-term
+    - sudo-term
+    - user-x
+    - sudo-x
+  become: yes
+  become_user: root
+
