@@ -1,22 +1,15 @@
 ---
-- name: rkhunter config 1
+- name: rkhunter config
   lineinfile:
     path: /etc/rkhunter.conf
     line: "{{item.line}}"
-    regexp: "{{item.regex}}"
+    regexp: "^ *#? *{{item.line}}$"
+    insertafter: "{{item.regex}}"
     state: present
   with_items:
     - { line: "ALLOW_SSH_ROOT_USER=prohibit-password", regex: "^ *#? *ALLOW_SSH_ROOT_USER=.*" }
     - { line: "PKGMGR=DPKG", regex: "^ *#? *PKGMGR=.*" }
     - { line: "IPC_SEG_SIZE=16777216", regex: "^ *#? *IPC_SEG_SIZE=.*" }
-
-- name: rkhunter config 2
-  lineinfile:
-    path: /etc/rkhunter.conf
-    line: "{{item.line}}"
-    insertafter: "{{item.regex}}"
-    state: present
-  with_items:
     - { line: "ALLOWHIDDENDIR=/etc/.java", regex: "^ *#? *ALLOWHIDDENDIR=.*" }
     - { line: "ALLOWIPCPROC=/usr/bin/firefox", regex: "^ *#? *ALLOWIPCPROC=.*" }
     - { line: "ALLOWIPCPROC=/usr/bin/firefox-esr", regex: "^ *#? *ALLOWIPCPROC=.*" }
