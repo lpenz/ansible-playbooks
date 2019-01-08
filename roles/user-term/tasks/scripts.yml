@@ -33,5 +33,6 @@
     - repeater
     - rust-install
     - stressnlog
+    - term-fix
     - vims-update
     - vmlimit-exec
