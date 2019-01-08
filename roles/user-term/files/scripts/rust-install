@@ -7,9 +7,9 @@ trap 'rm -f $TMP' EXIT
 
 set -x
 wget https://sh.rustup.rs -O "$TMP"
-bash "$TMP" --no-modify-path --default-toolchain nightly -y
-# cargo install clippy cargo-update
+# bash "$TMP" --no-modify-path --default-toolchain nightly -y
+bash "$TMP" --no-modify-path -y
 cargo install cargo-update
-rustup component add clippy-preview
-rustup component add rustfmt-preview
+rustup component add clippy
+rustup component add rustfmt
 
