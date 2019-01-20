@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e -x
+
+DISPLAY_SESSION=:1
+
+Xephyr "$DISPLAY_SESSION" -screen 1800x1000 &
+PID_X=$!
+trap 'kill "$PID_X"' EXIT
+sleep 1
+(
+export DISPLAY="$DISPLAY_SESSION"
+icewm-session &
+PID_ICEWM=$!
+trap 'kill "$PID_ICEWM"' EXIT
+steam
+)
+
+exit 0
+
