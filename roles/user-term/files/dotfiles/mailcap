@@ -1,6 +1,6 @@
 text/t2t; t2tview '%s'
-text/dot; dotview '%s'
-text/neato; neatoview '%s'
+text/dot; view-dot '%s'
+text/neato; view-dot '%s'
 #application/pdf; /usr/bin/xpdf '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
 application/pdf; /usr/bin/evince '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
 #application/pdf; /usr/bin/google-chrome '%s'; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf
