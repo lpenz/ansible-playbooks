@@ -34,5 +34,6 @@
     - rust-install
     - stressnlog
     - term-fix
+    - timestamp
     - vims-update
     - vmlimit-exec
