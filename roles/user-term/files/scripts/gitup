@@ -1,18 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e
+set -e -x
 
-if git status --porcelain | grep -q '^.'; then
-	STASH=true
-else
-	STASH=false
-fi
+git pull --rebase --autostash
 
-set -x
-
-if $STASH; then
-    git stash
-    trap 'git stash pop' EXIT
-fi
-
-git pull --rebase
