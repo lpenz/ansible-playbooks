@@ -4,3 +4,11 @@
   with_items:
     - zshrc
     - zshenv
+
+- name: check if using zplug
+  stat: path="{{lookup('env','HOME')}}/.zplug_enable"
+  register: zplug_enable
+
+- name: create .zplug/packages.zsh
+  copy: dest="{{lookup('env','HOME')}}/.zplug/packages.zsh" content=""
+  when: zplug_enable.stat.exists
