@@ -22,3 +22,4 @@
 
 - include: ssh-server-config.yml
 - include: rkhunter.yml
+- include: sudo.yml

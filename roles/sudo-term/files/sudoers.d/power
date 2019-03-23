@@ -1,0 +1,3 @@
+%adm ALL = NOPASSWD: /sbin/poweroff
+%adm ALL = NOPASSWD: /sbin/halt
+%adm ALL = NOPASSWD: /usr/sbin/pm-suspend

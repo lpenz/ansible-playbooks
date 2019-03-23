@@ -1,0 +1,11 @@
+---
+- name: install sudoers.d files
+  copy:
+    src: "sudoers.d/{{item}}"
+    dest: "/etc/sudoers.d/{{item}}"
+    owner: root
+    group: root
+    mode: 0440
+  with_items:
+    - power
+
