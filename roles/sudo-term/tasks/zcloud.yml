@@ -1,0 +1,11 @@
+---
+- name: install systemd zcloud.services
+  template:
+    src: "{{item}}"
+    dest: "/etc/systemd/system/{{item}}"
+    owner: root
+    group: root
+    mode: 0640
+  with_items:
+    - zcloud.service.j2
+  notify: zcloud

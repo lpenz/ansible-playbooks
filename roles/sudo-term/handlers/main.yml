@@ -4,3 +4,11 @@
 
 - name: ssh-server-restart
   service: name=sshd state=restarted
+
+- name: zcloud
+  systemd:
+    daemon_reload: yes
+    name: zcloud
+    state: started
+    enabled: yes
+
