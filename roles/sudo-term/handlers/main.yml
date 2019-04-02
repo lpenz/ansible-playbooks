@@ -5,10 +5,12 @@
 - name: ssh-server-restart
   service: name=sshd state=restarted
 
-- name: zcloud
-  systemd:
-    daemon_reload: yes
-    name: zcloud
-    state: started
-    enabled: yes
+- name: zcloud-box
+  systemd: daemon_reload=yes name="zcloud-box" state=started enabled=yes
+- name: zcloud-s3
+  systemd: daemon_reload=yes name="zcloud-s3" state=started enabled=yes
+- name: zcloud-gdrive
+  systemd: daemon_reload=yes name="zcloud-gdrive" state=started enabled=yes
+- name: zcloud-onedrive
+  systemd: daemon_reload=yes name="zcloud-onedrive" state=started enabled=yes
 

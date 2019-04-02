@@ -1,11 +1,15 @@
 [Unit]
-Description=zcloud rclone mount
+Description=zcloud rclone mount {{item}}
 After=network.target
 
 [Service]
 Type=simple
 User={{ ansible_ssh_user }}
-ExecStart=/usr/bin/env rclone -v mount box:zcloud /home/{{ ansible_ssh_user }}/zcloud --vfs-cache-mode=full 
+ExecStartPre=mkdir -p /home/{{ ansible_ssh_user }}/zcloud/{{item}}
+ExecStart=/usr/bin/env rclone -v mount
+{%- if item == "s3" %} s3:zcloud.lpenz.org
+{%- else %} {{item}}:zcloud
+{%- endif %} /home/{{ ansible_ssh_user }}/zcloud/{{item}} --vfs-cache-mode=full
 
 [Install]
 WantedBy=multi-user.target
