@@ -7,7 +7,7 @@ Type=simple
 User={{ ansible_ssh_user }}
 ExecStartPre=mkdir -p /home/{{ ansible_ssh_user }}/zcloud/{{item}}
 ExecStart=/usr/bin/env rclone -v mount
-{%- if item == "s3" %} s3:zcloud.lpenz.org
+{%- if item == "s3" %} --rc s3:zcloud.lpenz.org
 {%- else %} {{item}}:zcloud
 {%- endif %} /home/{{ ansible_ssh_user }}/zcloud/{{item}} --vfs-cache-mode=full
 
