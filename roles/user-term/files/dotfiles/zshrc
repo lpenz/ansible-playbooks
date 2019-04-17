@@ -134,6 +134,7 @@ alias ssh-nohostkey="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/
 alias ls="ls --color=tty"
 alias ll="ls -l"
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias gtags='gtags-lpenz-wrapper'
 
 # Load keychain
 if which keychain &> /dev/null; then
