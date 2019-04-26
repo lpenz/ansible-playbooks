@@ -3,7 +3,7 @@
 - name: install systemd zcloud.services
   template:
     src: "zcloud.service.j2"
-    dest: "/etc/systemd/system/zcloud-{{item}}.service"
+    dest: "/etc/systemd/system/{{ansible_user}}-zcloud-{{item}}.service"
     owner: root
     group: root
     mode: 0640
