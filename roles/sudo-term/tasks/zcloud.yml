@@ -6,6 +6,15 @@
     dest: "/etc/systemd/system/{{ansible_user}}-zcloud-{{item}}.service"
     owner: root
     group: root
-    mode: 0640
+    mode: 0644
   with_items: "{{zcloud_providers}}"
+  notify: systemd-reload
+
+- name: install private zcloud s3ql mount
+  template:
+    src: "zcloud-s3ql.service.j2"
+    dest: "/etc/systemd/system/{{ansible_user}}-zcloud-s3ql-{{ansible_hostname}}.service"
+    owner: root
+    group: root
+    mode: 0644
   notify: systemd-reload
