@@ -6,6 +6,9 @@ After=network.target
 Type=notify
 User={{ ansible_user }}
 ExecStartPre=mkdir -p /home/{{ ansible_user }}/zcloud/s3ql-{{ ansible_hostname }}
+ExecStartPre=chown {{ ansible_user }}:{{ ansible_user }} /home/{{ ansible_user }}/zcloud/s3ql-{{ ansible_hostname }}
+ExecStartPre=chmod 0700 /home/{{ ansible_user }}/zcloud/s3ql-{{ ansible_hostname }}
+ExecStartPre=-fsck.s3ql s3://eu-west-1/{{ ansible_user }}-sync-ire/{{ ansible_hostname }}/
 ExecStart=mount.s3ql --systemd --log none --fg s3://eu-west-1/{{ ansible_user }}-sync-ire/{{ ansible_hostname }}/ /home/{{ ansible_user }}/zcloud/s3ql-{{ ansible_hostname }}
 ExecStop=umount.s3ql /home/{{ ansible_user }}/zcloud/s3ql-{{ ansible_hostname }}
 
