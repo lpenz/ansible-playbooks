@@ -10,3 +10,6 @@
 
 - name: tmux_plugins_install_kill
   command: tmux kill-session -t install_plugins
+
+- name: systemd-reload
+  systemd: daemon_reload=yes scope=user
