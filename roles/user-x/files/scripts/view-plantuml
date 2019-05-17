@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+ulimit -v unlimited
+
+TMP=$(mktemp --suffix=png)
+trap 'rm -f "$TMP"' EXIT
+
+plantuml -p < "$1" > "$TMP"
+see "$TMP" 2>/dev/null
+

@@ -9,5 +9,6 @@ text/x-lua					lua
 application/evoluspencil	ep epz
 application/dia	dia
 text/msc msc
+text/plantuml puml
 text/plantuml plantuml
 font/otf otf

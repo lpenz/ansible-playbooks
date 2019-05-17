@@ -12,5 +12,6 @@
     - steam-session
     - tv
     - view-dot
+    - view-plantuml
     - warn
     - warnd.py

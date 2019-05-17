@@ -35,5 +35,5 @@ text/csv; cat '%s'; description="CSV Document"; nametemplate=%s.csv
 text/calendar; /home/penz/bin/icalview; copiousoutput
 application/dia; dia '%s'; test=test -n "$DISPLAY"
 text/msc; /home/penz/bin/mscview '%s'; test=test -n "$DISPLAY"
-text/plantuml; /home/penz/bin/plantumlview '%s'; test=test -n "$DISPLAY"
+text/plantuml; view-plantuml '%s'; test=test -n "$DISPLAY"
 image/vnd.djvu; /usr/bin/evince '%s'; test=test "$DISPLAY" != ""
