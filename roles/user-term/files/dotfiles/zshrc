@@ -17,6 +17,8 @@ then
     return
 fi
 
+# zmodload zsh/zprof # enable to profile zsh initialization
+
 if [ "$(ps -o ppid= $$ | xargs ps -o fname=)" = "xfce4-te" ] || [ "$TERM" = "rxvt-256color" ]; then
     export LC_POWERLINE_FONTS=true
 fi
@@ -219,6 +221,8 @@ fi
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
+
+# zprof # enable to profile zsh initialization
 
 # keep this comment here to avoid auto-insertion:
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
