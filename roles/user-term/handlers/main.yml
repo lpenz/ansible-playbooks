@@ -13,3 +13,4 @@
 
 - name: systemd-reload
   systemd: daemon_reload=yes scope=user
+  when: ansible_service_mgr == "systemd"

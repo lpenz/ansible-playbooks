@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:testing
 
 # install debian packages:
 ENV DEBIAN_FRONTEND=noninteractive
