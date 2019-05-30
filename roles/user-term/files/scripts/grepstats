@@ -8,7 +8,7 @@ TOTAL=$(grep -lv "$@" | wc -l)
 # shellcheck disable=SC2126
 MATCH=$(grep -l "$@" | wc -l)
 
-printf "k=%d\n" "$MATCH"
-printf "n=%d\n" "$TOTAL"
-printf "p=%f\n" "$(echo "1.0 * $MATCH / $TOTAL" | bc -l)"
+printf 'k=%d\n' "$MATCH"
+printf 'n=%d\n' "$TOTAL"
+printf 'p=%f\n' "$(echo "1.0 * $MATCH / $TOTAL" | bc -l)"
 

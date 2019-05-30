@@ -9,11 +9,11 @@ function vimup {
 
 set -e -x
 
-if which nvim > /dev/null; then
+if command -v nvim > /dev/null; then
     vimup nvim ~/.config/nvim ~/.config/nvim/init.vim
 fi
 
-if which vim > /dev/null; then
+if command -v vim > /dev/null; then
     vimup vim ~/.vim ~/.vim/vimrc
 fi
 

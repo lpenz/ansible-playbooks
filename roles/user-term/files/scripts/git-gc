@@ -2,7 +2,7 @@
 
 set -e
 
-TMP=$(tempfile)
+TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 
 git-prune
@@ -14,6 +14,6 @@ else
 	cat "$TMP"
 fi
 
-sed -n "s@warning: reflog of 'refs/remotes/origin/\([^']\+\)' references pruned commits@\1@p" "$TMP" \
+sed -n "s@warning: reflog of 'refs/remotes/origin/\\([^']\\+\\)' references pruned commits@\\1@p" "$TMP" \
 	| xargs '-I{}' -n 1 git update-ref -d 'refs/remotes/origin/{}'
 

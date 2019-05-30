@@ -3,9 +3,10 @@
 ECHO=false
 
 while getopts ":e" opt; do
-   case $opt in
-   e )  ECHO=true;;
-   esac
+    case $opt in
+        e ) ECHO=true;;
+        \?) echo "unknown flag"; exit 1;;
+    esac
 done
 
 shift $((OPTIND - 1))
@@ -13,7 +14,7 @@ shift $((OPTIND - 1))
 DST=$1
 shift
 
-TMP=$(tempfile)
+TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 
 "$@" &> "$TMP"

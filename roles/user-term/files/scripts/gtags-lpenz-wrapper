@@ -2,7 +2,7 @@
 
 set -e
 
-GLOBAL=$(which global)
+GLOBAL=$(command -v global)
 DIR=$(realpath "$GLOBAL")
 
 if ! echo "$DIR" | grep -q nix/store; then
