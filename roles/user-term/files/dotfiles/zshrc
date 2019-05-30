@@ -46,7 +46,6 @@ fi
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
 
-if [ -e "$HOME/.zplug_enable" ]; then
 
 # zplug:
 if [[ ! -d ~/.zplug ]]; then
@@ -76,31 +75,6 @@ fi
 zplug load # source plugins and add commands to $PATH
 # bindkey -e
 
-else
-
-source ~/.zgen-github/zgen.zsh
-function zgen-config() {
-    echo "Creating a zgen save"
-    zgen oh-my-zsh
-    # plugins
-    zgen oh-my-zsh plugins/z
-    zgen oh-my-zsh plugins/colored-man-pages
-    zgen oh-my-zsh plugins/go
-    zgen load zsh-users/zsh-completions
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-history-substring-search
-    zgen load lpenz/zsh-notify-urxvt
-    # dircolors
-    zgen load joel-porquet/zsh-dircolors-solarized
-    zgen load bhilburn/powerlevel9k powerlevel9k
-    # save all to init script
-    zgen save
-}
-if ! zgen saved; then
-    zgen-config
-fi
-
-fi
 
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
