@@ -17,9 +17,9 @@ then
     return
 fi
 
-zmodload zsh/datetime # EPOCHSECONDS
+zmodload zsh/datetime # EPOCHREALTIME
 zmodload zsh/zprof
-zprof_timestamp=$EPOCHSECONDS
+zprof_timestamp=$EPOCHREALTIME
 
 if [ "$TERM" = "rxvt-256color" ]; then
     export LC_POWERLINE_FONTS=true
@@ -225,10 +225,10 @@ fi
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
 
 function eval_zprof {
-   local elapsed=$(( EPOCHSECONDS - zprof_timestamp ))
+   local elapsed=$(( EPOCHREALTIME - zprof_timestamp ))
    if (( elapsed > 2 )); then
       zprof
-      echo zsh init took $elapsed s
+      printf "zsh init took %.2f s\n" "$elapsed"
    fi
    zmodload -u zsh/zprof # enable to profile zsh initialization
 }
