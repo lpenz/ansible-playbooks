@@ -5,10 +5,11 @@
     - zshrc
     - zshenv
 
-- name: check if using zplug
-  stat: path="{{lookup('env','HOME')}}/.zplug_enable"
-  register: zplug_enable
+- name: create zplugin dir
+  file: state=directory dest="{{lookup('env','HOME')}}/.zplugin"
 
-- name: create .zplug/packages.zsh
-  copy: dest="{{lookup('env','HOME')}}/.zplug/packages.zsh" content=""
-  when: zplug_enable.stat.exists
+- name: install zplugin
+  git:
+    repo: "https://github.com/zdharma/zplugin.git"
+    dest: "{{lookup('env','HOME')}}/.zplugin/bin"
+

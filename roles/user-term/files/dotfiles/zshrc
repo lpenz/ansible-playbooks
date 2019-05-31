@@ -4,7 +4,6 @@
 
 DISABLE_AUTO_TITLE=true
 
-
 # tramp (https://www.emacswiki.org/emacs/TrampMode#toc6)
 if [[ "$TERM" == "dumb" ]]
 then
@@ -26,7 +25,6 @@ if [ "$TERM" = "rxvt-256color" ]; then
 fi
 
 if [ "$LC_POWERLINE_FONTS" = "true" ]; then
-    # Enable nerdfont in xfce terminal only
     POWERLEVEL9K_MODE='nerdfont-complete'
 fi
 
@@ -46,8 +44,44 @@ fi
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
 
+function lpenz_bindkeys_menu {
+bindkey -M menuselect '^J' accept-and-infer-next-history
+bindkey -M menuselect '^H' undo
+bindkey -M menuselect '^K' vi-insert
+}
 
-# zplug:
+# plugin management
+
+if [ -f ~/.zplugin_enabled ]; then
+# zplugin {
+source ~/.zplugin/bin/zplugin.zsh
+zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' wait'!0' atload'lpenz_bindkeys_menu'
+zplugin snippet OMZ::lib/completion.zsh
+zplugin ice lucid
+zplugin snippet OMZ::lib/termsupport.zsh
+zplugin ice lucid wait'0'
+zplugin snippet OMZ::lib/key-bindings.zsh
+zplugin ice lucid wait'0'
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zplugin ice lucid wait'0'
+zplugin load zsh-users/zsh-completions
+zplugin ice lucid wait'0'
+zplugin snippet OMZ::lib/history.zsh
+zplugin ice lucid wait'0'
+zplugin snippet OMZ::plugins/history/history.plugin.zsh
+zplugin ice lucid wait'0'
+zplugin load zsh-users/zsh-history-substring-search
+zplugin ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
+zplugin load 'joel-porquet/zsh-dircolors-solarized'
+zplugin ice lucid wait'0'
+zplugin load 'lpenz/zsh-notify-urxvt'
+zplugin ice lucid wait'0'
+zplugin load 'zdharma/fast-syntax-highlighting'
+zplugin ice lucid src'powerlevel9k.zsh-theme'
+zplugin load 'bhilburn/powerlevel9k'
+# } zplugin
+else
+# zplug {
 if [[ ! -d ~/.zplug ]]; then
     git clone https://github.com/zplug/zplug ~/.zplug
     source ~/.zplug/init.zsh && zplug update --self
@@ -58,7 +92,6 @@ zplug "lib/completion", from:oh-my-zsh
 zplug "lib/history", from:oh-my-zsh
 zplug "lib/termsupport", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/go", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
@@ -73,15 +106,12 @@ if ! zplug check --verbose; then
     echo "zplug install"
 fi
 zplug load # source plugins and add commands to $PATH
-# bindkey -e
-
+# } zplug
+fi
 
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-
-setupsolarized dircolors.ansi-dark
-# PROMPT='%(?,%{$fg[white]%},%{$fg[red]%}) %% '
 
 # Custom configs:
 WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
@@ -89,9 +119,6 @@ setopt no_share_history
 setopt clobber
 
 # Hotkeys:
-bindkey -M menuselect '^J' accept-and-infer-next-history
-bindkey -M menuselect '^H' undo
-bindkey -M menuselect '^K' vi-insert
 bindkey "\ej" accept-and-menu-complete
 bindkey -s "\e[21~" "\033q\025mymake\012"
 bindkey -s "\er" "\033q\025i=0; while ! read -t 1 && ! !!; do i=\$((i+1)); echo \"======== \$i \$(date)\";  done"
