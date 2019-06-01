@@ -20,34 +20,36 @@ zmodload zsh/datetime # EPOCHREALTIME
 zmodload zsh/zprof
 zprof_timestamp=$EPOCHREALTIME
 
-if [ "$TERM" = "rxvt-256color" ]; then
-    export LC_POWERLINE_FONTS=true
-fi
+function lpenz_powerlevel9k_setup {
+    if [ "$TERM" = "rxvt-256color" ]; then
+        export LC_POWERLINE_FONTS=true
+    fi
 
-if [ "$LC_POWERLINE_FONTS" = "true" ]; then
-    POWERLEVEL9K_MODE='nerdfont-complete'
-fi
+    if [ "$LC_POWERLINE_FONTS" = "true" ]; then
+        POWERLEVEL9K_MODE='nerdfont-complete'
+    fi
 
-if [[ "$UID" -eq 0 ]]; then
-    prompt_user_indicator() {
-        "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "yellow" "" 'ROOT_ICON'
-    }
-else
-    prompt_user_indicator() {
-        "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "blue" "\uf295" ""
-    }
-fi
-if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
-    POWERLEVEL9K_CONTEXT_TEMPLATE=%m
-fi
+    if [[ "$UID" -eq 0 ]]; then
+        prompt_user_indicator() {
+            "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "yellow" "" 'ROOT_ICON'
+        }
+    else
+        prompt_user_indicator() {
+            "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" "blue" "\uf295" ""
+        }
+    fi
+    if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
+        POWERLEVEL9K_CONTEXT_TEMPLATE=%m
+    fi
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
+}
 
-function lpenz_bindkeys_menu {
-bindkey -M menuselect '^J' accept-and-infer-next-history
-bindkey -M menuselect '^H' undo
-bindkey -M menuselect '^K' vi-insert
+function lpenz_bindkeys_setup {
+    bindkey -M menuselect '^J' accept-and-infer-next-history
+    bindkey -M menuselect '^H' undo
+    bindkey -M menuselect '^K' vi-insert
 }
 
 # plugin management
@@ -55,7 +57,7 @@ bindkey -M menuselect '^K' vi-insert
 if [ -f ~/.zplugin_enabled ]; then
 # zplugin {
 source ~/.zplugin/bin/zplugin.zsh
-zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' wait'!0' atload'lpenz_bindkeys_menu'
+zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' atload'lpenz_bindkeys_setup'
 zplugin snippet OMZ::lib/completion.zsh
 zplugin ice lucid
 zplugin snippet OMZ::lib/termsupport.zsh
@@ -65,9 +67,9 @@ zplugin ice lucid wait'0'
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 zplugin ice lucid wait'0'
 zplugin load zsh-users/zsh-completions
-zplugin ice lucid wait'0'
+zplugin ice lucid
 zplugin snippet OMZ::lib/history.zsh
-zplugin ice lucid wait'0'
+zplugin ice lucid wait'!0'
 zplugin snippet OMZ::plugins/history/history.plugin.zsh
 zplugin ice lucid wait'0'
 zplugin load zsh-users/zsh-history-substring-search
@@ -77,8 +79,14 @@ zplugin ice lucid wait'0'
 zplugin load 'lpenz/zsh-notify-urxvt'
 zplugin ice lucid wait'0'
 zplugin load 'zdharma/fast-syntax-highlighting'
-zplugin ice lucid src'powerlevel9k.zsh-theme'
+zplugin ice lucid src'powerlevel9k.zsh-theme' atinit'lpenz_powerlevel9k_setup'
 zplugin load 'bhilburn/powerlevel9k'
+zplugin ice lucid from"gh-r" as"program"
+zplugin load junegunn/fzf-bin
+zplugin ice lucid wait'0' from"gh" 
+zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
+zplugin ice lucid wait'0' from"gh" 
+zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
 # } zplugin
 else
 # zplug {
@@ -212,15 +220,6 @@ precmd_functions+=(lpenz_precmd)
 
 # do not beep
 setterm --blength 0 2>/dev/null 
-
-# fzf setup, C-r rocks
-if [ -f "/usr/share/zsh/vendor-completions/_fzf" ]; then
-    . "/usr/share/zsh/vendor-completions/_fzf"
-    . "/usr/share/doc/fzf/examples/key-bindings.zsh"
-elif [ -f "$HOME/.nix-profile/share/fzf/completion.zsh" ]; then
-    . "$HOME/.nix-profile/share/fzf/completion.zsh"
-    . "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
-fi
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
