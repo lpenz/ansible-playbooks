@@ -46,7 +46,8 @@ function lpenz_powerlevel9k_setup {
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
 }
 
-function lpenz_bindkeys_setup {
+function lpenz_completion_setup {
+    WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
     bindkey -M menuselect '^J' accept-and-infer-next-history
     bindkey -M menuselect '^H' undo
     bindkey -M menuselect '^K' vi-insert
@@ -57,7 +58,7 @@ function lpenz_bindkeys_setup {
 if [ -f ~/.zplugin_enabled ]; then
 # zplugin {
 source ~/.zplugin/bin/zplugin.zsh
-zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' atload'lpenz_bindkeys_setup'
+zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
 zplugin snippet OMZ::lib/completion.zsh
 zplugin ice lucid
 zplugin snippet OMZ::lib/termsupport.zsh
@@ -90,6 +91,7 @@ zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.z
 # } zplugin
 else
 # zplug {
+lpenz_powerlevel9k_setup
 if [[ ! -d ~/.zplug ]]; then
     git clone https://github.com/zplug/zplug ~/.zplug
     source ~/.zplug/init.zsh && zplug update --self
@@ -114,6 +116,7 @@ if ! zplug check --verbose; then
     echo "zplug install"
 fi
 zplug load # source plugins and add commands to $PATH
+lpenz_completion_setup
 # } zplug
 fi
 
@@ -122,7 +125,6 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Custom configs:
-WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
 setopt no_share_history
 setopt clobber
 
