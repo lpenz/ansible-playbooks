@@ -16,10 +16,6 @@ then
     return
 fi
 
-zmodload zsh/datetime # EPOCHREALTIME
-zmodload zsh/zprof
-zprof_timestamp=$EPOCHREALTIME
-
 function lpenz_powerlevel9k_setup {
     if [ "$TERM" = "rxvt-256color" ]; then
         export LC_POWERLINE_FONTS=true
@@ -55,7 +51,6 @@ function lpenz_completion_setup {
 
 # plugin management
 
-if [ -f ~/.zplugin_enabled ]; then
 # zplugin {
 source ~/.zplugin/bin/zplugin.zsh
 zplugin ice lucid
@@ -89,36 +84,6 @@ zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.z
 zplugin ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
 zplugin load 'zdharma/fast-syntax-highlighting'
 # } zplugin
-else
-# zplug {
-lpenz_powerlevel9k_setup
-if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-    source ~/.zplug/init.zsh && zplug update --self
-else
-    source ~/.zplug/init.zsh
-fi
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
-zplug "lib/termsupport", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/go", from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized dircolors.ansi-dark"
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-zplug "lpenz/zsh-notify-urxvt"
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-if ! zplug check --verbose; then
-    echo "Plugins not installed, please run"
-    echo "zplug install"
-fi
-zplug load # source plugins and add commands to $PATH
-lpenz_completion_setup
-# } zplug
-fi
 
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -225,16 +190,6 @@ setterm --blength 0 2>/dev/null
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
-
-function eval_zprof {
-   local elapsed=$(( EPOCHREALTIME - zprof_timestamp ))
-   if (( elapsed > 2 )); then
-      zprof
-      printf "zsh init took %.2f s\n" "$elapsed"
-   fi
-   zmodload -u zsh/zprof # enable to profile zsh initialization
-}
-eval_zprof
 
 # keep this comment here to avoid auto-insertion:
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
