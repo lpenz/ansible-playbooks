@@ -58,10 +58,10 @@ function lpenz_completion_setup {
 if [ -f ~/.zplugin_enabled ]; then
 # zplugin {
 source ~/.zplugin/bin/zplugin.zsh
-zplugin ice lucid wait'!0' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
-zplugin snippet OMZ::lib/completion.zsh
 zplugin ice lucid
 zplugin snippet OMZ::lib/termsupport.zsh
+zplugin ice lucid wait'0'
+zplugin snippet OMZ::lib/completion.zsh
 zplugin ice lucid wait'0'
 zplugin snippet OMZ::lib/key-bindings.zsh
 zplugin ice lucid wait'0'
@@ -78,8 +78,6 @@ zplugin ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
 zplugin load 'joel-porquet/zsh-dircolors-solarized'
 zplugin ice lucid wait'0'
 zplugin load 'lpenz/zsh-notify-urxvt'
-zplugin ice lucid wait'0'
-zplugin load 'zdharma/fast-syntax-highlighting'
 zplugin ice lucid src'powerlevel9k.zsh-theme' atinit'lpenz_powerlevel9k_setup'
 zplugin load 'bhilburn/powerlevel9k'
 zplugin ice lucid from"gh-r" as"program"
@@ -88,6 +86,8 @@ zplugin ice lucid wait'0' from"gh"
 zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
 zplugin ice lucid wait'0' from"gh" 
 zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
+zplugin ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
+zplugin load 'zdharma/fast-syntax-highlighting'
 # } zplugin
 else
 # zplug {
