@@ -55,7 +55,7 @@ function lpenz_completion_setup {
 source ~/.zplugin/bin/zplugin.zsh
 zplugin ice lucid
 zplugin snippet OMZ::lib/termsupport.zsh
-zplugin ice lucid wait'0'
+zplugin ice lucid wait'!0'
 zplugin snippet OMZ::lib/completion.zsh
 zplugin ice lucid wait'0'
 zplugin snippet OMZ::lib/key-bindings.zsh
