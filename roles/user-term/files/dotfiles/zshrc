@@ -16,6 +16,12 @@ then
     return
 fi
 
+if ! [ -d "$HOME/.zplugin/bin" ]; then
+   mkdir -p "$HOME/.zplugin"
+   rm -rf "$HOME/.zplugin/bin"
+   git clone https://github.com/zdharma/zplugin.git "$HOME/.zplugin/bin"
+fi
+
 function lpenz_powerlevel9k_setup {
     if [ "$TERM" = "rxvt-256color" ]; then
         export LC_POWERLINE_FONTS=true
