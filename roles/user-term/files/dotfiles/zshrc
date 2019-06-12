@@ -16,6 +16,9 @@ then
     return
 fi
 
+# Local zsh, namespace trampoline
+if test -r ~/.zshrc.local.pre; then . ~/.zshrc.local.pre; fi
+
 if ! [ -d "$HOME/.zplugin/bin" ]; then
    mkdir -p "$HOME/.zplugin"
    rm -rf "$HOME/.zplugin/bin"
