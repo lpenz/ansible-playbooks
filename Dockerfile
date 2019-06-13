@@ -45,6 +45,6 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["./test"]
 
 # If your UID is 1000, you can simply run the container as
-# docker run -it --rm -v $PWD:/home/user/work ansible-playbooks
+# docker run -it --rm -v $PWD:/home/user/work "${PWD##*/}"
 # otherwise, run it as:
-# docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID ansible-playbooks
+# docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID "${PWD##*/}"
