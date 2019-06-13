@@ -47,8 +47,12 @@ function lpenz_powerlevel9k_setup {
         POWERLEVEL9K_CONTEXT_TEMPLATE=%m
     fi
 
+    GITSTATUS_DAEMON_CANDIDATE="$HOME/.zplugin/plugins/romkatv---powerlevel10k/gitstatus/bin/gitstatusd-linux-x86_64-static"
+    if "$GITSTATUS_DAEMON_CANDIDATE" -h &>/dev/null; then
+        GITSTATUS_DAEMON="$GITSTATUS_DAEMON_CANDIDATE"
+    fi
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context dir)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs vcs context dir)
 }
 
 function lpenz_completion_setup {
