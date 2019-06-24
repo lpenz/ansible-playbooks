@@ -12,8 +12,7 @@
     value: true
 
 - name: git config path must exist
-  file: dest={{item}} state=directory
-  with_items: [ ~/.config, ~/.config/git ]
+  file: name="{{lookup('env','HOME')}}/.config/git" state=directory
 
 - name: gitignore setup
   lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{item}}

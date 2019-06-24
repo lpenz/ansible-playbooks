@@ -1,20 +1,26 @@
 ---
-- name: create ~/.mc
+- name: ~/.config dir must exist
+  file: name="{{lookup('env','HOME')}}/.config" state=directory
+
+- name: ~/.config/nix dir must exist
+  file: dest="{{lookup('env','HOME')}}/.config/nix" state=directory
+- name: ~/.mc dir must exist
   file: name="{{lookup('env','HOME')}}/.mc" state=directory
 - name: install dotfiles
   copy: src="{{item.src}}" dest="{{item.dest}}"
   with_items:
+    - { src: "dotfiles/agignore"     , dest: "~/.agignore"     }
+    - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }
     - { src: "dotfiles/expectk.rc"   , dest: "~/.expectk.rc"   }
     - { src: "dotfiles/expect.rc"    , dest: "~/.expect.rc"    }
     - { src: "dotfiles/mailcap"      , dest: "~/.mailcap"      }
-    - { src: "dotfiles/mime.types"   , dest: "~/.mime.types"   }
-    - { src: "dotfiles/screenrc"     , dest: "~/.screenrc"     }
     - { src: "dotfiles/mc.ini"       , dest: "~/.mc/ini"       }
-    - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
-    - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }
+    - { src: "dotfiles/mime.types"   , dest: "~/.mime.types"   }
+    - { src: "dotfiles/nix.conf"     , dest: "~/.config/nix/" }
     - { src: "dotfiles/pdbrc"        , dest: "~/.pdbrc"        }
     - { src: "dotfiles/pdb_rc.py"    , dest: "~/.pdb_rc.py"    }
-    - { src: "dotfiles/agignore"     , dest: "~/.agignore"     }
+    - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
+    - { src: "dotfiles/screenrc"     , dest: "~/.screenrc"     }
 
 - name: gdbinit save history
   lineinfile:

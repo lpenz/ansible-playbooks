@@ -1,5 +1,5 @@
 ---
-- name: create ~/bin
+- name: ~/bin dir must exist
   file: name="{{lookup('env','HOME')}}/bin" state=directory
 - name: install scripts
   copy: src="scripts/{{item}}" dest="~/bin/{{item}}" mode=0755
