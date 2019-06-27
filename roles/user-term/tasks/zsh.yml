@@ -12,4 +12,5 @@
   git:
     repo: "https://github.com/zdharma/zplugin.git"
     dest: "{{lookup('env','HOME')}}/.zplugin/bin"
+    update: no
 
