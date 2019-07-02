@@ -1,0 +1,10 @@
+[Unit]
+Description=clipinfo-clipboard
+BindTo=%u-x-wm.service
+After=%u-x-wm.service
+
+[Service]
+ExecStart=%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt
+
+[Install]
+WantedBy=%u-x-wm.service

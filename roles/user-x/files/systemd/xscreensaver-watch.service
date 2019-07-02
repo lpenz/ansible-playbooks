@@ -1,0 +1,11 @@
+[Unit]
+Description=xscreensaver-watch
+BindTo=%u-x-xscreensaver.service
+After=%u-x-xscreensaver.service
+
+[Service]
+ExecStartPre=logger -t xscreensaver STARTED
+ExecStart=/bin/bash -c 'set -e -o pipefail; xscreensaver-command -watch | logger -t xscreensaver'
+
+[Install]
+WantedBy=%u-x-xscreensaver.service

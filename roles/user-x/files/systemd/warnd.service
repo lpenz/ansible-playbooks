@@ -1,0 +1,10 @@
+[Unit]
+Description=warnd
+BindTo=%u-x-wm.service
+After=%u-x-wm.service
+
+[Service]
+ExecStart=%h/bin/warnd.py -f %h/.warnd_fifo -l %h/.warnd_log1,%h/.warnd_log2
+
+[Install]
+WantedBy=%u-x-wm.service

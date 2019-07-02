@@ -1,5 +1,6 @@
 ---
 - include: scripts.yml
 - include: dotfiles.yml
+- include: systemd.yml
 - include: notion.yml
 - include: gkrellm.yml

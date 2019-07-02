@@ -1,0 +1,5 @@
+[Unit]
+Description=Window manager
+
+[Service]
+ExecStart=/usr/bin/notion

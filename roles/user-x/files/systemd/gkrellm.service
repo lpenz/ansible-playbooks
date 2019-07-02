@@ -1,0 +1,11 @@
+[Unit]
+Description=gkrellm
+BindTo=%u-x-wm.service
+After=%u-x-wm.service
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/gkrellm
+
+[Install]
+WantedBy=%u-x-wm.service

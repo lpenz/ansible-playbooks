@@ -1,0 +1,10 @@
+[Unit]
+Description=stalonetray
+BindTo=%u-x-gkrellm.service
+After=%u-x-gkrellm.service
+
+[Service]
+ExecStart=stalonetray --window-type dock --geometry 3x5
+
+[Install]
+WantedBy=%u-x-gkrellm.service

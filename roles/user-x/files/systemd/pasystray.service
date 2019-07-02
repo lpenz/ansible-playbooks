@@ -1,0 +1,10 @@
+[Unit]
+Description=pasystray
+BindTo=%u-x-stalonetray.service
+After=%u-x-stalonetray.service
+
+[Service]
+ExecStart=pasystray
+
+[Install]
+WantedBy=%u-x-stalonetray.service

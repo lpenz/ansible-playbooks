@@ -1,0 +1,10 @@
+[Unit]
+Description=nm-applet
+BindTo=%u-x-stalonetray.service
+After=%u-x-stalonetray.service
+
+[Service]
+ExecStart=nm-applet
+
+[Install]
+WantedBy=%u-x-stalonetray.service
