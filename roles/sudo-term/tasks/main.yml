@@ -20,6 +20,14 @@
 - name: install wifi-disable-when-wired
   copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired owner=root group=root mode=0755
 
+- name: install sysctl.d/local-userns.conf
+  copy:
+    src: sysctl.d/local-userns.conf
+    dest: /etc/sysctl.d/local-userns.conf
+    owner: root
+    group: root
+    mode: 0644
+
 - include: ssh-server-config.yml
 - include: rkhunter.yml
 - include: sudo.yml
