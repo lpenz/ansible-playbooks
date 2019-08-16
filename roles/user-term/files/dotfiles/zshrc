@@ -47,6 +47,7 @@ function lpenz_powerlevel9k_setup {
         POWERLEVEL9K_CONTEXT_TEMPLATE=%m
     fi
 
+    GITSTATUS_NUM_THREADS=1
     GITSTATUS_DAEMON_CANDIDATE="$HOME/.zplugin/plugins/romkatv---powerlevel10k/gitstatus/bin/gitstatusd-linux-x86_64-static"
     if "$GITSTATUS_DAEMON_CANDIDATE" -h &>/dev/null; then
         GITSTATUS_DAEMON="$GITSTATUS_DAEMON_CANDIDATE"
