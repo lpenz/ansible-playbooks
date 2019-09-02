@@ -76,6 +76,7 @@
 
 ! Penz config:
 
+Xcursor.size: 24
 *font: xft:DejaVuSansMono:size=14:antialias=true:autohint=true
 
 *Text.borderWidth: 1
