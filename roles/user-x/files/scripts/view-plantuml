@@ -2,11 +2,13 @@
 
 set -e -o pipefail
 
+set -x
+
 ulimit -v unlimited
 
-TMP=$(mktemp --suffix=png)
-trap 'rm -f "$TMP"' EXIT
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
 
-plantuml -p < "$1" > "$TMP"
-see "$TMP" 2>/dev/null
+plantuml -tpng -o "$TMP" "$1"
+see "$TMP"/*.png 2>/dev/null
 
