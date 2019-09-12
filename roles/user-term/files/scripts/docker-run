@@ -11,6 +11,8 @@ trap 'rm -f $TMP' EXIT
 if [ -e Dockerfile ] && grep -q '^# docker run ' Dockerfile; then
    sed -n 's@^# \(docker run .*\)$@\1@p' Dockerfile | head -1 > "$TMP"
    IFS=" " read -r -a CMD <<< "$(cat "$TMP")"
+elif [ -e Dockerfile ] && grep -q '^[#].*cd .home.user.work' Dockerfile; then
+   CMD=( docker run -it --rm -P -v "$PWD:/home/user/work" -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix -e "MY_UID=$UID" --name "$NAME" "${PWD##*/}" )
 else
    if [ -e Dockerfile ]; then
       IMAGE="${PWD##*/}"
@@ -18,7 +20,7 @@ else
       IMAGE="${1?no Dockerfile and no image name provided}"
       shift
    fi
-   CMD=( docker run -it --rm -P -v "$PWD:/home/user/work" -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix -e "MY_UID=$UID" --name "$NAME" "$IMAGE" )
+   CMD=( docker run -it --rm -P -u "$UID" -v "$PWD:$PWD" -w "$PWD" -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix --name "$NAME" "$IMAGE" )
 fi
 
 set -x -e
