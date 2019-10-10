@@ -5,5 +5,18 @@
 - name: packagecloud-key-import-new
   apt_key: url='https://packagecloud.io/lpenz/lpenz/gpgkey' id='3436F2D037B9886CDCA0318C06D53CED378B88C5' state=present
 
-- apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no
+- name: packagecloud-key-import-debian
+  apt_key: url='https://packagecloud.io/lpenz/debian/gpgkey' id='191E73288C5ECDE2' state=present
+  when: ansible_lsb.id == "Debian"
+
+- name: packagecloud-key-import-raspbian
+  apt_key: url='https://packagecloud.io/lpenz/raspbian/gpgkey' id='A42143653C34406F' state=present
+  when: ansible_lsb.id == "Raspbian"
+
+- name: rm packagecloud.io/lpenz/lpenz
+  apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no state=absent
+  notify: apt-update
+
+- name: add packagecloud.io/lpenz/{{ansible_lsb.id|lower}}
+  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ansible_lsb.id|lower}}/debian/ buster main' update_cache=no
   notify: apt-update
