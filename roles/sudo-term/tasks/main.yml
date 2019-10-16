@@ -1,5 +1,10 @@
 ---
-- include: aptcfg.yml
+- include: aptcfg-debian.yml
+  when: ansible_lsb.id == "Debian"
+
+- include: aptcfg-raspbian.yml
+  when: ansible_lsb.id == "Raspbian"
+
 - include: packagecloud.yml
 
 - name: run apt-update if necessary
@@ -32,3 +37,6 @@
 - include: rkhunter.yml
 - include: sudo.yml
 - include: zcloud.yml
+
+- include: network-raspbian.yml
+  when: ansible_lsb.id == "Raspbian"

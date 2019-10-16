@@ -1,0 +1,29 @@
+---
+- name: raspbian, setup pinning
+  template:
+    src: apt-pinning-raspbian.j2
+    dest: /etc/apt/preferences.d/99pinning
+    owner: root
+    group: root
+    mode: 0644
+
+- name: raspbian, install Debian keys
+  apt_key: url='https://ftp-master.debian.org/keys/{{item}}' id='E1CF20DDFFE4B89E802658F1E0B11894F66AEC98' state=present
+  with_items:
+    - 'archive-key-8.asc'
+    - 'archive-key-9.asc'
+  notify: apt-update
+
+- name: rm sources.list
+  file: dest=/etc/apt/sources.list state=absent
+  notify: apt-update
+
+- name: raspbian default apt repositories
+  apt_repository:
+    repo: "{{item}}"
+    state: present
+  with_items:
+    - 'deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi firmware'
+    - 'deb http://archive.raspberrypi.org/debian/ buster main ui'
+  notify: apt-update
+

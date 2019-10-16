@@ -3,7 +3,6 @@
     state: present
     package:
       - ansible
-      - debian-archive-keyring
       - emacs
       - fzf
       - gawk # required by tmux-fingers
