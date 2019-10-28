@@ -18,5 +18,5 @@
   notify: apt-update
 
 - name: add packagecloud.io/lpenz/{{ansible_lsb.id|lower}}
-  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ansible_lsb.id|lower}}/debian/ buster main' update_cache=no
+  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ansible_lsb.id|lower}}/{{ansible_lsb.id|lower}}/ buster main' update_cache=no
   notify: apt-update
