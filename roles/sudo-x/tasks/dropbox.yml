@@ -8,8 +8,6 @@
   apt:
     state: present
     package:
-      - python-gpgme
-      - python-libxslt1
       - cryptmount # to mount dropboxcrypted
 
 - package_facts:
