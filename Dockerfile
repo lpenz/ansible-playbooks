@@ -7,8 +7,8 @@ RUN set -x -e; \
     apt-get install -y --no-install-recommends \
         locales \
         openssh-client \
-        python-pip python-setuptools python-wheel \
-        flake8 python-nosexcover \
+        python3-pip python3-setuptools python3-wheel \
+        flake8 python3-nosexcover \
         ansible \
         shellcheck \
         gnupg \
@@ -22,11 +22,6 @@ RUN set -x -e; \
     echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
     locale-gen
 ENV LC_ALL=en_US.UTF-8
-
-# install pip packages:
-RUN set -x -e; \
-    pip install \
-        py3kwarn==0.4.4
 
 # setup entrypoint with user UID/GID from host
 RUN set -x -e; \

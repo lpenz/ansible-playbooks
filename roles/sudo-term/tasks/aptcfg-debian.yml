@@ -1,6 +1,6 @@
 ---
 - name: install packages required by apt_repository
-  apt: package=python-apt state=present
+  apt: package=python3-apt state=present
 
 - name: setup pinning
   template:

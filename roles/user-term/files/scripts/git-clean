@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 '''Cleans a git repository, but maintains certain files'''
 
 import os
