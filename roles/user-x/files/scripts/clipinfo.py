@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
-import string
 import logging
 import sys
 import getopt
 import re
 import syslog
-import pygtk
-import gtk
-import gobject
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, GObject  # noqa: E402
 
-pygtk.require('2.0')
 
-USAGE = string.join([
+USAGE = '\n'.join([
     'Usage: %s [-h] [-l] [-f <file>] [-o <file>]' % sys.argv[0],
     '  Puts clipboard in file or log when it changes.',
     '  -l, --log           Output to syslog, USER NOTICE.',
@@ -23,7 +21,7 @@ USAGE = string.join([
     '  -c, --clipboard     Only clipboard.',
     '  -p, --primary       Only primary clipboard.',
     '  -s, --secondary     Only secondary clipboard.',
-], '\n')
+])
 
 
 def usage():
@@ -32,7 +30,7 @@ def usage():
 
 class Clipboard(object):
     # signal handler called when the clipboard returns text data
-    def clipboard_text_received(self, clipboard, text, data):
+    def clipboard_text_received(self, clipboard, text):
         if not text:
             return
         text = ' '.join(text.split('\n')).strip()
@@ -67,14 +65,14 @@ class Clipboard(object):
     def __init__(self, type, name, log, fname, fdout, bare, maxlen):
         self.last = ''
         self.name = name
-        self.clipboard = gtk.clipboard_get(type)
+        self.clipboard = Gtk.Clipboard.get(type)
         self.clipboard.request_text(self.clipboard_text_received)
         self.log = log
         self.fname = fname
         self.fdout = fdout
         self.bare = bare
         self.maxlen = maxlen
-        gobject.timeout_add(1500, self.fetch_clipboard_info)
+        GObject.timeout_add(1500, self.fetch_clipboard_info)
         return
 
 
@@ -128,16 +126,16 @@ def main():
             maxlen = int(a)
     cbe = []
     if chosec or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_CLIPBOARD,
+        cbe.append(Clipboard(Gdk.SELECTION_CLIPBOARD,
                              'clipboard', log, fname, fdout, bare, maxlen))
     if chosep or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_PRIMARY,
+        cbe.append(Clipboard(Gdk.SELECTION_PRIMARY,
                              'primary', log, fname, fdout, bare, maxlen))
     if choses or not chose:
-        cbe.append(Clipboard(gtk.gdk.SELECTION_SECONDARY,
+        cbe.append(Clipboard(Gdk.SELECTION_SECONDARY,
                              'secondary', log, fname, fdout, bare, maxlen))
     syslog.openlog('clipboard')
-    gtk.main()
+    Gtk.main()
     return 0
 
 

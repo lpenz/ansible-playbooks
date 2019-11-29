@@ -2,7 +2,6 @@
 
 import getopt
 import sys
-import string
 import os
 
 Options = {
@@ -18,14 +17,14 @@ State = {
     'currentlog': 0,
 }
 
-USAGE = string.join([
+USAGE = '\n'.join([
     'Usage: %s' % sys.argv[0],
     '  Warns the user about something, one-liner.',
     '  -f, --fifo FIFO            Create designed fifo. Default is %s.'
     % Options['fifo'],
     '  -l, --log LOG1,LOG2,...    Where to log the messages. '
     'Userfull with root-tail. Default: no log.',
-], '\n')
+])
 
 
 def usage():
