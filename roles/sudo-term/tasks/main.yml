@@ -36,6 +36,7 @@
 - include: ssh-server-config.yml
 - include: rkhunter.yml
 - include: sudo.yml
+- include: modprobe.yml
 - include: zcloud.yml
 
 - include: network-raspbian.yml

@@ -1,0 +1,11 @@
+---
+- name: install modprobe.d files
+  copy:
+    src: "modprobe.d/{{item}}"
+    dest: "/etc/modprobe.d/{{item}}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - loop.conf
+
