@@ -13,7 +13,6 @@
       - gkrelltop
       - libnotify-bin
       - mate-notification-daemon
-      - notion
       - pasystray
       - root-tail
       - rxvt-unicode
@@ -31,6 +30,9 @@
       - pavumeter
       - pulseaudio
       - pulseaudio-utils
+
+- apt: state=present package=notion
+  when: ansible_lsb.id != "Raspbian"
 
 - name: setup rxvt-unicode as x-terminal-emulator
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode
