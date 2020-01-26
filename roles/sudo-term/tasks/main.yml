@@ -33,6 +33,9 @@
     group: root
     mode: 0644
 
+- name: ufw needs iptables-legacy alternative
+  alternatives: name=iptables path=/usr/sbin/iptables-legacy
+
 - include: ssh-server-config.yml
 - include: rkhunter.yml
 - include: sudo.yml
