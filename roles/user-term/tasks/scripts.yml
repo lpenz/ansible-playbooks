@@ -4,6 +4,8 @@
 - name: install scripts
   copy: src="scripts/{{item}}" dest="~/bin/{{item}}" mode=0755
   with_items:
+    - chroot-with-mounts
+    - chroot-with-mounts-nons
     - difffiles
     - docker-build
     - docker-gc
@@ -28,7 +30,6 @@
     - grepstats
     - gtags-lpenz-wrapper
     - killtree
-    - mychroot
     - mymake
     - mymakesee
     - pstree-nothreads

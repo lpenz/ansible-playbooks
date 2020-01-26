@@ -1,0 +1,33 @@
+#!/bin/bash
+
+TARGET=${1-PWD}
+shift
+
+TMP=$(mktemp)
+trap 'rm -f $TMP' EXIT
+chmod u+x "$TMP"
+
+set -e
+
+cat > "$TMP"  <<END
+#!/bin/bash
+
+set -e -x
+
+: Entered mount namespace
+
+mount -t devtmpfs dev "$TARGET/dev"
+mount -t devpts devpts "$TARGET/dev/pts"
+mount -t proc proc "$TARGET/proc"
+mount -t sysfs sysfs "$TARGET/sys"
+mount -t none -o bind /run "$TARGET/run"
+
+END
+if [ "$#" = 0 ]; then
+    echo chroot "$TARGET" >> "$TMP"
+else
+    echo chroot "$TARGET" "$@" >> "$TMP"
+fi
+
+unshare -m -- "$TMP"
+
