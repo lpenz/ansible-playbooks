@@ -1,0 +1,12 @@
+---
+
+# Use this for static analisys (--check)
+
+- import_playbook: playbook-docker.yml
+- import_playbook: playbook-mine.yml
+- import_playbook: playbook-sudo-term.yml
+- import_playbook: playbook-sudo-x.yml
+- import_playbook: playbook-sudo.yml
+- import_playbook: playbook-user-term.yml
+- import_playbook: playbook-user-x.yml
+- import_playbook: playbook-user.yml
