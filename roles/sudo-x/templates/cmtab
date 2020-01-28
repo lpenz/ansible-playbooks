@@ -4,6 +4,5 @@ dropboxcrypted {
     dev=/home/{{ ansible_ssh_user }}/Dropbox/private/crypted.vol
     dir=/home/{{ ansible_ssh_user }}/dropboxcrypted
     fstype=auto
-    mountoptions=uid={{ ansible_ssh_user }}
     keyformat=luks
 }
