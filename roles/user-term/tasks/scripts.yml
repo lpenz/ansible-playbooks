@@ -38,5 +38,6 @@
     - stressnlog
     - term-fix
     - timestamp
+    - tmux-attach-or-new
     - vims-update
     - vmlimit-exec

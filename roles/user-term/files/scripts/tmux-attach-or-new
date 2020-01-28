@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+tmux new-session -A -s _
+
