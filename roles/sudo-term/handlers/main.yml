@@ -4,6 +4,7 @@
 
 - name: ssh-server-restart
   service: name=sshd state=restarted
+  when: not ansible_is_chroot
 
 - name: systemd-reload
   systemd: daemon_reload=yes
