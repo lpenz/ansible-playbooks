@@ -35,6 +35,7 @@
     - pstree-nothreads
     - repeater
     - rust-install
+    - ssh-tmux
     - stressnlog
     - term-fix
     - timestamp
