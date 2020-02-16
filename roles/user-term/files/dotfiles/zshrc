@@ -35,12 +35,12 @@ function lpenz_powerlevel9k_setup {
     fi
 
     if [[ "$UID" -eq 0 ]]; then
-        prompt_user_indicator() {
-            "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" yellow '' 0 '' '#'
+        prompt_lpenz_user_indicator() {
+            p10k segment -f yellow -t '#'
         }
     else
-        prompt_user_indicator() {
-            "$1_prompt_segment" "$0" "$2" "$DEFAULT_COLOR" blue '' 0 '' '%%'
+        prompt_lpenz_user_indicator() {
+            p10k segment -f blue -t '%%'
         }
     fi
     if [[ "$UID" -eq 0 || "$USER" = "lpenz" ]]; then
@@ -52,7 +52,7 @@ function lpenz_powerlevel9k_setup {
     if "$GITSTATUS_DAEMON_CANDIDATE" -h &>/dev/null; then
         GITSTATUS_DAEMON="$GITSTATUS_DAEMON_CANDIDATE"
     fi
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user_indicator)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(lpenz_user_indicator)
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs vcs context dir)
 }
 
@@ -141,6 +141,8 @@ fi
 
 ulimit -v 4000000
 
+typeset -gF _lpenz_timer_start=0
+
 # Runs before executing a command
 function lpenz_preexec {
     emulate -L zsh
@@ -151,47 +153,54 @@ function lpenz_preexec {
     local LINE="${2:gs/%/%%}"
 
     title '$CMD' '%100>...>$LINE%<<'
-    lpenz_lastcmd=$1
+    _lpenz_timer_start=EPOCHREALTIME
 }
 
 function humanReadableDurationRender {
     local humanReadableDuration
-    if (( _P9K_COMMAND_DURATION > 3600 )); then
-        humanReadableDuration=$(TZ=GMT; strftime '%H:%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
-    elif (( _P9K_COMMAND_DURATION > 60 )); then
-        humanReadableDuration=$(TZ=GMT; strftime '%M:%S' $(( int(rint(_P9K_COMMAND_DURATION)) )))
+    local -F duration="$1"
+    if (( duration > 3600 )); then
+        humanReadableDuration=$(TZ=GMT; strftime '%H:%M:%S' $(( int(rint(duration)) )))
+    elif (( duration > 60 )); then
+        humanReadableDuration=$(TZ=GMT; strftime '%M:%S' $(( int(rint(duration)) )))
     else
         typeset -F 2 humanReadableDuration
-        humanReadableDuration=$_P9K_COMMAND_DURATION
+        humanReadableDuration=$duration
     fi
     echo "$humanReadableDuration"
 }
 
 # Runs after executing a command, before showing the prompt
 function lpenz_lastcmdstatus {
-    if [ "$_P9K_EXIT_CODE" != 0 ] || (( _P9K_COMMAND_DURATION > 3 )); then
-        if [ "$_P9K_EXIT_CODE" != 0 ]; then
+    local -F duration=0
+    if (( _lpenz_timer_start )); then
+        duration=$((EPOCHREALTIME - _lpenz_timer_start))
+    fi
+    if [ "$_lpenz_status" != 0 ] || (( duration > 3 )); then
+        if [ "$_lpenz_status" != 0 ]; then
             local color=red
         else
             local color=green
         fi
         print -nP "%K{$color}\e[38;5;16m\ue0b8%f %f%K{$color}"
-        if [ "$_P9K_EXIT_CODE" != 0 ]; then
+        if [ "$_lpenz_status" != 0 ]; then
             print_icon FAIL_ICON
-            print -nP " $_P9K_EXIT_CODE"
+            print -nP " $_lpenz_status"
         else
             print_icon OK_ICON
         fi
-        if (( _P9K_COMMAND_DURATION > 3 )); then
-            local humanReadableDuration=$(humanReadableDurationRender $_P9K_COMMAND_DURATION)
+        if (( duration > 3 )); then
+            local humanReadableDuration=$(humanReadableDurationRender $duration)
             print -nP "  ${icons[EXECUTION_TIME_ICON]} $humanReadableDuration"
             print -nP "  \u231a $(strftime '%F %T' $EPOCHSECONDS)"
         fi
         print -P " %K{$color}\e[38;5;16m\ue0ba\e[0m \n"
     fi
+    _lpenz_timer_start=0
 }
 
 function lpenz_precmd {
+    _lpenz_status=$?
     title "%m:%~" "%m:%~"
     lpenz_lastcmdstatus
 }
