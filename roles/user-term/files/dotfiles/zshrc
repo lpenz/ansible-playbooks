@@ -19,10 +19,10 @@ fi
 # Local zsh, namespace trampoline
 if test -r ~/.zshrc.local.pre; then . ~/.zshrc.local.pre; fi
 
-if ! [ -d "$HOME/.zplugin/bin" ]; then
-   mkdir -p "$HOME/.zplugin"
-   rm -rf "$HOME/.zplugin/bin"
-   git clone https://github.com/zdharma/zplugin.git "$HOME/.zplugin/bin"
+if ! [ -d "$HOME/.zinit/bin" ]; then
+   mkdir -p "$HOME/.zinit"
+   rm -rf "$HOME/.zinit/bin"
+   git clone https://github.com/zdharma/zinit.git "$HOME/.zinit/bin"
 fi
 
 function lpenz_powerlevel9k_setup {
@@ -48,7 +48,7 @@ function lpenz_powerlevel9k_setup {
     fi
 
     GITSTATUS_NUM_THREADS=1
-    GITSTATUS_DAEMON_CANDIDATE="$HOME/.zplugin/plugins/romkatv---powerlevel10k/gitstatus/bin/gitstatusd-linux-x86_64-static"
+    GITSTATUS_DAEMON_CANDIDATE="$HOME/.zinit/plugins/romkatv---powerlevel10k/gitstatus/bin/gitstatusd-linux-x86_64-static"
     if "$GITSTATUS_DAEMON_CANDIDATE" -h &>/dev/null; then
         GITSTATUS_DAEMON="$GITSTATUS_DAEMON_CANDIDATE"
     fi
@@ -65,39 +65,39 @@ function lpenz_completion_setup {
 
 # plugin management
 
-# zplugin {
-source ~/.zplugin/bin/zplugin.zsh
-zplugin ice lucid
-zplugin snippet OMZ::lib/termsupport.zsh
-zplugin ice lucid wait'!0'
-zplugin snippet OMZ::lib/completion.zsh
-zplugin ice lucid wait'0'
-zplugin snippet OMZ::lib/key-bindings.zsh
-zplugin ice lucid wait'0'
-zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
-zplugin ice lucid wait'0'
-zplugin load zsh-users/zsh-completions
-zplugin ice lucid
-zplugin snippet OMZ::lib/history.zsh
-zplugin ice lucid wait'!0'
-zplugin snippet OMZ::plugins/history/history.plugin.zsh
-zplugin ice lucid wait'0'
-zplugin load zsh-users/zsh-history-substring-search
-zplugin ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
-zplugin load 'joel-porquet/zsh-dircolors-solarized'
-zplugin ice lucid wait'0'
-zplugin load 'lpenz/zsh-notify-urxvt'
-zplugin ice lucid src'powerlevel10k.zsh-theme' atinit'lpenz_powerlevel9k_setup'
-zplugin load 'romkatv/powerlevel10k'
-zplugin ice lucid from"gh-r" as"program"
-zplugin load junegunn/fzf-bin
-zplugin ice lucid wait'0' from"gh" 
-zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
-zplugin ice lucid wait'0' from"gh" 
-zplugin snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
-zplugin ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
-zplugin load 'zdharma/fast-syntax-highlighting'
-# } zplugin
+# zinit {
+source ~/.zinit/bin/zinit.zsh
+zinit ice lucid
+zinit snippet OMZ::lib/termsupport.zsh
+zinit ice lucid wait'!0'
+zinit snippet OMZ::lib/completion.zsh
+zinit ice lucid wait'0'
+zinit snippet OMZ::lib/key-bindings.zsh
+zinit ice lucid wait'0'
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zinit ice lucid wait'0'
+zinit load zsh-users/zsh-completions
+zinit ice lucid
+zinit snippet OMZ::lib/history.zsh
+zinit ice lucid wait'!0'
+zinit snippet OMZ::plugins/history/history.plugin.zsh
+zinit ice lucid wait'0'
+zinit load zsh-users/zsh-history-substring-search
+zinit ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
+zinit load 'joel-porquet/zsh-dircolors-solarized'
+zinit ice lucid wait'0'
+zinit load 'lpenz/zsh-notify-urxvt'
+zinit ice lucid src'powerlevel10k.zsh-theme' atinit'lpenz_powerlevel9k_setup'
+zinit load 'romkatv/powerlevel10k'
+zinit ice lucid from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+zinit ice lucid wait'0' from"gh" 
+zinit snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
+zinit ice lucid wait'0' from"gh" 
+zinit snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
+zinit ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
+zinit load 'zdharma/fast-syntax-highlighting'
+# } zinit
 
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up

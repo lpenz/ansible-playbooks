@@ -5,12 +5,12 @@
     - zshrc
     - zshenv
 
-- name: create zplugin dir
-  file: state=directory dest="{{lookup('env','HOME')}}/.zplugin"
+- name: create zinit dir
+  file: state=directory dest="{{lookup('env','HOME')}}/.zinit"
 
-- name: install zplugin
+- name: install zinit
   git:
-    repo: "https://github.com/zdharma/zplugin.git"
-    dest: "{{lookup('env','HOME')}}/.zplugin/bin"
+    repo: "https://github.com/robobenklein/zinit.git"
+    dest: "{{lookup('env','HOME')}}/.zinit/bin"
     update: no
 
