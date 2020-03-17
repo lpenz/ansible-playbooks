@@ -1,0 +1,11 @@
+---
+
+- name: postalias
+  command: postalias /etc/aliases
+  notify: restart-postfix
+
+- name: restart-postfix
+  systemd:
+    name: postfix
+    state: restarted
+
