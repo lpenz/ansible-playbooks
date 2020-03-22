@@ -1,0 +1,14 @@
+---
+
+- name: ~/.gnupg dir must exist
+  file: name="{{lookup('env','HOME')}}/.gnupg" state=directory
+
+- name: gpg.conf
+  lineinfile:
+    path: "{{lookup('env','HOME')}}/.gnupg/gpg.conf"
+    line: "{{item}}"
+  with_items:
+    - "keyid-format short"
+    - "with-fingerprint"
+    - "with-sig-list"
+    - "list-options show-notations"
