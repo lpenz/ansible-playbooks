@@ -48,10 +48,14 @@ function lpenz_powerlevel9k_setup {
     fi
 
     GITSTATUS_NUM_THREADS=1
-    GITSTATUS_DAEMON_CANDIDATE="$HOME/.zinit/plugins/romkatv---powerlevel10k/gitstatus/bin/gitstatusd-linux-x86_64-static"
-    if "$GITSTATUS_DAEMON_CANDIDATE" -h &>/dev/null; then
-        GITSTATUS_DAEMON="$GITSTATUS_DAEMON_CANDIDATE"
-    fi
+    GITSTATUS_DIR="$HOME/.zinit/plugins/romkatv---powerlevel10k/gitstatus/bin"
+    GITSTATUS_DAEMON_CANDIDATES=( "gitstatusd-linux-x86_64-static" "gitstatusd-linux-armv8l" "gitstatusd-linux-armv7l" )
+    for g in "${GITSTATUS_DAEMON_CANDIDATES[@]}"; do
+        gitstatusd="$GITSTATUS_DIR/$g"
+        if "$gitstatusd" -h &>/dev/null; then
+            GITSTATUS_DAEMON="$gitstatusd"
+        fi
+    done
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(lpenz_user_indicator)
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs vcs context dir)
 }
