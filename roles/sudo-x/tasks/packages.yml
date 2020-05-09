@@ -5,7 +5,7 @@
       - dbus-x11 # dep
       - fonts-dejavu
       - fonts-inconsolata
-      - fonts-symbola
+      - fonts-recommended
       - git-gui
       - gitk
       - gkrellm
@@ -19,9 +19,7 @@
       - stalonetray
       - suckless-tools
       - vim-gtk3
-      - xfonts-jmk
       - xfonts-terminus
-      - xfonts-terminus-dos
       - xscreensaver
       - xserver-xorg
       # Audio:
