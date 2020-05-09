@@ -13,12 +13,12 @@ de.defstyle("*", {
     highlight_pixels = 1,
     shadow_pixels = 1,
     border_style = "elevated",
-    font = "-*-helvetica-medium-r-normal-*-14-*-*-*-*-*-*-*",
+    font = "-*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*",
     text_align = "center",
 })
 
 de.defstyle("tab", {
-    font = "-*-helvetica-medium-r-normal-*-12-*-*-*-*-*-*-*",
+    font = "-*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*",
     de.substyle("active-selected", {
         shadow_colour = "#304050",
         highlight_colour = "#708090",
