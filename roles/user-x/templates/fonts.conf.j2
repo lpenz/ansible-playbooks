@@ -2,4 +2,26 @@
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
     <dir>{{ ansible_env.HOME}}/.nix-profile/share/fonts</dir>
+    <alias>
+        <family>serif</family>
+        <prefer><family>DejaVuSerif</family></prefer>
+    </alias>
+    <alias>
+        <family>sans-serif</family>
+        <prefer><family>DejaVuSans</family></prefer>
+    </alias>
+    <alias>
+        <family>sans</family>
+        <prefer><family>DejaVuSans</family></prefer>
+    </alias>
+    <alias>
+        <family>monospace</family>
+        <prefer><family>Inconsolata</family></prefer>
+    </alias>
+    <match>
+        <test name="family"><string>Helvetica</string></test>
+        <edit name="family" mode="assign" binding="strong">
+            <string>DejaVuSans</string>
+        </edit>
+    </match>
 </fontconfig>
