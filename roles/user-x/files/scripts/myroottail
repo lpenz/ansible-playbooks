@@ -34,10 +34,10 @@ OTHERWIN="$(xwininfo -tree -root | sed -n 's@^\s\+\(0x[0-9a-f]\+\)\s\+"WScreen":
 
 LOGS=()
 for log in \
-   /var/log/roottailyellow.log,yellow, \
-   /var/log/roottailblue.log,lightblue, \
-   /var/log/roottailgreen.log,lightgreen, \
-   /var/log/roottailred.log,red, \
+   "/var/log/roottailyellow.log,yellow," \
+   "/var/log/roottailblue.log,lightblue," \
+   "/var/log/roottailgreen.log,lightgreen," \
+   "/var/log/roottailred.log,red," \
    "$HOME/.xsession-errors,yellow," \
    "$HOME/.warnd_log1,white," \
    "$HOME/.warnd_log2,gray,"; \
