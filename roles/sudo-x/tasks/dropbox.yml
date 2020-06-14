@@ -30,10 +30,19 @@
   ufw: rule=allow name=dropbox
   when: stat_ufw.stat.exists == True
 
-- name: install cmtab to mount dropboxcrypted
-  template:
-      dest: /etc/cryptmount/cmtab
-      src: cmtab
-      owner: root
-      group: root
-      mode: 0644
+- name: cmtab
+  blockinfile:
+    path: /etc/cryptmount/cmtab
+    owner: root
+    group: root
+    mode: 0644
+    marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ item.label }}"
+    block: |
+      {{ item.label }} {
+        dev=$(HOME)/{{ item.file }}
+        dir=$(HOME)/{{ item.dir }}
+        fstype=auto
+        keyformat=luks
+      }
+  with_items:
+    - { label: "dropboxcrypted", file: "Dropbox/private/crypted.vol", dir: "dropboxcrypted" }
