@@ -21,5 +21,12 @@ if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
     . $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
+GUIX_PROFILE="$HOME/.guix-profile"
+export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+# Not putting guix in path:
+# if [ -e "$GUIX_PROFILE/etc/profile" ]; then
+#      . "$GUIX_PROFILE/etc/profile"
+# fi
+
 # Local customizations
 if test -r ~/.zshenv.local; then . ~/.zshenv.local; fi
