@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+import argparse
+from pymediainfo import MediaInfo
+
+
+def videoinfo(filename):
+    mediainfo = MediaInfo.parse(filename)
+    for track in mediainfo.tracks:
+        if track.track_type == 'Video':
+            return track
+    return None
+
+
+def processfile(filename, dryrun=False):
+    info = videoinfo(filename)
+    if not info:
+        sys.stderr.write('{}: unable to parse\n'.format(filename))
+        return
+    heightstr = '{}p'.format(info.height)
+    if heightstr in filename:
+        sys.stderr.write('{}: format string {} found\n'.format(
+            filename, heightstr))
+        return
+    sep = ' ' if ' ' in os.path.basename(filename) else '.'
+    noext, ext = os.path.splitext(filename)
+    newfilename = '{}{}{}{}'.format(noext, sep, heightstr, ext)
+    sys.stdout.write('{} -> {}\n'.format(filename, newfilename))
+    if not dryrun:
+        os.rename(filename, newfilename)
+
+
+def processfiles(filenames, dryrun=False):
+    for filename in filenames:
+        processfile(filename, dryrun=dryrun)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-n',
+                        '--dry-run',
+                        action='store_true',
+                        dest='dryrun',
+                        default=False,
+                        help='Dry-run: don\'t rename any files')
+    parser.add_argument('filenames', nargs='+', help='Files to rename')
+    args = parser.parse_args()
+    processfiles(args.filenames, dryrun=args.dryrun)
+
+
+if __name__ == '__main__':
+    main()
