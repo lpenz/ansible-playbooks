@@ -2,13 +2,13 @@
 
 - name: remove old systemd zcloud service files
   file:
-    path: "/etc/systemd/system/{{ansible_user}}-zcloud-{{item}}.service"
+    path: "/etc/systemd/system/{{ ansible_user }}-zcloud-{{ item }}.service"
     state: absent
-  with_items: "{{zcloud_providers}}"
+  with_items: "{{ zcloud_providers }}"
   notify: systemd-reload
 
 - name: install private zcloud s3ql mount
   file:
-    path: "/etc/systemd/system/{{ansible_user}}-zcloud-s3ql-{{ansible_hostname}}.service"
+    path: "/etc/systemd/system/{{ ansible_user }}-zcloud-s3ql-{{ ansible_hostname }}.service"
     state: absent
   notify: systemd-reload

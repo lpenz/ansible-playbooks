@@ -1,9 +1,9 @@
 ---
 - name: create ~/bin
-  file: name="{{lookup('env','HOME')}}/bin" state=directory
+  file: name="{{ lookup('env','HOME') }}/bin" state=directory
 
 - name: install scripts
-  copy: src="scripts/{{item}}" dest="~/bin/{{item}}" mode=0755
+  copy: src="scripts/{{ item }}" dest="~/bin/{{ item }}" mode=0755
   with_items:
     - clipinfo.py
     - myroottail

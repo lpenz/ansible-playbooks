@@ -17,6 +17,6 @@
   apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no state=absent
   notify: apt-update
 
-- name: add packagecloud.io/lpenz/{{ansible_lsb.id|lower}}
-  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ansible_lsb.id|lower}}/{{ansible_lsb.id|lower}}/ buster main' update_cache=no
+- name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
+  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/ buster main' update_cache=no
   notify: apt-update

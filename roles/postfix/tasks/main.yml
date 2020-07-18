@@ -3,15 +3,15 @@
 - name: debconf postfix
   debconf:
     name: postfix
-    question: "postfix/{{item.q}}"
-    value: "{{item.v}}"
-    vtype: "{{item.t}}"
+    question: "postfix/{{ item.q }}"
+    value: "{{ item.v }}"
+    vtype: "{{ item.t }}"
   with_items:
-    - { q: "destinations"                   , t: "string", v: "$myhostname, {{ansible_hostname}}, localhost.localdomain, localhost" }
+    - { q: "destinations"                   , t: "string", v: "$myhostname, {{ ansible_hostname }}, localhost.localdomain, localhost" }
     - { q: "mynetworks"                     , t: "string", v: "127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128" }
     - { q: "root_address"                   , t: "string", v: "lpenz@lpenz.org" }
     - { q: "relayhost"                      , t: "string", v: "[smtp.gmail.com]:587" }
-    - { q: "mailname"                       , t: "string", v: "{{ansible_hostname}}" }
+    - { q: "mailname"                       , t: "string", v: "{{ ansible_hostname }}" }
     - { q: "main_mailer_type"               , t: "select", v: "Internet Site" }
     - { q: "recipient_delim"                , t: "string", v: "+" }
   notify: restart-postfix
@@ -34,10 +34,10 @@
 - name: configure /etc/postfix/main.cf
   lineinfile:
     path: /etc/postfix/main.cf
-    regexp: "^{{item.k}} "
-    line: "{{item.k}} = {{item.v}}"
+    regexp: "^{{ item.k }} "
+    line: "{{ item.k }} = {{ item.v }}"
   with_items:
-    - { k: "myhostname"                 , v: "{{ansible_hostname}}" }
+    - { k: "myhostname"                 , v: "{{ ansible_hostname }}" }
     - { k: "inet_interfaces"            , v: "loopback-only" }
     - { k: "relayhost"                  , v: "[smtp.gmail.com]:587" }
     - { k: "smtp_use_tls"               , v: "yes" }

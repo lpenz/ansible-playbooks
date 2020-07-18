@@ -1,13 +1,13 @@
 ---
 - name: ~/.config dir must exist
-  file: name="{{lookup('env','HOME')}}/.config" state=directory
+  file: name="{{ lookup('env','HOME') }}/.config" state=directory
 
 - name: ~/.config/nix dir must exist
-  file: dest="{{lookup('env','HOME')}}/.config/nix" state=directory
+  file: dest="{{ lookup('env','HOME') }}/.config/nix" state=directory
 - name: ~/.mc dir must exist
-  file: name="{{lookup('env','HOME')}}/.mc" state=directory
+  file: name="{{ lookup('env','HOME') }}/.mc" state=directory
 - name: install dotfiles
-  copy: src="{{item.src}}" dest="{{item.dest}}"
+  copy: src="{{ item.src }}" dest="{{ item.dest }}"
   with_items:
     - { src: "dotfiles/agignore"     , dest: "~/.agignore"     }
     - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }

@@ -1,15 +1,15 @@
 ---
 
 - name: create ~/.config/systemd/user
-  file: name="{{lookup('env','HOME')}}/{{item}}" state=directory
+  file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory
   with_items:
     - .config/systemd
     - .config/systemd/user
 
 - name: install systemd user graphical services
   copy:
-    src: "systemd/{{item}}"
-    dest: "{{lookup('env','HOME')}}/.config/systemd/user/{{ansible_user}}-x-{{item}}"
+    src: "systemd/{{ item }}"
+    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{ item }}"
     mode: 0644
   with_items:
     - clipinfo-clipboard.service

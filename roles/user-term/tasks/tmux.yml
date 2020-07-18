@@ -1,12 +1,12 @@
 ---
 - name: create ~/.tmux
-  file: name="{{lookup('env','HOME')}}/.tmux" state=directory
+  file: name="{{ lookup('env','HOME') }}/.tmux" state=directory
 
 - name: create ~/.tmux/plugins
-  file: name="{{lookup('env','HOME')}}/.tmux/plugins" state=directory
+  file: name="{{ lookup('env','HOME') }}/.tmux/plugins" state=directory
 
 - name: clone tmux plugin manager
-  git: repo="http://github.com/tmux-plugins/tpm" dest="{{lookup('env','HOME')}}/.tmux/plugins/tpm"
+  git: repo="http://github.com/tmux-plugins/tpm" dest="{{ lookup('env','HOME') }}/.tmux/plugins/tpm"
   notify: tmux_plugins_install
 
 - name: install my tmux.conf

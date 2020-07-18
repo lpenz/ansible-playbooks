@@ -12,10 +12,10 @@
     value: true
 
 - name: git config path must exist
-  file: name="{{lookup('env','HOME')}}/.config/git" state=directory
+  file: name="{{ lookup('env','HOME') }}/.config/git" state=directory
 
 - name: gitignore setup
-  lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{item}}
+  lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{ item }}
   with_items:
     - .mypy_cache/
     - /.sconsign.dblite

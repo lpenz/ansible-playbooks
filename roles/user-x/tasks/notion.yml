@@ -1,9 +1,9 @@
 ---
 - name: create ~/.notion
-  file: name="{{lookup('env','HOME')}}/.notion" state=directory
+  file: name="{{ lookup('env','HOME') }}/.notion" state=directory
 
 - name: install notion config
-  copy: src="notion/{{item}}" dest="~/.notion/{{item}}"
+  copy: src="notion/{{ item }}" dest="~/.notion/{{ item }}"
   with_items:
     - cfg_debian_ext.lua
     - cfg_defaults.lua

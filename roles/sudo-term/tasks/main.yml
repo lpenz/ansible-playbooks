@@ -14,7 +14,7 @@
 
 - name: setup locales
   locale_gen:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: present
   with_items:
     - "en_US" # ISO-8859-1

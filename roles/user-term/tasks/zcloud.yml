@@ -1,7 +1,7 @@
 ---
 
 - name: create ~/.config/systemd/user
-  file: name="{{lookup('env','HOME')}}/{{item}}" state=directory
+  file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory
   with_items:
     - .config/systemd
     - .config/systemd/user
@@ -9,14 +9,14 @@
 - name: install user systemd zcloud.services
   template:
     src: "zcloud.service.j2"
-    dest: "{{lookup('env','HOME')}}/.config/systemd/user/{{ansible_user}}-zcloud-{{item}}.service"
+    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-zcloud-{{ item }}.service"
     mode: 0644
-  with_items: "{{zcloud_providers}}"
+  with_items: "{{ zcloud_providers }}"
   notify: systemd-reload
 
 - name: install private zcloud s3ql mount
   template:
     src: "zcloud-s3ql.service.j2"
-    dest: "{{lookup('env','HOME')}}/.config/systemd/user/{{ansible_user}}-zcloud-s3ql-{{ansible_hostname}}.service"
+    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-zcloud-s3ql-{{ ansible_hostname }}.service"
     mode: 0644
   notify: systemd-reload

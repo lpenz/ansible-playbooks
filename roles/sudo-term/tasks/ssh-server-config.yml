@@ -2,8 +2,8 @@
 - name: ssh server config
   lineinfile:
     path: /etc/ssh/sshd_config
-    line: "{{item.line}}"
-    regexp: "{{item.regex}}"
+    line: "{{ item.line }}"
+    regexp: "{{ item.regex }}"
     state: present
   with_items:
     - { line: "PasswordAuthentication no", regex: "^ *#? *PasswordAuthentication .*" }

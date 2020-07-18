@@ -1,12 +1,12 @@
 ---
 - name: install dotfiles
-  copy: src="{{item.src}}" dest="{{item.dest}}"
+  copy: src="{{ item.src }}" dest="{{ item.dest }}"
   with_items:
     - { src: "dotfiles/Xresources"   , dest: "~/.Xresources" }
     - { src: "dotfiles/xsession"     , dest: "~/.xsession"   }
 
-- name: create home dirs ~/{{item}}
-  file: state=directory dest=~/{{item}}
+- name: create home dirs ~/{{ item }}
+  file: state=directory dest=~/{{ item }}
   with_items:
     - .config
     - .config/fontconfig
@@ -15,7 +15,7 @@
     - .local/share/fonts
 
 - name: some dot files exist
-  copy: dest="{{item}}" content='' force=no
+  copy: dest="{{ item }}" content='' force=no
   with_items:
      - ~/.Xresources.local
      - ~/.stalonetrayrc

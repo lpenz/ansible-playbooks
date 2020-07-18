@@ -2,9 +2,9 @@
 - name: rkhunter config
   lineinfile:
     path: /etc/rkhunter.conf
-    line: "{{item.line}}"
-    regexp: "^ *#? *{{item.line}}$"
-    insertafter: "{{item.regex}}"
+    line: "{{ item.line }}"
+    regexp: "^ *#? *{{ item.line }}$"
+    insertafter: "{{ item.regex }}"
     state: present
   with_items:
     - { line: "ALLOW_SSH_ROOT_USER=prohibit-password", regex: "^ *#? *ALLOW_SSH_ROOT_USER=.*" }
