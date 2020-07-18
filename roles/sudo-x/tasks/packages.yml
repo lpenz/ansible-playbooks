@@ -1,5 +1,6 @@
 ---
-- apt:
+- name: install base X packages
+  apt:
     state: present
     package:
       - dbus-x11 # dep
@@ -29,7 +30,8 @@
       - pulseaudio
       - pulseaudio-utils
 
-- apt: state=present package=notion
+- name: install notion
+  apt: state=present package=notion
   when: ansible_lsb.id != "Raspbian"
 
 - name: setup rxvt-unicode as x-terminal-emulator

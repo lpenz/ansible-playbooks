@@ -14,7 +14,8 @@
   file: dest=/etc/apt/sources.list state=absent
   notify: apt-update
 
-- apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free' state=present
+- name: install all official apt repositories
+  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free' state=present
   with_items:
     - stable
     - testing

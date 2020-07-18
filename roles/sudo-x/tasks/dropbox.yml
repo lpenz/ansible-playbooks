@@ -1,7 +1,9 @@
 ---
-- set_fact: debian_arch="amd64"
+- name: configure ansible_userspace_bits == "64" if adequate
+  set_fact: debian_arch="amd64"
   when: ansible_userspace_bits == "64"
-- set_fact: debian_arch="i386"
+- name: configure ansible_userspace_bits == "32" if adequate
+  set_fact: debian_arch="i386"
   when: ansible_userspace_bits == "32"
 
 - name: apt install packages required by dropbox or by my usage
@@ -10,9 +12,11 @@
     package:
       - cryptmount # to mount dropboxcrypted
 
-- package_facts:
+- name: package_facts
+  package_facts:
 
-- apt:
+- name: download dropbox
+  apt:
     state: present
     deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.2_{{ debian_arch }}.deb"
   when: not "dropbox" in ansible_facts.packages
@@ -25,10 +29,10 @@
   register: stat_ufw
 - name: add ufw rule for dropbox
   copy: src=ufw-dropbox.conf dest=/etc/ufw/applications.d/lpenz-dropbox owner=root group=root mode=0644
-  when: stat_ufw.stat.exists == True
+  when: stat_ufw.stat.exists
 - name: configure ufw
   ufw: rule=allow name=dropbox
-  when: stat_ufw.stat.exists == True
+  when: stat_ufw.stat.exists
 
 - name: cmtab
   blockinfile:

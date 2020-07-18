@@ -1,5 +1,6 @@
 ---
-- apt:
+- name: install base packages
+  apt:
     state: present
     package:
       - ansible
