@@ -13,4 +13,4 @@
     repo: "https://github.com/robobenklein/zinit.git"
     dest: "{{ lookup('env','HOME') }}/.zinit/bin"
     update: no
-
+    version: master
