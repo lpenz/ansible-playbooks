@@ -2,7 +2,7 @@ language: generic
 jobs:
   include:
     - name: omnilint
-      install: docker pull lpenz/omnilint
+      install: docker pull lpenz/omnilint:v0.2
       script: docker run --rm -u "$UID" -v "$PWD:$PWD" -w "$PWD" lpenz/omnilint
     - name: ansible-playbook
       install: docker build -t ansible-playbooks:latest .
