@@ -26,13 +26,7 @@ if ! [ -d "$HOME/.zinit/bin" ]; then
 fi
 
 function lpenz_powerlevel9k_setup {
-    if [ "$TERM" = "rxvt-256color" ]; then
-        export LC_POWERLINE_FONTS=true
-    fi
-
-    if [ "$LC_POWERLINE_FONTS" = "true" ]; then
-        POWERLEVEL9K_MODE='nerdfont-complete'
-    fi
+    typeset -g POWERLEVEL9K_MODE=ascii
 
     if [[ "$UID" -eq 0 ]]; then
         prompt_lpenz_user_indicator() {
