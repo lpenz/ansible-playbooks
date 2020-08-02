@@ -1,0 +1,11 @@
+#!/bin/bash
+
+NAME="${PWD##*/}"
+NAME="${NAME,,}"
+
+set -e -x
+
+docker rm -f "$NAME" &>/dev/null || :
+docker-build
+docker-run
+

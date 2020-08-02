@@ -8,6 +8,7 @@
     - chroot-with-mounts-nons
     - difffiles
     - docker-build
+    - docker-do
     - docker-gc
     - docker-run
     - dodirs
