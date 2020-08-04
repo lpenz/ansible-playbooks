@@ -9,7 +9,7 @@ ExecStartPre=-find "%h/.s3ql/" -name '*.db' -o -name '*.params' -exec rm -f {} +
 ExecStartPre=-fsck.s3ql s3://eu-west-1/{{ ansible_user }}-sync-ire/{{ ansible_hostname }}/
 ExecStart=mount.s3ql --systemd --log none --fg s3://eu-west-1/{{ ansible_user }}-sync-ire/{{ ansible_hostname }}/ "%h/zcloud/s3ql-{{ ansible_hostname }}"
 ExecStop=umount.s3ql "%h/zcloud/s3ql-{{ ansible_hostname }}"
-ExecStopPost=-lsof "%h/zcloud/s3ql-carbonl"
+ExecStopPost=-lsof "%h/zcloud/s3ql-{{ ansible_hostname }}"
 TimeoutStopSec=10min
 
 [Install]
