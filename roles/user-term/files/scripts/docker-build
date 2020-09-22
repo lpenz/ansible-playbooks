@@ -3,7 +3,21 @@
 NAME="${PWD##*/}"
 NAME="${NAME,,}"
 
-set -x -e
+if grep -q '^\(COPY\|ADD\) ' Dockerfile; then
 
-docker build -t "$NAME" . "$@"
+    set -x -e
+    docker build -t "$NAME" . "$@"
+
+else
+    TMPDIR=$(mktemp -d)
+    trap 'rm -rf "$TMPDIR"' EXIT
+    BUILD_DIR="$TMPDIR/$NAME"
+
+    set -x -e
+
+    mkdir "$BUILD_DIR"
+    cp Dockerfile "$BUILD_DIR/"
+    cd "$BUILD_DIR/"
+    docker build -t "$NAME" . "$@"
+fi
 
