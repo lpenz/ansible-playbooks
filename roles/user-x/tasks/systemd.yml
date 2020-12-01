@@ -1,7 +1,7 @@
 ---
 
 - name: create ~/.config/systemd/user
-  file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory
+  file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory mode=0755
   with_items:
     - .config/systemd
     - .config/systemd/user

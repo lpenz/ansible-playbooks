@@ -1,12 +1,12 @@
 ---
 - name: install dotfiles
-  copy: src="{{ item.src }}" dest="{{ item.dest }}"
+  copy: src="{{ item.src }}" dest="{{ item.dest }}" mode=0644
   with_items:
     - { src: "dotfiles/Xresources"   , dest: "~/.Xresources" }
     - { src: "dotfiles/xsession"     , dest: "~/.xsession"   }
 
 - name: create home dirs ~/{{ item }}
-  file: state=directory dest=~/{{ item }}
+  file: state=directory dest=~/{{ item }} mode=0755
   with_items:
     - .config
     - .config/fontconfig
@@ -15,13 +15,13 @@
     - .local/share/fonts
 
 - name: some dot files exist
-  copy: dest="{{ item }}" content='' force=no
+  copy: dest="{{ item }}" content='' force=no mode=0644
   with_items:
      - ~/.Xresources.local
      - ~/.stalonetrayrc
 
 - name: install fonts.conf that gets nix fonts
-  template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf
+  template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf mode=0644
   notify: fccache
 
 - name: install inconsolata nerd font for powerline

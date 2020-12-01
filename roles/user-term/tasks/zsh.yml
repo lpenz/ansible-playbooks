@@ -1,12 +1,12 @@
 ---
 - name: install zsh dotfiles
-  copy: src="dotfiles/{{ item }}" dest="~/.{{ item }}"
+  copy: src="dotfiles/{{ item }}" dest="~/.{{ item }}" mode=0644
   with_items:
     - zshrc
     - zshenv
 
 - name: create zinit dir
-  file: state=directory dest="{{ lookup('env','HOME') }}/.zinit"
+  file: state=directory dest="{{ lookup('env','HOME') }}/.zinit" mode=0755
 
 - name: install zinit
   git:
