@@ -2,6 +2,11 @@
 name: CI
 on: [ push, pull_request ]
 jobs:
+  ansible-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ansible/ansible-lint-action@master
   omnilint:
     runs-on: ubuntu-latest
     steps:
