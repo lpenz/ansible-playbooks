@@ -2,10 +2,9 @@ FROM debian:testing
 
 # install debian packages:
 ENV DEBIAN_FRONTEND=noninteractive
-RUN set -x -e; \
+RUN set -e -x; \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
-        locales \
+    apt-get install -y --no-install-recommends locales \
         openssh-client \
         python3-pip python3-setuptools python3-wheel \
         flake8 python3-nosexcover \
@@ -13,33 +12,12 @@ RUN set -x -e; \
         shellcheck \
         gnupg \
         git tmux \
-        gosu sudo
+        sudo
 
-# setup sudo and locale
-RUN set -x -e; \
-    echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/all; \
-    chmod 0400 /etc/sudoers.d/all; \
-    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
-    locale-gen
+# setup su and locale
+RUN set -e -x; \
+    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; locale-gen; \
+    sed -i '/pam_rootok.so$/aauth sufficient pam_permit.so' /etc/pam.d/su
 ENV LC_ALL=en_US.UTF-8
 
-# setup entrypoint with user UID/GID from host
-RUN set -x -e; \
-    (\
-    echo '#!/bin/bash'; \
-    echo 'MY_UID=${MY_UID:-1000}'; \
-    echo 'set -x -e'; \
-    echo 'useradd -M -u "$MY_UID" -o user'; \
-    echo 'chown user:user /home/user'; \
-    echo 'cd /home/user/work'; \
-    echo 'exec gosu user "${@:-/bin/bash}"'; \
-    ) > /usr/local/bin/entrypoint.sh; \
-    chmod a+x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
 CMD ["./test"]
-
-# If your UID is 1000, you can simply run the container as
-# docker run -it --rm -v $PWD:/home/user/work "${PWD##*/}"
-# otherwise, run it as:
-# docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID "${PWD##*/}"

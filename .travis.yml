@@ -6,7 +6,7 @@ jobs:
       script: docker run --rm -u "$UID" -v "$PWD:$PWD" -w "$PWD" lpenz/omnilint
     - name: ansible-playbook
       install: docker build -t ansible-playbooks:latest .
-      script: docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID ansible-playbooks
+      script: docker run --rm -u "$UID" -w "$PWD" -v "$HOME:$HOME" -v /etc/passwd:/etc/passwd ansible-playbooks
     - name: ansible-playbook --check
       install: docker build -t ansible-playbooks:latest .
-      script: docker run -it --rm -v $PWD:/home/user/work -e MY_UID=$UID ansible-playbooks ansible-playbook playbook-all.yml --check
+      script: docker run --rm -u "$UID" -w "$PWD" -v "$HOME:$HOME" -v /etc/passwd:/etc/passwd ansible-playbooks ansible-playbook playbook-all.yml --check
