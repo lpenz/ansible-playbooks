@@ -3,9 +3,13 @@
   file: name="{{ lookup('env','HOME') }}/bin" state=directory mode=0755
 
 - name: install scripts
-  copy: src="scripts/{{ item }}" dest="~/bin/{{ item }}" mode=0755
+  copy:
+    src: "scripts/{{ item }}"
+    dest: "{{ lookup('env','HOME') }}/bin/{{ item }}"
+    mode: 0755
   with_items:
     - clipinfo.py
+    - cryptmount-u-dropboxcrypted
     - myroottail
     - pactl-volume
     - steam-session
@@ -14,3 +18,4 @@
     - view-plantuml
     - warn
     - warnd.py
+

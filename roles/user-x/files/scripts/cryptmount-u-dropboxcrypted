@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e -x
+
+cryptmount -u dropboxcrypted
+touch "$HOME/Dropbox/private/crypted.vol"
+cp -v "$HOME/Dropbox/private/crypted.vol" "$HOME/Dropbox/private/crypted-$(date '+%FT%T').vol"
+s3cmd put "$HOME/Dropbox/private/crypted.vol" s3://lpenz-backup-ire/
+dropbox status
+
