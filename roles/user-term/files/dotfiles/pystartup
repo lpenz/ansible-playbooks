@@ -24,7 +24,7 @@ if os.path.exists(historyPath):
 atexit.register(save_history)
 
 if os.path.exists(os.path.expanduser('~/.pystartup.local')):
-    execfile(os.path.expanduser('~/.pystartup.local'))
+    exec(open(os.path.expanduser('~/.pystartup.local')).read())
 
 del os, sys, atexit, readline, rlcompleter, save_history, historyPath
 

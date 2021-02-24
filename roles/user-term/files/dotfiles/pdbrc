@@ -1,6 +1,6 @@
 import rlcompleter, pdb, os
 
 pdb.Pdb.complete = rlcompleter.Completer(locals()).complete
-execfile(os.path.expanduser("~/.pdb_rc.py"))
+exec(open(os.path.expanduser("~/.pdb_rc.py").read()))
 
 # vim: ft=python
