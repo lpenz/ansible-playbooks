@@ -113,6 +113,7 @@ autoload -U copy-earlier-word
 zle -N copy-earlier-word
 bindkey "\e;" copy-earlier-word
 bindkey -r "\el"
+bindkey "\ek" accept-and-hold
 
 # env config
 export VISUAL=vim
