@@ -1,0 +1,13 @@
+/var/log/xscreensaver.log
+{
+	rotate 9
+	monthly
+	missingok
+	notifempty
+	compress
+	delaycompress
+	sharedscripts
+	postrotate
+		/usr/lib/rsyslog/rsyslog-rotate
+	endscript
+}
