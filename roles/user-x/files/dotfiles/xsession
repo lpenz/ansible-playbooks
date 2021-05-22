@@ -18,8 +18,4 @@ if [ -f "$HOME/.xsession.local" ]; then
     . "$HOME/.xsession.local"
 fi
 
-if [ -z "$XSESSION_SKIP_DROPBOX" ]; then
-    (sleep 30; dropbox start) &
-fi
-
 systemctl --user start --wait "${USER}-x-wm.service"

@@ -3,6 +3,5 @@
 # These won't work on other architectures:
 
 - include: google-chrome.yml
-- include: dropbox.yml
 # - include: spotify.yml
 

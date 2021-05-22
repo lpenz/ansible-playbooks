@@ -9,7 +9,6 @@
     mode: 0755
   with_items:
     - clipinfo.py
-    - cryptmount-u-dropboxcrypted
     - myroottail
     - pactl-volume
     - steam-session
