@@ -9,7 +9,7 @@
   git_config:
     name: rerere.enabled
     scope: global
-    value: true
+    value: 'true'
 
 - name: git config path must exist
   file: name="{{ lookup('env','HOME') }}/.config/git" state=directory mode=0755
