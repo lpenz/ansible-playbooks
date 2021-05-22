@@ -41,6 +41,7 @@
 - include: sudo.yml
 - include: modprobe.yml
 - include: zcloud.yml
+- include: syncthing.yml
 
 - include: network-raspbian.yml
   when: ansible_lsb.id == "Raspbian"

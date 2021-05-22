@@ -6,3 +6,4 @@
 - include: git.yml
 - include: gpg.yml
 - include: zcloud.yml
+- include: syncthing.yml

@@ -6,6 +6,7 @@
   with_items:
     - chroot-with-mounts
     - chroot-with-mounts-nons
+    - cryptmount-u-syncrypted
     - difffiles
     - docker-build
     - docker-do

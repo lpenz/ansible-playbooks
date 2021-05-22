@@ -1,0 +1,7 @@
+---
+- name: systemctl enable
+  systemd:
+    name: syncthing
+    scope: user
+    enabled: yes
+    state: started
