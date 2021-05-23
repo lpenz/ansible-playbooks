@@ -40,7 +40,6 @@
 - include: rkhunter.yml
 - include: sudo.yml
 - include: modprobe.yml
-- include: zcloud.yml
 - include: syncthing.yml
 
 - include: network-raspbian.yml

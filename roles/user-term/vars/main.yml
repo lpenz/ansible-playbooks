@@ -1,6 +1,0 @@
----
-zcloud_providers:
-  - box
-  - s3
-  - gdrive
-  - onedrive
