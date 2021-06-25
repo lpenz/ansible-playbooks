@@ -1,37 +1,13 @@
 #!/bin/bash
 
-NAME="${PWD##*/}"
-NAME="${NAME,,}"
-
-TMP=$(mktemp)
-trap 'rm -f $TMP' EXIT
-
-CMD=( docker run --rm -P )
-
-if [ -t 0 ] && [ -t 1 ]; then
-    CMD+=( -it )
-fi
-
-if [ -e Dockerfile ] && grep -q '^# docker run ' Dockerfile; then
-    # Old way to run this
-    sed -n 's@^# \(docker run .*\)$@\1@p' Dockerfile | head -1 > "$TMP"
-    IFS=" " read -r -a CMD <<< "$(cat "$TMP")"
-elif [ -e Dockerfile ] && grep -q '^[#].*cd .home.user.work' Dockerfile; then
-    # Another old way to run this
-    CMD+=( -v "$PWD:/home/user/work" -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix -e "MY_UID=$UID" --name "$NAME" "$NAME" )
+if [ "$#" = 0 ]; then
+    IMAGE="${PWD##*/}"
 else
-    # Modern:
-    if [ -n "$1" ]; then
-        IMAGE="$1"
-        shift
-    elif [ -e Dockerfile ]; then
-        IMAGE="${PWD##*/}"
-        IMAGE="${IMAGE,,}"
-    fi
-    CMD+=( -u "$UID" -v "$PWD:$PWD" -w "$PWD" -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix --name "$NAME" "$IMAGE" )
+    IMAGE="$1"
+    shift
 fi
 
-set -x -e
+set -e -x
 
-/bin/bash -c "${CMD[*]} $*"
+docker run --rm -u "$UID" -v "$PWD:$PWD" -w "$PWD"  -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix "$IMAGE" "$@"
 
