@@ -154,6 +154,7 @@ function lpenz_preexec {
     title '$CMD' '%100>...>$LINE%<<'
     _lpenz_timer_start=EPOCHREALTIME
 }
+preexec_functions+=(lpenz_preexec)
 
 function humanReadableDurationRender {
     local humanReadableDuration
@@ -203,9 +204,17 @@ function lpenz_precmd {
     title "%m:%~" "%m:%~"
     lpenz_lastcmdstatus
 }
-
-preexec_functions+=(lpenz_preexec)
 precmd_functions+=(lpenz_precmd)
+
+function lpenz_chpwd {
+    # update cargo target
+    if [ -f Cargo.toml ]; then
+        export CARGO_TARGET_DIR="$HOME/cargo-target/${PWD##*/}"
+    else
+        unset CARGO_TARGET_DIR
+    fi
+}
+chpwd_functions+=(lpenz_chpwd)
 
 # do not beep
 setterm --blength 0 2>/dev/null 
