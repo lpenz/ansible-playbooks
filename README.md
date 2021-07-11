@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.com/lpenz/ansible-playbooks.svg?branch=master)](https://travis-ci.com/lpenz/ansible-playbooks)
+[![CI](https://github.com/lpenz/ansible-playbooks/actions/workflows/ci.yml/badge.svg)](https://github.com/lpenz/ansible-playbooks/actions/workflows/ci.yml)
 
-lpenz ansible provisioner
-=============================
+# lpenz ansible provisioner
 
 This repository store an ansible provisioner that configures my environments in
 a given Linux system. It is based on ansible-pull operation.

@@ -2,13 +2,13 @@
 name: CI
 on: [ push, pull_request ]
 jobs:
-  ansible-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ansible/ansible-lint-action@master
   omnilint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: docker://lpenz/omnilint:v0.2
+  ansible-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ansible/ansible-lint-action@master
