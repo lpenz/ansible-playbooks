@@ -1,0 +1,14 @@
+---
+name: docker-do
+description: docker-do
+runs:
+  using: "composite"
+  steps:
+    - name: docker-build
+      run: set -e -x; docker build -t container .
+      shell: bash
+    - name: docker-run
+      run: |
+        set -e -x
+        docker run --rm -u "$UID" -w "$PWD" -v "$HOME:$HOME" -v /etc/passwd:/etc/passwd container
+      shell: bash
