@@ -2,7 +2,6 @@
 
 # Use this for static analisys (--check)
 
-- import_playbook: playbook-docker.yml
 - import_playbook: playbook-mine.yml
 - import_playbook: playbook-sudo-term.yml
 - import_playbook: playbook-sudo-x.yml
