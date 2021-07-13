@@ -5,3 +5,4 @@
     scope: user
     enabled: yes
     state: started
+  ignore_errors: yes
