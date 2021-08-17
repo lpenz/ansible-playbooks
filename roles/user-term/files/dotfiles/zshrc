@@ -222,5 +222,7 @@ setterm --blength 0 2>/dev/null
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
 
+lpenz_chpwd
+
 # keep this comment here to avoid auto-insertion:
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
