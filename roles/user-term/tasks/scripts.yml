@@ -38,6 +38,7 @@
     - newest
     - pstree-nothreads
     - repeater
+    - rust-coverage
     - rust-install
     - ssh-tmux
     - stressnlog

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e -x
+
+docker run --rm -v "$PWD:$PWD" -w "$PWD" -e INPUT_OUTPUT_TYPE=html "$@" lpenz/ghaction-rust-coverage
+
