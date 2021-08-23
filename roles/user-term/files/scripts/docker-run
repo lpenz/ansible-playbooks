@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" = 0 ]; then
-    IMAGE="${PWD##*/}"
+    IMAGE="${USER}/${PWD##*/}"
 else
     IMAGE="$1"
     shift

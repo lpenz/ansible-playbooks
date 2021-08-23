@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="${PWD##*/}"
+NAME="${USER}/${PWD##*/}"
 NAME="${NAME,,}"
 
 if grep -q '^\(COPY\|ADD\) ' Dockerfile; then
@@ -15,7 +15,7 @@ else
 
     set -x -e
 
-    mkdir "$BUILD_DIR"
+    mkdir -p "$BUILD_DIR"
     cp Dockerfile "$BUILD_DIR/"
     cd "$BUILD_DIR/"
     docker build -t "$NAME" . "$@"

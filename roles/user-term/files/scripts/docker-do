@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="${PWD##*/}"
+NAME="${USER}/${PWD##*/}"
 NAME="${NAME,,}"
 
 set -e -x
