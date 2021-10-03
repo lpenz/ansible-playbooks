@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e -x
+
+# sudo ansible-playbook -u "$USER" -i localhost, -c local playbook-sudo-term.yml # unable to test this on travis for now
+# ansible-playbook -u "$USER" -i localhost, -c local playbook-user-term.yml
+
+ansible-playbook -i localhost, -c local playbook-all.yml --check
+

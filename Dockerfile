@@ -16,8 +16,8 @@ RUN set -e -x; \
 
 # setup su and locale
 RUN set -e -x; \
-    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; locale-gen; \
-    sed -i '/pam_rootok.so$/aauth sufficient pam_permit.so' /etc/pam.d/su
+    sed -i '/pam_rootok.so$/aauth sufficient pam_permit.so' /etc/pam.d/su; \
+    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; locale-gen
 ENV LC_ALL=en_US.UTF-8
 
 CMD ["./test"]

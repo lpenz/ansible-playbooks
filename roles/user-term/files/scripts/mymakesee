@@ -2,7 +2,7 @@
 
 T=${1?usage: $0 <target>}
 
-set -x -e
+set -e -x
 
 mymake "$T"
 see "$T"

@@ -2,7 +2,7 @@
 
 TARGET=${1-PWD}
 
-set -x -e
+set -e -x
 
 mount -t devtmpfs dev "$TARGET/dev"
 trap 'umount -l "$TARGET/dev"' EXIT

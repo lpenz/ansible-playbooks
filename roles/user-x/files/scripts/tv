@@ -2,7 +2,7 @@
 
 op=${1:on}
 
-set -x -e
+set -e -x
 
 if [ "$op" = off ]; then
     xrandr --auto

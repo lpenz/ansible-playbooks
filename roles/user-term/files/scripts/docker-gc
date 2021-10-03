@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x -e
+set -e -x
 
 docker system prune -f
 docker volume prune -f

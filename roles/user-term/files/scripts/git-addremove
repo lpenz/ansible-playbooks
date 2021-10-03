@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -x -e
+set -e -x
 
 git add .
 git ls-files --deleted | xargs -r git rm

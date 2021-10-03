@@ -25,7 +25,7 @@ exit "\$RG"
 
 END
 
-set -x -e
+set -e -x
 
 find . -mindepth 1 -maxdepth 1 -type d -exec /bin/bash "$TMP" {} +
 
