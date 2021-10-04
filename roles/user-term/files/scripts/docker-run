@@ -1,5 +1,12 @@
 #!/bin/bash
 
+USERID="$UID"
+
+if [ "$1" = "-0" ]; then
+    USERID=0
+    shift
+fi
+
 if [ "$#" = 0 ]; then
     IMAGE="${USER}/${PWD##*/}"
 else
@@ -9,5 +16,5 @@ fi
 
 set -e -x
 
-docker run --rm -u "$UID" -v "$PWD:$PWD" -w "$PWD"  -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix "$IMAGE" "$@"
+docker run --rm -u "$USERID" -v "$PWD:$PWD" -w "$PWD"  -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix "$IMAGE" "$@"
 
