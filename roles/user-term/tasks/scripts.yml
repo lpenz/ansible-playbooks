@@ -27,6 +27,7 @@
     - git-prune
     - git-release
     - git-rootnew
+    - git-status-r
     - gitup
     - gk
     - grepstats
@@ -47,3 +48,4 @@
     - tmux-attach-or-new
     - vims-update
     - vmlimit-exec
+
