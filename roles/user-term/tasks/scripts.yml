@@ -25,6 +25,7 @@
     - git-gc
     - github-clone
     - git-prune
+    - git-recommit
     - git-release
     - git-rootnew
     - git-status-r
