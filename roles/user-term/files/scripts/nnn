@@ -2,6 +2,6 @@
 
 set -e -x
 
-PAGER=less
-exec nnn
+export PAGER=less
+exec /usr/bin/nnn
 
