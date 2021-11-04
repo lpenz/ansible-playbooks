@@ -80,6 +80,8 @@ zinit snippet OMZ::lib/history.zsh
 zinit ice lucid wait'!0'
 zinit snippet OMZ::plugins/history/history.plugin.zsh
 zinit ice lucid wait'0'
+zinit snippet OMZ::plugins/direnv/direnv.plugin.zsh
+zinit ice lucid wait'0'
 zinit load zsh-users/zsh-history-substring-search
 zinit ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
 zinit load 'joel-porquet/zsh-dircolors-solarized'
@@ -206,23 +208,11 @@ function lpenz_precmd {
 }
 precmd_functions+=(lpenz_precmd)
 
-function lpenz_chpwd {
-    # update cargo target
-    if [ -f Cargo.toml ]; then
-        export CARGO_TARGET_DIR="$HOME/cargo-target/${PWD##*/}"
-    else
-        unset CARGO_TARGET_DIR
-    fi
-}
-chpwd_functions+=(lpenz_chpwd)
-
 # do not beep
 setterm --blength 0 2>/dev/null 
 
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
-
-lpenz_chpwd
 
 # keep this comment here to avoid auto-insertion:
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

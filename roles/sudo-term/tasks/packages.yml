@@ -4,6 +4,7 @@
     state: present
     package:
       - ansible
+      - direnv
       - emacs
       - fzf
       - gawk # required by tmux-fingers
