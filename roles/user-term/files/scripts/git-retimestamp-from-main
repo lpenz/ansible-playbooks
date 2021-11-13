@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e -x
+
+git filter-branch --env-filter 'export GIT_AUTHOR_DATE="$(date)"; export GIT_COMMITER_DATE="$GIT_AUTHOR_DATE"' origin/main..HEAD
+

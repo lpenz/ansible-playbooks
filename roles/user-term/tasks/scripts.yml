@@ -27,6 +27,7 @@
     - git-prune
     - git-recommit
     - git-release
+    - git-retimestamp-from-main
     - git-rootnew
     - git-status-r
     - gitup
