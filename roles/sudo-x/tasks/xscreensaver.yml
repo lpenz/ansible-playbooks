@@ -1,6 +1,6 @@
 ---
 - name: xscreensaver configure rsyslog
-  copy: src=rsyslog/xscreensaver.conf dest=/etc/rsyslog.d/xscreensaver.conf owner=root group=root mode=0644
+  copy: src=rsyslog/xscreensaver.conf dest=/etc/rsyslog.d/90-xscreensaver.conf owner=root group=root mode=0644
 
 - name: xscreensaver configure logrotate
   copy: src=logrotate/xscreensaver dest=/etc/logrotate.d/xscreensaver owner=root group=root mode=0644
