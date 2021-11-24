@@ -2,5 +2,6 @@
 
 set -e -x
 
-git filter-branch --env-filter 'export GIT_AUTHOR_DATE="$(date)"; export GIT_COMMITER_DATE="$GIT_AUTHOR_DATE"' origin/main..HEAD
+git filter-branch --env-filter 'export GIT_AUTHOR_DATE="$(date)"; export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"' origin/main..HEAD
+: use git show-ref and git update-ref -d to see and get rid of the backup refs/original/refs/heads/ reference
 
