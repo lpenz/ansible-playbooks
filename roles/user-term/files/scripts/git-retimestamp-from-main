@@ -3,5 +3,5 @@
 set -e -x
 
 git filter-branch --env-filter 'export GIT_AUTHOR_DATE="$(date)"; export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"' origin/main..HEAD
-: use git show-ref and then remove the reference with git update-ref -d refs/original/refs/heads/devel
+: use git show-ref and remove the reference with git update-ref -d refs/original/refs/heads/devel
 
