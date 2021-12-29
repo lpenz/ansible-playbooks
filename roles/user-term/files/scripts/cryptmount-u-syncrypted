@@ -3,6 +3,6 @@
 set -e -x
 
 cryptmount -u "syncrypted"
-cp -v "$HOME/Sync/crypted.vol" "$HOME/Sync/crypted-$(date '+%FT%T' | sed 's/:/./g').vol"
+cp -v "$HOME/Sync/crypted.vol" "$HOME/Sync/crypted-$(timestamp).vol"
 s3cmd put "$HOME/Sync/crypted.vol" s3://lpenz-backup-ire/
 
