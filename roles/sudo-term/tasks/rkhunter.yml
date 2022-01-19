@@ -14,4 +14,4 @@
     - { line: "ALLOWIPCPROC=/usr/bin/firefox", regex: "^ *#? *ALLOWIPCPROC=.*" }
     - { line: "ALLOWIPCPROC=/usr/bin/firefox-esr", regex: "^ *#? *ALLOWIPCPROC=.*" }
     - { line: "SCRIPTWHITELIST=/usr/bin/lwp-request", regex: "^ *#? *SCRIPTWHITELIST=.*" }
-    - { line: "SCRIPTWHITELIST=/usr/sbin/ifstatus", regex: "^ *#? *SCRIPTWHITELIST=.*" }
+    # - { line: "SCRIPTWHITELIST=/usr/sbin/ifstatus", regex: "^ *#? *SCRIPTWHITELIST=.*" }
