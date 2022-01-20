@@ -7,11 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: docker://lpenz/omnilint:v0.3
-  ansible-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ansible/ansible-lint-action@master
   docker-do:
     runs-on: ubuntu-latest
     steps:
