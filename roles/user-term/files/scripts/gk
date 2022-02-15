@@ -1,4 +1,5 @@
 #!/bin/bash
 
+git update-index --refresh
 gitk --all &
 disown
