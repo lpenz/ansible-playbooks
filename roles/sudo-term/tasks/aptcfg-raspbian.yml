@@ -16,8 +16,8 @@
     repo: "{{ item }}"
     state: present
   with_items:
-    - 'deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi firmware'
-    - 'deb http://archive.raspberrypi.org/debian/ buster main ui'
+    - 'deb http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi firmware'
+    - 'deb http://archive.raspberrypi.org/debian/ bullseye main ui'
   notify: apt-update
 
 - name: raspbian, rm sources.list
