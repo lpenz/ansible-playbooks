@@ -1,4 +1,7 @@
 ---
+- name: git config path must exist
+  file: name="{{ lookup('env','HOME') }}/.config/git" state=directory mode=0755
+
 - name: git config alias.k
   git_config:
     name: alias.k
@@ -11,8 +14,11 @@
     scope: global
     value: 'true'
 
-- name: git config path must exist
-  file: name="{{ lookup('env','HOME') }}/.config/git" state=directory mode=0755
+- name: git config pull.rebase true
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: 'true'
 
 - name: gitignore setup
   lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{ item }}
