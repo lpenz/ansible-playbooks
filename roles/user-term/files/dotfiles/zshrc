@@ -22,7 +22,7 @@ if test -r ~/.zshrc.local.pre; then . ~/.zshrc.local.pre; fi
 if ! [ -d "$HOME/.zinit/bin" ]; then
    mkdir -p "$HOME/.zinit"
    rm -rf "$HOME/.zinit/bin"
-   git clone https://github.com/zdharma/zinit.git "$HOME/.zinit/bin"
+   git clone https://github.com/zdharma-continuum/zinit.git "$HOME/.zinit/bin"
 fi
 
 function lpenz_powerlevel9k_setup {
@@ -96,7 +96,7 @@ zinit snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
 zinit ice lucid wait'0' from"gh" 
 zinit snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
 zinit ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
-zinit load 'zdharma/fast-syntax-highlighting'
+zinit load 'zdharma-continuum/fast-syntax-highlighting'
 # } zinit
 
 zmodload zsh/terminfo
@@ -153,7 +153,7 @@ function lpenz_preexec {
     local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]:gs/%/%%}
     local LINE="${2:gs/%/%%}"
 
-    title '$CMD' '%100>...>$LINE%<<'
+    title "$CMD" "%100>...>$LINE%<<"
     _lpenz_timer_start=EPOCHREALTIME
 }
 preexec_functions+=(lpenz_preexec)
