@@ -8,13 +8,13 @@ a given Linux system. It is based on ansible-pull operation.
 - My user configuration, with everything that does not require X:
 
   ```shell
-  ansible-playbook -i localhost, -c local playbook-user-term.yml
+  ansible-playbook -i localhost, -c local -u "$USER" playbook-user-term.yml
   ```
 
   Or, remotely (no download required):
 
   ```shell
-  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-user-term.yml
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local -u "$USER" playbook-user-term.yml
   ```
 
 - Configurations that require sudo, mostly installing packages and
@@ -35,7 +35,7 @@ a given Linux system. It is based on ansible-pull operation.
 - Configurations that require X, in the same order:
   ```shell
   ansible-playbook -i localhost, -c local playbook-user-x.yml -K
-  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-user-x.yml -K
+  ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local -u "$USER" playbook-user-x.yml -K
   ansible-playbook -i localhost, -c local playbook-sudo-x.yml -K
   ansible-pull -U https://github.com/lpenz/ansible-playbooks.git -i localhost, -c local playbook-sudo-x.yml -K
   ```
