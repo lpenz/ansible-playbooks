@@ -9,7 +9,7 @@ set -x
 wget https://sh.rustup.rs -O "$TMP"
 # bash "$TMP" --no-modify-path --default-toolchain nightly -y
 bash "$TMP" --no-modify-path -y
-cargo install cargo-update
+cargo install cargo-update cargo-edit
 rustup component add clippy
 rustup component add rustfmt
 
