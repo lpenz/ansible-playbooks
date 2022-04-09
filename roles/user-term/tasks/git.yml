@@ -26,3 +26,4 @@
     - '*.pyc'
     - '*.pyo'
     - '*.~undo-tree~'
+    - '.envrc'
