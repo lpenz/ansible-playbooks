@@ -1,0 +1,24 @@
+[Unit]
+Description={{ item.name }}
+{% if item.bind_to_parent | default(true) %}
+BindTo=%u-x-{{ item.parent | default("wm") }}.service
+After=%u-x-{{ item.parent | default("wm") }}.service
+{% endif %}
+
+[Service]
+{% if item.type is defined %}
+Type={{ item.type }}
+{% endif %}
+{% if item.exec_pre is defined %}
+ExecStartPre={{ item.exec_pre }}
+{% endif %}
+ExecStart={{ item.exec | default("/usr/bin/" + item.name) }}
+{% if item.limit_memory | default(false) %}
+MemoryHigh=5G
+MemoryMax=7G
+{% endif %}
+
+{% if item.autostart | default(true) %}
+[Install]
+WantedBy=%u-x-{{ item.parent | default("wm") }}.service
+{% endif %}

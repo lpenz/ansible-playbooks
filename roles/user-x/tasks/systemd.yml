@@ -6,21 +6,43 @@
     - .config/systemd
     - .config/systemd/user
 
-- name: install systemd user graphical services
-  copy:
-    src: "systemd/{{ item }}"
-    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{ item }}"
+- name: install templated systemd user graphical services
+  template:
+    src: "systemd-user-x.service.j2"
+    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{ item.name }}.service"
     mode: 0644
   with_items:
-    - clipinfo-clipboard.service
-    - clipinfo-primary.service
-    - gkrellm.service
-    - myroottail.service
-    - nmapplet.service
-    - pasystray.service
-    - stalonetray.service
-    - warnd.service
-    - wm.service
-    - xscreensaver.service
-    - xscreensaver-watch.service
+    - name: clipinfo-clipboard
+      exec: "%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt"
+    - name: clipinfo-primary
+      exec: "%h/bin/clipinfo.py -m 79 -c -b -o %h/.selection_primary.txt"
+    - name: firefox
+      limit_memory: true
+      autostart: false
+    - name: gkrellm
+      type: notify
+    - name: google-chrome
+      limit_memory: true
+      autostart: false
+    - name: myroottail
+      exec: "%h/bin/myroottail"
+    - name: nm-applet
+      parent: stalonetray
+    - name: pasystray
+      parent: stalonetray
+    - name: stalonetray
+      parent: gkrellm
+      exec: "/usr/bin/stalonetray --window-type dock --geometry 3x5"
+    - name: warnd
+      exec: "%h/bin/warnd.py -f %h/.warnd_fifo -l %h/.warnd_log1,%h/.warnd_log2"
+    - name: wm
+      exec: /usr/bin/notion
+      bind_to_parent: false
+      autostart: false
+    - name: xscreensaver
+      exec: "/usr/bin/xscreensaver -verbose"
+    - name: xscreensaver-watch
+      exec_pre: "logger -t xscreensaver STARTED"
+      exec: "/bin/bash -c 'set -e -o pipefail; xscreensaver-command -watch | logger -t xscreensaver'"
+      parent: xscreensaver
   notify: systemd-reload
