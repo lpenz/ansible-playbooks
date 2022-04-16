@@ -1,26 +1,33 @@
 ---
-- name: ~/.config dir must exist
-  file: name="{{ lookup('env','HOME') }}/.config" state=directory mode=0755
 
-- name: ~/.config/nix dir must exist
-  file: dest="{{ lookup('env','HOME') }}/.config/nix" state=directory mode=0755
-- name: ~/.mc dir must exist
-  file: name="{{ lookup('env','HOME') }}/.mc" state=directory mode=0755
-- name: install dotfiles
-  copy: src="{{ item.src }}" dest="{{ item.dest }}" mode=0644
+- name: create home dirs
+  file:
+    state: directory
+    dest: "{{ lookup('env','HOME') }}/{{ item }}"
+    mode: 0755
   with_items:
-    - { src: "dotfiles/agignore"     , dest: "~/.agignore"     }
-    - { src: "dotfiles/clang-format" , dest: "~/.clang-format" }
-    - { src: "dotfiles/expectk.rc"   , dest: "~/.expectk.rc"   }
-    - { src: "dotfiles/expect.rc"    , dest: "~/.expect.rc"    }
-    - { src: "dotfiles/mailcap"      , dest: "~/.mailcap"      }
-    - { src: "dotfiles/mc.ini"       , dest: "~/.mc/ini"       }
-    - { src: "dotfiles/mime.types"   , dest: "~/.mime.types"   }
-    - { src: "dotfiles/nix.conf"     , dest: "~/.config/nix/" }
-    - { src: "dotfiles/pdbrc"        , dest: "~/.pdbrc"        }
-    - { src: "dotfiles/pdb_rc.py"    , dest: "~/.pdb_rc.py"    }
-    - { src: "dotfiles/pystartup"    , dest: "~/.pystartup"    }
-    - { src: "dotfiles/screenrc"     , dest: "~/.screenrc"     }
+    - .config
+    - .mc
+    - nix
+
+- name: install dotfiles
+  copy:
+    src: "dotfiles/{{ item.src }}"
+    dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
+    mode: 0644
+  with_items:
+    - { src: "agignore"     , dest: ".agignore"     }
+    - { src: "clang-format" , dest: ".clang-format" }
+    - { src: "expectk.rc"   , dest: ".expectk.rc"   }
+    - { src: "expect.rc"    , dest: ".expect.rc"    }
+    - { src: "mailcap"      , dest: ".mailcap"      }
+    - { src: "mc.ini"       , dest: ".mc/ini"       }
+    - { src: "mime.types"   , dest: ".mime.types"   }
+    - { src: "nix.conf"     , dest: ".config/nix/"  }
+    - { src: "pdbrc"        , dest: ".pdbrc"        }
+    - { src: "pdb_rc.py"    , dest: ".pdb_rc.py"    }
+    - { src: "pystartup"    , dest: ".pystartup"    }
+    - { src: "screenrc"     , dest: ".screenrc"     }
 
 - name: gdbinit save history
   lineinfile:

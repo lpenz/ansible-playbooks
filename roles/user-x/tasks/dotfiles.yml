@@ -1,12 +1,10 @@
 ---
-- name: install dotfiles
-  copy: src="{{ item.src }}" dest="{{ item.dest }}" mode=0644
-  with_items:
-    - { src: "dotfiles/Xresources"   , dest: "~/.Xresources" }
-    - { src: "dotfiles/xsession"     , dest: "~/.xsession"   }
 
-- name: create home dirs ~/{{ item }}
-  file: state=directory dest=~/{{ item }} mode=0755
+- name: create home dirs
+  file:
+    state: directory
+    dest: "{{ lookup('env','HOME') }}/{{ item }}"
+    mode: 0755
   with_items:
     - .config
     - .config/fontconfig
@@ -14,14 +12,30 @@
     - .local/share
     - .local/share/fonts
 
-- name: some dot files exist
-  copy: dest="{{ item }}" content='' force=no mode=0644
+- name: install dotfiles
+  copy:
+    src: "dotfiles/{{ item.src }}"
+    dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
+    mode: 0644
   with_items:
-     - ~/.Xresources.local
-     - ~/.stalonetrayrc
+    - { src: "Xresources"   , dest: ".Xresources"    }
+    - { src: "xsession"     , dest: ".xsession"      }
+
+- name: some dot files must exist
+  copy:
+    content: ''
+    dest: "{{ lookup('env','HOME') }}/{{ item }}"
+    force: no
+    mode: 0644
+  with_items:
+     - .Xresources.local
+     - .stalonetrayrc
 
 - name: install fonts.conf that gets nix fonts
-  template: src=fonts.conf.j2 dest=~/.config/fontconfig/fonts.conf mode=0644
+  template:
+    src: fonts.conf.j2
+    dest: "{{ lookup('env','HOME') }}/.config/fontconfig/fonts.conf"
+    mode: 0644
   notify: fccache
 
 - name: install inconsolata nerd font for powerline
