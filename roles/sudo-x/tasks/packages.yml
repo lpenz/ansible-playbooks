@@ -4,6 +4,7 @@
     state: present
     package:
       - dbus-x11 # dep
+      - dunst
       - fonts-dejavu
       - fonts-inconsolata
       - fonts-recommended
@@ -13,7 +14,6 @@
       - gkrellshoot
       - gkrelltop
       - libnotify-bin
-      - mate-notification-daemon
       - pasystray
       - root-tail
       - rxvt-unicode

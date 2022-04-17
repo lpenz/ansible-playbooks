@@ -8,6 +8,7 @@
   with_items:
     - .config
     - .config/fontconfig
+    - .config/dunst
     - .local
     - .local/share
     - .local/share/fonts
@@ -20,6 +21,7 @@
   with_items:
     - { src: "Xresources"   , dest: ".Xresources"    }
     - { src: "xsession"     , dest: ".xsession"      }
+    - { src: "dunstrc"      , dest: ".config/dunst/" }
 
 - name: some dot files must exist
   copy:
