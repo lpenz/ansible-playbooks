@@ -8,11 +8,12 @@
     name: '{{ item.name }}'
     value: '{{ item.value }}'
   with_items:
-    - { name: rerere.enabled, value: 'true' }
     - { name: alias.k, value: 'log --graph --decorate --oneline' }
-    - { name: push.default, value: 'matching' }
+    - { name: core.excludesFile, value: "{{ lookup('env','HOME') }}/.config/git/ignore" }
     - { name: init.defaultBranch, value: 'main' }
     - { name: pull.rebase, value: 'true' }
+    - { name: push.default, value: 'matching' }
+    - { name: rerere.enabled, value: 'true' }
 
 - name: gitignore setup
   lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{ item }}
