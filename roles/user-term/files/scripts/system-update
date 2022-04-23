@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e -x
+
+sudo aptitude update
+sudo aptitude upgrade -d -y
+
+nix-channel --update -v
+nix-env -u
+nix-collect-garbage -d &>/dev/null
+nix-env -qa > ~/nix.txt
+

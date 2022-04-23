@@ -45,6 +45,7 @@
     - rust-install
     - ssh-tmux
     - stressnlog
+    - system-update
     - term-fix
     - timestamp
     - tmux-attach-or-new
