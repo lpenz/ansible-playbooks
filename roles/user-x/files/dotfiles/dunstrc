@@ -18,7 +18,7 @@ sort = no
 
 ### Text ###
 
-font = Inconsolata 18
+font = Inconsolata 14
 markup = full
 
 # The format of the message.  Possible variables are:
