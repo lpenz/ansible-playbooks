@@ -106,6 +106,7 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # Custom configs:
 setopt no_share_history
 setopt clobber
+setopt auto_pushd
 
 # Hotkeys:
 bindkey "\ej" accept-and-menu-complete
