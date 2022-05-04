@@ -1,0 +1,14 @@
+#!/bin/bash
+
+unit="{{ ansible_user }}-x-{{ item.name }}"
+
+set -e -x
+
+cmd=${1-start}
+
+systemctl --user "$cmd" "$unit"
+
+if [ "$cmd" != "status" ]; then
+    systemctl --user status "$unit"
+fi
+

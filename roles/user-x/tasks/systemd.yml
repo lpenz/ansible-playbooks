@@ -47,3 +47,16 @@
       exec: "/bin/bash -c 'set -e -o pipefail; xscreensaver-command -watch | logger -t xscreensaver'"
       parent: xscreensaver
   notify: systemd-reload
+
+- name: install systemd shorthand scripts
+  template:
+    src: "systemctl-user.j2"
+    dest: "{{ lookup('env','HOME') }}/bin/{{ item.name }}"
+    mode: 0755
+  with_items:
+    - name: firefox
+      unit: "firefox"
+    - name: google-chrome
+      unit: "google-chrome"
+    - name: chrome
+      unit: "google-chrome"
