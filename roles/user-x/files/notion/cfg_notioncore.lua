@@ -136,7 +136,7 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."equal", "ioncore.exec_on(_, 'winclick Pidgin')"),
 
     bdoc("Turn on all displays"),
-    kpress(META.."Z", "ioncore.exec_on(_, 'xrandr --auto')"),
+    kpress(META.."Z", "ioncore.exec_on(_, 'xrandr-setup || xrandr --auto')"),
 
     bdoc("Run a screen lock."),
     kpress(META.."Scroll_Lock", "ioncore.exec_on(_, 'xscreensaver-command -lock > /dev/null')"),
