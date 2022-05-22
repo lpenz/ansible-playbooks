@@ -1,16 +1,16 @@
 ---
 
 - name: ~/.gnupg dir must exist
-  file: name="{{ lookup('env','HOME') }}/.gnupg" state=directory mode=0755
+  file: name="{{ lookup('env','HOME') }}/.gnupg" state=directory mode=0700
 
 - name: gpg.conf
   lineinfile:
     path: "{{ lookup('env','HOME') }}/.gnupg/gpg.conf"
     line: "{{ item }}"
     create: yes
-    mode: 0644
+    mode: 0600
   with_items:
-    - "keyid-format short"
+    - "keyid-format long"
     - "with-fingerprint"
     - "with-sig-list"
     - "list-options show-notations"
