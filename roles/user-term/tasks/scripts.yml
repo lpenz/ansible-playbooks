@@ -39,6 +39,7 @@
     - mymake
     - mymakesee
     - newest
+    - pmount-label
     - pstree-nothreads
     - repeater
     - rust-coverage
