@@ -4,5 +4,6 @@ REPO=${1?repository not provided}
 
 set -e -x
 
-git clone "https://github.com/$REPO"
+git clone "$REPO"
+git config commit.gpgsign true
 
