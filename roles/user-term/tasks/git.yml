@@ -8,7 +8,7 @@
     name: '{{ item.name }}'
     value: '{{ item.value }}'
   with_items:
-    - { name: alias.k, value: 'log --graph --decorate --oneline' }
+    - { name: alias.k, value: "log --graph --decorate '--pretty=format:%C(auto)%h %G?%d %s'" }
     - { name: core.excludesFile, value: "{{ lookup('env','HOME') }}/.config/git/ignore" }
     - { name: init.defaultBranch, value: 'main' }
     - { name: pull.rebase, value: 'true' }
