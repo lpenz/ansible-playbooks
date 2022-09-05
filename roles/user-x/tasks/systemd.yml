@@ -29,6 +29,8 @@
       exec: "%h/bin/myroottail"
     - name: nm-applet
       parent: stalonetray
+    - name: syncthingtray
+      parent: stalonetray
     - name: pasystray
       parent: stalonetray
     - name: stalonetray
