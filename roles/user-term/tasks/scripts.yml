@@ -29,6 +29,7 @@
     - git-release
     - git-retimestamp-from-main
     - git-rootnew
+    - git-sign
     - git-status-r
     - gitup
     - gk
