@@ -31,6 +31,7 @@
     - git-rootnew
     - git-sign
     - git-status-r
+    - git-tags-clean
     - gitup
     - gk
     - grepstats

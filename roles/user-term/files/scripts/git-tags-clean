@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e -x
+
+git show-ref --tag
+git tag | xargs git tag -d
+git fetch --all
