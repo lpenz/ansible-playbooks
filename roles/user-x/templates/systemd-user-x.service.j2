@@ -17,6 +17,8 @@ ExecStart={{ item.exec | default("/usr/bin/" + item.name) }}
 MemoryHigh=5G
 MemoryMax=7G
 {% endif %}
+SyslogIdentifier=omit-${{ item.name }}
+SyslogFacility=user
 
 {% if item.autostart | default(true) %}
 [Install]

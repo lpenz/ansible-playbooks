@@ -4,4 +4,8 @@
 - include: debian-x86.yml
   when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture == "i386" )
 
+- name: rsyslog configure omit
+  copy: src=rsyslog/omit.conf dest=/etc/rsyslog.d/98-omit.conf owner=root group=root mode=0644
+  notify: rsyslog-restart
+
 - include: xscreensaver.yml
