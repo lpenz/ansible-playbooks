@@ -9,7 +9,7 @@
   git:
     repo: "http://github.com/tmux-plugins/tpm"
     dest: "{{ lookup('env','HOME') }}/.tmux/plugins/tpm"
-    version: v3.0.0
+    version: master
   notify: tmux_plugins_install
 
 - name: install my tmux.conf
