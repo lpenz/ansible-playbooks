@@ -16,18 +16,19 @@
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
     mode: 0644
   with_items:
-    - { src: "agignore"     , dest: ".agignore"     }
-    - { src: "clang-format" , dest: ".clang-format" }
-    - { src: "expectk.rc"   , dest: ".expectk.rc"   }
-    - { src: "expect.rc"    , dest: ".expect.rc"    }
-    - { src: "mailcap"      , dest: ".mailcap"      }
-    - { src: "mc.ini"       , dest: ".mc/ini"       }
-    - { src: "mime.types"   , dest: ".mime.types"   }
-    - { src: "nix.conf"     , dest: ".config/nix/"  }
-    - { src: "pdbrc"        , dest: ".pdbrc"        }
-    - { src: "pdb_rc.py"    , dest: ".pdb_rc.py"    }
-    - { src: "pystartup"    , dest: ".pystartup"    }
-    - { src: "screenrc"     , dest: ".screenrc"     }
+    - { src: "agignore"      , dest: ".agignore"             }
+    - { src: "clang-format"  , dest: ".clang-format"         }
+    - { src: "expectk.rc"    , dest: ".expectk.rc"           }
+    - { src: "expect.rc"     , dest: ".expect.rc"            }
+    - { src: "mailcap"       , dest: ".mailcap"              }
+    - { src: "mc.ini"        , dest: ".mc/ini"               }
+    - { src: "mime.types"    , dest: ".mime.types"           }
+    - { src: "nix.conf"      , dest: ".config/nix/"          }
+    - { src: "pdbrc"         , dest: ".pdbrc"                }
+    - { src: "pdb_rc.py"     , dest: ".pdb_rc.py"            }
+    - { src: "pystartup"     , dest: ".pystartup"            }
+    - { src: "screenrc"      , dest: ".screenrc"             }
+    - { src: "topgrade.toml" , dest: ".config/topgrade.toml" }
 
 - name: gdbinit save history
   lineinfile:
