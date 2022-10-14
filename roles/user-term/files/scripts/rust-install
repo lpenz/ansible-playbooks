@@ -11,5 +11,5 @@ wget https://sh.rustup.rs -O "$TMP"
 bash "$TMP" --no-modify-path -y
 cargo install cargo-update cargo-edit
 rustup component add clippy rustfmt
-rustup component add rls rust-analysis rust-src
+rustup component add rust-analyzer
 
