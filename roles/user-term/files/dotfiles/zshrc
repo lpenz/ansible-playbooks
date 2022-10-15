@@ -89,8 +89,8 @@ zinit ice lucid wait'0'
 zinit load 'lpenz/zsh-notify-urxvt'
 zinit ice lucid src'powerlevel10k.zsh-theme' atinit'lpenz_powerlevel9k_setup'
 zinit load 'romkatv/powerlevel10k'
-zinit ice lucid from"gh-r" as"program"
-zinit load junegunn/fzf-bin
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 zinit ice lucid wait'0' from"gh" 
 zinit snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
 zinit ice lucid wait'0' from"gh" 
