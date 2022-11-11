@@ -18,7 +18,5 @@
   notify: apt-update
 
 - name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
-  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/ {{ item }} main' update_cache=no
-  with_items:
-    - bullseye
+  apt_repository: repo='deb https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/ {{ ansible_lsb.codename }} main' update_cache=no
   notify: apt-update
