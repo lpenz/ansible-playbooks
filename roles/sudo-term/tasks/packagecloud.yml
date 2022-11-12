@@ -1,24 +1,24 @@
 ---
-- name: packagecloud-key-remove-old
-  apt_key: id='D59097AB' state=absent
+- name: create /etc/apt/keyrings
+  file: dest=/etc/apt/keyrings state=directory mode=0755
 
-- name: packagecloud-key-import-new
-  apt_key: url='https://packagecloud.io/lpenz/lpenz/gpgkey' id='3436F2D037B9886CDCA0318C06D53CED378B88C5' state=present
+- name: check if lpenz_{{ ansible_lsb.id | lower }}.gpg exists
+  stat: path=/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
+  register: lpenz_packagecloud_gpg
 
-- name: packagecloud-key-import-debian
-  apt_key: url='https://packagecloud.io/lpenz/debian/gpgkey' id='191E73288C5ECDE2' state=present
-  when: ansible_lsb.id == "Debian"
-
-- name: packagecloud-key-import-raspbian
-  apt_key: url='https://packagecloud.io/lpenz/raspbian/gpgkey' id='A42143653C34406F' state=present
-  when: ansible_lsb.id == "Raspbian"
-
-- name: rm packagecloud.io/lpenz/lpenz
-  apt_repository: repo='deb https://packagecloud.io/lpenz/lpenz/debian/ stretch main' update_cache=no state=absent
-  notify: apt-update
+- name: download lpenz_{{ ansible_lsb.id | lower }}.gpg
+  shell: >
+    set -o pipefail;
+    curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey |
+    gpg --dearmor >
+    /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
+  when: not lpenz_packagecloud_gpg.stat.exists
 
 - name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
   apt_repository:
-    repo: 'deb https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/ {{ ansible_lsb.codename }} main'
+    repo: >
+      deb [signed-by=/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg]
+      https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/
+      {{ ansible_lsb.codename }} main
     update_cache: no
   notify: apt-update
