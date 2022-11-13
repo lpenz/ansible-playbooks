@@ -2,17 +2,15 @@
 - name: create /etc/apt/keyrings
   file: dest=/etc/apt/keyrings state=directory mode=0755
 
-- name: check if lpenz_{{ ansible_lsb.id | lower }}.gpg exists
-  stat: path=/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
-  register: lpenz_packagecloud_gpg
-
 - name: download lpenz_{{ ansible_lsb.id | lower }}.gpg
-  shell: >
-    set -o pipefail;
-    curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey |
-    gpg --dearmor >
-    /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
-  when: not lpenz_packagecloud_gpg.stat.exists
+  shell:
+    cmd: >
+      set -o pipefail;
+      curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey |
+      gpg --dearmor >
+      /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
+    executable: /bin/bash
+    creates: '/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg'
 
 - name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
   apt_repository:
