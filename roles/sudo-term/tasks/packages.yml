@@ -6,6 +6,7 @@
       - ansible
       - direnv
       - emacs
+      - fd-find
       - fzf
       - gawk # required by tmux-fingers
       - git
@@ -15,7 +16,9 @@
       - mc
       - neovim
       - network-manager
+      - nnn
       - openssh-server
+      - pmount
       - renameutils
       - ripgrep
       - rkhunter
