@@ -1,11 +1,11 @@
 ---
-- include: packages.yml
+- import_tasks: packages.yml
 
-- include: debian-x86.yml
+- import_tasks: debian-x86.yml
   when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture == "i386" )
 
 - name: rsyslog configure omit
   copy: src=rsyslog/omit.conf dest=/etc/rsyslog.d/06-omit.conf owner=root group=root mode=0644
   notify: rsyslog-restart
 
-- include: xscreensaver.yml
+- import_tasks: xscreensaver.yml

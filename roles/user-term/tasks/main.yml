@@ -1,8 +1,8 @@
 ---
-- include: scripts.yml
-- include: dotfiles.yml
-- include: zsh.yml
-- include: tmux.yml
-- include: git.yml
-- include: gpg.yml
-- include: syncthing.yml
+- import_tasks: scripts.yml
+- import_tasks: dotfiles.yml
+- import_tasks: zsh.yml
+- import_tasks: tmux.yml
+- import_tasks: git.yml
+- import_tasks: gpg.yml
+- import_tasks: syncthing.yml

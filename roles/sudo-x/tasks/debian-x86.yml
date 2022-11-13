@@ -2,6 +2,6 @@
 
 # These won't work on other architectures:
 
-- include: google-chrome.yml
-# - include: spotify.yml
+- import_tasks: google-chrome.yml
+# - import_tasks: spotify.yml
 

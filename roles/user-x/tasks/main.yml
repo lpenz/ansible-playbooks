@@ -1,6 +1,6 @@
 ---
-- include: scripts.yml
-- include: dotfiles.yml
-- include: systemd.yml
-- include: notion.yml
-- include: gkrellm.yml
+- import_tasks: scripts.yml
+- import_tasks: dotfiles.yml
+- import_tasks: systemd.yml
+- import_tasks: notion.yml
+- import_tasks: gkrellm.yml

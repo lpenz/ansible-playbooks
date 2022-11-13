@@ -1,16 +1,16 @@
 ---
-- include: aptcfg-debian.yml
+- import_tasks: aptcfg-debian.yml
   when: ansible_lsb.id == "Debian"
 
-- include: aptcfg-raspbian.yml
+- import_tasks: aptcfg-raspbian.yml
   when: ansible_lsb.id == "Raspbian"
 
-- include: packagecloud.yml
+- import_tasks: packagecloud.yml
 
 - name: run apt-update if necessary
   meta: flush_handlers
 
-- include: packages.yml
+- import_tasks: packages.yml
 
 - name: setup locales
   locale_gen:
@@ -36,11 +36,11 @@
 - name: ufw needs iptables-legacy alternative
   alternatives: name=iptables path=/usr/sbin/iptables-legacy
 
-- include: ssh-server-config.yml
-- include: rkhunter.yml
-- include: sudo.yml
-- include: modprobe.yml
-- include: syncthing.yml
+- import_tasks: ssh-server-config.yml
+- import_tasks: rkhunter.yml
+- import_tasks: sudo.yml
+- import_tasks: modprobe.yml
+- import_tasks: syncthing.yml
 
-- include: network-raspbian.yml
+- import_tasks: network-raspbian.yml
   when: ansible_lsb.id == "Raspbian"
