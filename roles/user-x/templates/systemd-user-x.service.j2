@@ -14,10 +14,10 @@ ExecStartPre={{ item.exec_pre }}
 {% endif %}
 ExecStart={{ item.exec | default("/usr/bin/" + item.name) }}
 {% if item.limit_memory | default(false) %}
-MemoryHigh=5G
-MemoryMax=7G
+MemoryHigh=10G
+MemoryMax=14G
 {% endif %}
-SyslogIdentifier=omit-${{ item.name }}
+SyslogIdentifier=omit-{{ item.name }}
 SyslogFacility=user
 
 {% if item.autostart | default(true) %}
