@@ -61,8 +61,14 @@ function lpenz_completion_setup {
     bindkey -M menuselect '^K' vi-insert
 }
 
+function lpenz_history_setup {
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey "$terminfo[kcud1]" history-substring-search-down
+}
+
 # plugin management
 
+zmodload zsh/terminfo
 # zinit {
 source ~/.zinit/bin/zinit.zsh
 zinit ice lucid
@@ -81,7 +87,7 @@ zinit ice lucid wait'!0'
 zinit snippet OMZ::plugins/history/history.plugin.zsh
 zinit ice lucid wait'0'
 zinit snippet OMZ::plugins/direnv/direnv.plugin.zsh
-zinit ice lucid wait'0'
+zinit ice lucid wait'0' atload'lpenz_history_setup'
 zinit load zsh-users/zsh-history-substring-search
 zinit ice wait'!0' lucid atload'setupsolarized dircolors.ansi-dark'
 zinit load 'joel-porquet/zsh-dircolors-solarized'
@@ -98,10 +104,6 @@ zinit snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
 zinit ice lucid wait'!2' atinit'zpcompinit; zpcdreplay' atload'lpenz_completion_setup'
 zinit load 'zdharma-continuum/fast-syntax-highlighting'
 # } zinit
-
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Custom configs:
 setopt no_share_history
