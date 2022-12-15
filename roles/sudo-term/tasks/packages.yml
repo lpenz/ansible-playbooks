@@ -4,6 +4,7 @@
     state: present
     package:
       - ansible
+      - cryptmount
       - direnv
       - emacs
       - fd-find
