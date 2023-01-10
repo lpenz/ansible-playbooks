@@ -1,7 +1,16 @@
 #!/bin/bash
 
+nnn_nix="$HOME/.nix-profile/bin/nnn"
+
+if [ -x "$nnn_nix" ]; then
+    nnn="$nnn_nix"
+else
+    nnn=/usr/bin/nnn
+fi
+
 set -e -x
 
 export PAGER=less
-exec /usr/bin/nnn
+
+exec "$nnn"
 
