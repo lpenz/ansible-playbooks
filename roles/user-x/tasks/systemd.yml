@@ -16,7 +16,6 @@
       exec: "%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt"
     - name: clipinfo-primary
       exec: "%h/bin/clipinfo.py -m 79 -c -b -o %h/.selection_primary.txt"
-    - name: dunst
     - name: firefox
       limit_memory: true
       autostart: false
