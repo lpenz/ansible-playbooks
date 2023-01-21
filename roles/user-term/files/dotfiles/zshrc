@@ -32,6 +32,10 @@ function lpenz_powerlevel9k_setup {
         prompt_lpenz_user_indicator() {
             p10k segment -f yellow -t '#'
         }
+    elif [[ "$TERM" == "eterm-color" ]]; then
+        prompt_lpenz_user_indicator() {
+            p10k segment -b blue -t '%%'
+        }
     else
         prompt_lpenz_user_indicator() {
             p10k segment -f blue -t '%%'
@@ -41,17 +45,22 @@ function lpenz_powerlevel9k_setup {
         POWERLEVEL9K_CONTEXT_TEMPLATE=%m
     fi
 
-    GITSTATUS_NUM_THREADS=1
-    GITSTATUS_DIR="$HOME/.zinit/plugins/romkatv---powerlevel10k/gitstatus/bin"
-    GITSTATUS_DAEMON_CANDIDATES=( "gitstatusd-linux-x86_64-static" "gitstatusd-linux-armv8l" "gitstatusd-linux-armv7l" )
-    for g in "${GITSTATUS_DAEMON_CANDIDATES[@]}"; do
-        gitstatusd="$GITSTATUS_DIR/$g"
-        if "$gitstatusd" -h &>/dev/null; then
-            GITSTATUS_DAEMON="$gitstatusd"
-        fi
-    done
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(lpenz_user_indicator)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs vcs context dir)
+    if [[ "$TERM" == "eterm-color" ]]; then
+        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(background_jobs lpenz_user_indicator)
+        POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+    else
+        GITSTATUS_NUM_THREADS=1
+        GITSTATUS_DIR="$HOME/.zinit/plugins/romkatv---powerlevel10k/gitstatus/bin"
+        GITSTATUS_DAEMON_CANDIDATES=( "gitstatusd-linux-x86_64-static" "gitstatusd-linux-armv8l" "gitstatusd-linux-armv7l" )
+        for g in "${GITSTATUS_DAEMON_CANDIDATES[@]}"; do
+            gitstatusd="$GITSTATUS_DIR/$g"
+            if "$gitstatusd" -h &>/dev/null; then
+                GITSTATUS_DAEMON="$gitstatusd"
+            fi
+        done
+        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(lpenz_user_indicator)
+        POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs vcs context dir)
+    fi
 }
 
 function lpenz_completion_setup {
