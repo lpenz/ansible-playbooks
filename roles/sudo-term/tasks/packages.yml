@@ -17,7 +17,6 @@
       - mc
       - neovim
       - network-manager
-      - nnn
       - openssh-server
       - pmount
       - renameutils
