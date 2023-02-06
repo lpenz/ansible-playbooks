@@ -223,6 +223,11 @@ precmd_functions+=(lpenz_precmd)
 # do not beep
 setterm --blength 0 2>/dev/null 
 
+# Fix "unknown option: --scheme=history" error
+if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+
 # Local customizations
 if test -r ~/.zshrc.local; then . ~/.zshrc.local; fi
 
