@@ -5,13 +5,8 @@
     package:
       - ansible
       - cryptmount
-      - direnv
-      - emacs
-      - fd-find
-      - fzf
       - gawk # required by tmux-fingers
       - git
-      - htop
       - keychain
       - locales
       - mc
@@ -20,7 +15,6 @@
       - openssh-server
       - pmount
       - renameutils
-      - ripgrep
       - rkhunter
       - syncthing
       - tmux
