@@ -102,7 +102,7 @@ URxvt.iso14755:         False
 URxvt.scrollBar_right: true
 URxvt.foreground: grey
 URxvt.background: black
-URxvt.font: xft:InconsolataForPowerline Nerd Font:size=14,xft:Inconsolata:size=14,xft:Symbola,xft:DejaVuSansMono:size=11
+URxvt.font: xft:MesloLGS NFM:size=12,xft:Inconsolata:size=14,xft:Symbola,xft:DejaVuSansMono:size=11
 URxvt.letterSpace:      -1
 URxvt.saveLines: 5000
 URxvt.perl-ext: default,selection-to-clipboard,matcher,notify-osc
