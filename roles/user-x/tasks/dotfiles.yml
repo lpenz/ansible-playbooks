@@ -17,11 +17,11 @@
   copy:
     src: "dotfiles/{{ item.src }}"
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
-    mode: 0644
+    mode: "{{ item.mode }}"
   with_items:
-    - { src: "Xresources"   , dest: ".Xresources"    }
-    - { src: "xsession"     , dest: ".xsession"      }
-    - { src: "dunstrc"      , dest: ".config/dunst/" }
+    - { src: "Xresources"   , dest: ".Xresources"    , mode: 0644 }
+    - { src: "xsession"     , dest: ".xsession"      , mode: 0755 }
+    - { src: "dunstrc"      , dest: ".config/dunst/" , mode: 0644 }
 
 - name: some dot files must exist
   copy:
