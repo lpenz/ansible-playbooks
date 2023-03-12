@@ -1,7 +1,6 @@
 ---
 - import_tasks: scripts.yml
 - import_tasks: dotfiles.yml
-- import_tasks: zsh.yml
 - import_tasks: tmux.yml
 - import_tasks: git.yml
 - import_tasks: gpg.yml
