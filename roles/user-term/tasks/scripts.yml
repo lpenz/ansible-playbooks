@@ -46,7 +46,6 @@
     - repeater
     - rust-coverage
     - rust-install
-    - ssh-tmux
     - stressnlog
     - system-update
     - term-fix
