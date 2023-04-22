@@ -2,15 +2,15 @@
 
 export COUNT=-1
 if [ "$1" = "-n" ]; then
-   shift
-   COUNT=$1
-   shift
+	shift
+	COUNT=$1
+	shift
 fi
 
 export EXIT_ON_ERROR=false
 if [ "$1" = "-e" ]; then
-   EXIT_ON_ERROR=true
-   shift
+	EXIT_ON_ERROR=true
+	shift
 fi
 
 NAME=${1?name not found}
@@ -22,7 +22,7 @@ TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT
 chmod u+x "$TMP"
 
-cat > "$TMP" <<EOF
+cat >"$TMP" <<EOF
 #!/bin/bash
 
 echo "\$i / \$COUNT"
@@ -39,12 +39,12 @@ set -o pipefail
 export i=0
 RV=0
 while ! read -r -t 1; do
-    i=$((i+1))
-    FILE="$HOME/logs/$NAME/$(date +%s).txt"
-    echo "$FILE"
-    "$TMP" 2>&1 | tee "$FILE"
-    RV=$?
-    if [ "$i" == "$COUNT" ]; then break; fi
-    if $EXIT_ON_ERROR && [ "$RV" != 0 ]; then break; fi
+	i=$((i + 1))
+	FILE="$HOME/logs/$NAME/$(date +%s).txt"
+	echo "$FILE"
+	"$TMP" 2>&1 | tee "$FILE"
+	RV=$?
+	if [ "$i" == "$COUNT" ]; then break; fi
+	if $EXIT_ON_ERROR && [ "$RV" != 0 ]; then break; fi
 done
 exit "$RV"

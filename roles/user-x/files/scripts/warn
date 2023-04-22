@@ -2,9 +2,8 @@
 
 FILE=$(cat "$HOME/.warnd.cfg")
 
-[ -e "$FILE" ] && echo "$@" > "$FILE"
+[ -e "$FILE" ] && echo "$@" >"$FILE"
 
 TITLE=$1
 shift
 notify-send "$TITLE" "$*"
-

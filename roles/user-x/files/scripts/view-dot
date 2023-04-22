@@ -7,4 +7,3 @@ trap 'rm -f "$TMP_PDF"' EXIT
 
 dot -Tpdf "-o$TMP_PDF" "$1"
 see "$TMP_PDF" 2>/dev/null
-

@@ -6,12 +6,11 @@ trap 'rm -f $TMPFILE' EXIT
 set -e
 
 for d in *; do
-    if [ -d "$d/.git" ]; then
-        script -e -q -c "cd \"$d\"; git status -s" > "$TMPFILE"
-        if [ -s "$TMPFILE" ]; then
-            echo "$d"
-            sed 's@^@  @' "$TMPFILE"
-        fi
-    fi
+	if [ -d "$d/.git" ]; then
+		script -e -q -c "cd \"$d\"; git status -s" >"$TMPFILE"
+		if [ -s "$TMPFILE" ]; then
+			echo "$d"
+			sed 's@^@  @' "$TMPFILE"
+		fi
+	fi
 done
-

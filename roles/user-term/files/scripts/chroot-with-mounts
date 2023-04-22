@@ -9,7 +9,7 @@ chmod u+x "$TMP"
 
 set -e
 
-cat > "$TMP"  <<END
+cat >"$TMP" <<END
 #!/bin/bash
 
 set -e -x
@@ -24,10 +24,9 @@ mount -t none -o bind /run "$TARGET/run"
 
 END
 if [ "$#" = 0 ]; then
-    echo chroot "$TARGET" >> "$TMP"
+	echo chroot "$TARGET" >>"$TMP"
 else
-    echo chroot "$TARGET" "$@" >> "$TMP"
+	echo chroot "$TARGET" "$@" >>"$TMP"
 fi
 
 unshare -m -- "$TMP"
-

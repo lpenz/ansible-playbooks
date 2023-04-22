@@ -6,4 +6,3 @@ set -e -x
 
 git clone "$REPO"
 git config commit.gpgsign true
-

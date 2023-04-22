@@ -5,12 +5,11 @@ op=${1:on}
 set -e -x
 
 if [ "$op" = off ]; then
-    xrandr --auto
-    pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
+	xrandr --auto
+	pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
 else
-    xrandr --auto
-    xrandr --output HDMI-1 --off
-    xrandr --output HDMI-1 --same-as eDP-1 --mode 1920x1080
-    pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo
+	xrandr --auto
+	xrandr --output HDMI-1 --off
+	xrandr --output HDMI-1 --same-as eDP-1 --mode 1920x1080
+	pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo
 fi
-

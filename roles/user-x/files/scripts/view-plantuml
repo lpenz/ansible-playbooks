@@ -11,4 +11,3 @@ trap 'rm -rf "$TMP"' EXIT
 
 plantuml -tpng -o "$TMP" "$1"
 see "$TMP"/*.png 2>/dev/null
-

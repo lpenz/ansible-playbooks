@@ -12,4 +12,3 @@ bash "$TMP" --no-modify-path -y
 cargo install cargo-update cargo-edit
 rustup component add clippy rustfmt
 rustup component add rust-analyzer
-

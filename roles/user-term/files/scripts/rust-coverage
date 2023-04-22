@@ -3,4 +3,3 @@
 set -e -x
 
 docker run --rm -u "$UID" -v "$PWD:$PWD" -w "$PWD" -e INPUT_OUTPUT_TYPE=html "$@" lpenz/ghaction-rust-coverage
-

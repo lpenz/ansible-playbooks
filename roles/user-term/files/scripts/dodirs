@@ -3,7 +3,7 @@
 TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT
 
-cat <<END > "$TMP"
+cat <<END >"$TMP"
 #!/bin/bash
 
 RG=0
@@ -28,4 +28,3 @@ END
 set -e -x
 
 find . -mindepth 1 -maxdepth 1 -type d -exec /bin/bash "$TMP" {} +
-

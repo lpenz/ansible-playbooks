@@ -3,22 +3,21 @@
 set -e -x
 
 if command -v aptitude; then
-    sudo aptitude update
-    sudo aptitude upgrade -d -y
+	sudo aptitude update
+	sudo aptitude upgrade -d -y
 fi
 
 if command -v rustup; then
-    rustup update
+	rustup update
 fi
 
 if command -v cargo; then
-    cargo install-update --all
+	cargo install-update --all
 fi
 
 if command -v nix-env; then
-    nix-channel --update -v
-    nix-env -u
-    nix-collect-garbage -d &>/dev/null
-    nix-env -qa > ~/nix.txt
+	nix-channel --update -v
+	nix-env -u
+	nix-collect-garbage -d &>/dev/null
+	nix-env -qa >~/nix.txt
 fi
-

@@ -4,7 +4,7 @@ export PATH=~/bin:~/.cargo/bin:~/.local/bin:~/.nix-profile/bin:$PATH
 export LANGUAGE=en
 
 if [ -z "$LC_ALL" ]; then
-    export LC_ALL=en_US.UTF-8
+	export LC_ALL=en_US.UTF-8
 fi
 
 xset b off
@@ -14,8 +14,8 @@ setxkbmap -option compose:ralt
 systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS
 
 if [ -f "$HOME/.xsession.local" ]; then
-    # shellcheck source=/dev/null
-    . "$HOME/.xsession.local"
+	# shellcheck source=/dev/null
+	. "$HOME/.xsession.local"
 fi
 
 systemctl --user start --wait "${USER}-x-wm.service"

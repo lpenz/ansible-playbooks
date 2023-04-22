@@ -10,17 +10,16 @@ IFACE=$1
 ACTION=$2
 
 case ${IFACE} in
-    eth*|usb*|en*)
-        case ${ACTION} in
-            up)
-                log "disabling wifi radio"
-                nmcli radio wifi off
-                ;;
-            down)
-                log "enabling wifi radio"
-                nmcli radio wifi on
-                ;;
-        esac
-        ;;
+eth* | usb* | en*)
+	case ${ACTION} in
+	up)
+		log "disabling wifi radio"
+		nmcli radio wifi off
+		;;
+	down)
+		log "enabling wifi radio"
+		nmcli radio wifi on
+		;;
+	esac
+	;;
 esac
-

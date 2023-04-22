@@ -3,4 +3,3 @@
 set -e -x
 
 git commit --amend --no-edit -S
-

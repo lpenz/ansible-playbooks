@@ -4,4 +4,3 @@ set -e -x
 
 git fetch --all
 git pull --rebase --autostash
-

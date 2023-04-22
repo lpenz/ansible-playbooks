@@ -3,10 +3,13 @@
 ECHO=false
 
 while getopts ":e" opt; do
-    case $opt in
-        e ) ECHO=true;;
-        \?) echo "unknown flag"; exit 1;;
-    esac
+	case $opt in
+	e) ECHO=true ;;
+	\?)
+		echo "unknown flag"
+		exit 1
+		;;
+	esac
 done
 
 shift $((OPTIND - 1))
@@ -17,15 +20,14 @@ shift
 TMP=$(mktemp)
 trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 
-"$@" &> "$TMP"
+"$@" &>"$TMP"
 RV=$?
 
 if [ "$RV" != 0 ]; then
-	mail -s "Error $RV running \"$*\"" "$DST" < "$TMP"
+	mail -s "Error $RV running \"$*\"" "$DST" <"$TMP"
 	cat "$TMP" >&2
 elif $ECHO; then
 	cat "$TMP"
 fi
 
 exit "$RV"
-

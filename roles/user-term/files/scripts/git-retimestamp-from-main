@@ -11,4 +11,3 @@ git filter-branch --env-filter "export GIT_AUTHOR_DATE=\"${date}\"; export GIT_C
 git update-ref -d refs/original/refs/heads/devel || :
 git update-ref -d refs/original/refs/heads/main || :
 git-sign
-

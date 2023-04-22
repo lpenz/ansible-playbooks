@@ -2,4 +2,3 @@
 
 # shellcheck disable=SC2012
 ls -t "$@" | head -1
-

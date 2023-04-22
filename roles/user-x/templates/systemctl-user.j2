@@ -9,6 +9,5 @@ cmd=${1-start}
 systemctl --user "$cmd" "$unit"
 
 if [ "$cmd" != "status" ]; then
-    systemctl --user status "$unit"
+	systemctl --user status "$unit"
 fi
-

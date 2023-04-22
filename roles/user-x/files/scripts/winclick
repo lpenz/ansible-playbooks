@@ -9,10 +9,10 @@ trap 'rm -f $TMP' EXIT
 
 eval "$(xdotool getmouselocation --shell)"
 
-xwininfo -name "$WINNAME" > "$TMP"
+xwininfo -name "$WINNAME" >"$TMP"
 pidgin_x=$(sed -n 's@Absolute upper-left X:\s*\([0-9]\+\)$@\1@p' "$TMP")
 pidgin_y=$(sed -n 's@Absolute upper-left Y:\s*\([0-9]\+\)$@\1@p' "$TMP")
 
-xdotool mousemove $((pidgin_x+10)) $((pidgin_y+10))
+xdotool mousemove $((pidgin_x + 10)) $((pidgin_y + 10))
 xdotool click 1
 xdotool mousemove "$X" "$Y"

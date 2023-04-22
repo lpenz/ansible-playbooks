@@ -7,11 +7,10 @@ set -e
 printf '\e[18t' # returns \e[8;??;??t
 IFS='['
 read -r -d t -s _ params
-IFS=';' read -r -a array <<< "$params"
+IFS=';' read -r -a array <<<"$params"
 set -- "${array[@]}"
 [ $# = 3 ] && [ "$1" = 8 ] && shift
 [ $# != 2 ] && echo error >&2 && exit 1
 
 set -x
 stty rows "$1" cols "$2"
-

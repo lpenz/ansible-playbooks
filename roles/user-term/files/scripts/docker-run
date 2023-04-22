@@ -2,22 +2,21 @@
 
 USERID="$UID"
 if [ "$1" = "-0" ]; then
-    USERID=0
-    shift
+	USERID=0
+	shift
 fi
 
 if [ "$#" = 0 ]; then
-    ARGS=( "${USER}/${PWD##*/}" )
+	ARGS=("${USER}/${PWD##*/}")
 else
-    ARGS=( "$@" )
+	ARGS=("$@")
 fi
 
 set -e -x
 
 docker run --rm \
-    -u "$USERID" \
-    -v "$PWD:$PWD" -w "$PWD" \
-    -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    "${ARGS[@]}"
-
+	-u "$USERID" \
+	-v "$PWD:$PWD" -w "$PWD" \
+	-e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	"${ARGS[@]}"

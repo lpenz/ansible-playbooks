@@ -7,55 +7,59 @@ YM=$(xwininfo -root | sed -n 's@\s*Height:\s*\([0-9]\+\)\s*@\1@p')
 X1=${X1:=1024}
 Y2=${Y2:=14}
 
-function usage () {
+function usage() {
 	cat <<-END
-	Usage: $0 <-h>
-	       $0 <-q>
-	       $0 <-r ROOT_WINDOW_ID>
-	Initializes standard roottails.
+		Usage: $0 <-h>
+		       $0 <-q>
+		       $0 <-r ROOT_WINDOW_ID>
+		Initializes standard roottails.
 
-	-q          Queries root-window, by using xwininfo.
-	-r <ID>     Use ID as the root-window.
-	-h          This help.
+		-q          Queries root-window, by using xwininfo.
+		-r <ID>     Use ID as the root-window.
+		-h          This help.
 	END
 }
 
 PARS=()
 
 while getopts "hr:" opt; do
-   case $opt in
-   h ) usage; exit 0;;
-   r ) PARS+=( "-id" "$OPTARG" ) ;;
-   \?) usage; exit 1;;
-   esac
+	case $opt in
+	h)
+		usage
+		exit 0
+		;;
+	r) PARS+=("-id" "$OPTARG") ;;
+	\?)
+		usage
+		exit 1
+		;;
+	esac
 done
 
 OTHERWIN="$(xwininfo -tree -root | sed -n 's@^\s\+\(0x[0-9a-f]\+\)\s\+"WScreen":.*@\1@p')"
 
 LOGS=()
 for log in \
-   "/var/log/roottailyellow.log,yellow," \
-   "/var/log/roottailblue.log,lightblue," \
-   "/var/log/roottailgreen.log,lightgreen," \
-   "/var/log/roottailred.log,red," \
-   "$HOME/.xsession-errors,yellow," \
-   "$HOME/.warnd_log1,white," \
-   "$HOME/.warnd_log2,gray,"; \
-   do
-    if [ -f "${log//,*}" ]; then
-        LOGS+=( "$log" )
-    fi
+	"/var/log/roottailyellow.log,yellow," \
+	"/var/log/roottailblue.log,lightblue," \
+	"/var/log/roottailgreen.log,lightgreen," \
+	"/var/log/roottailred.log,red," \
+	"$HOME/.xsession-errors,yellow," \
+	"$HOME/.warnd_log1,white," \
+	"$HOME/.warnd_log2,gray,"; do
+	if [ -f "${log//,*/}" ]; then
+		LOGS+=("$log")
+	fi
 done
 
 xsetroot -solid black
 set -x
 if [ ${#LOGS[@]} -gt 0 ]; then
-    nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
-    if [ -n "$OTHERWIN" ]; then
-       nice -n 19 root-tail -id "$OTHERWIN" "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
-    fi
+	nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
+	if [ -n "$OTHERWIN" ]; then
+		nice -n 19 root-tail -id "$OTHERWIN" "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${YM}+0+0" "${LOGS[@]}" &
+	fi
 fi
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+641+$((YM-Y2))" "$HOME/.selection_primary.txt,CadetBlue1" &
-nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+1282+$((YM-Y2))" "$HOME/.selection_clipboard.txt,CadetBlue2" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+641+$((YM - Y2))" "$HOME/.selection_primary.txt,CadetBlue1" &
+nice -n 19 root-tail "${PARS[@]}" --font '-*-terminus-*-r-*-*-*-*-*-*-*-*-iso8859-1' --justify --shade --noinitial -g "639x${Y2}+1282+$((YM - Y2))" "$HOME/.selection_clipboard.txt,CadetBlue2" &
 wait
-
