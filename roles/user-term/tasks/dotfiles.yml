@@ -23,7 +23,6 @@
     - { src: "mailcap"       , dest: ".mailcap"              }
     - { src: "mc.ini"        , dest: ".mc/ini"               }
     - { src: "mime.types"    , dest: ".mime.types"           }
-    - { src: "nix.conf"      , dest: ".config/nix/"          }
     - { src: "pdbrc"         , dest: ".pdbrc"                }
     - { src: "pdb_rc.py"     , dest: ".pdb_rc.py"            }
     - { src: "pystartup"     , dest: ".pystartup"            }
@@ -38,3 +37,9 @@
     mode: 0o600
     line: set history save on
 
+- name: enable flake and nix-command in in nix.conf
+  lineinfile:
+    path: "{{ lookup('env','HOME') }}/.config/nix/nix.conf"
+    line: "experimental-features = nix-command flakes"
+    state: present
+    create: true
