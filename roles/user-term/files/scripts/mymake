@@ -2,53 +2,53 @@
 
 SILENT=false
 if [ "$1" = "-s" ]; then
-	SILENT=true
-	shift
+    SILENT=true
+    shift
 fi
 
 PROC_START=$SECONDS
 
 if [ -e SConstruct ]; then
-	if $SILENT; then
-		A=-s
-	else
-		A=--debug=explain
-	fi
-	scons --max-drift=1 --implicit-cache $A "$@"
-	RV=$?
+    if $SILENT; then
+        A=-s
+    else
+        A=--debug=explain
+    fi
+    scons --max-drift=1 --implicit-cache "$A" "$@"
+    RV=$?
 elif [ -e Cargo.toml ]; then
-	if $SILENT; then
-		B=
-	else
-		B='-q'
-	fi
-	cargo test "$B" "$@"
+    if $SILENT; then
+        B=
+    else
+        B='-q'
+    fi
+    cargo test "$B" "$@"
 elif [ -e CMakeLists.txt ]; then
-	if $SILENT; then
-		B=
-	else
-		B='VERBOSE=1'
-	fi
-	cmake "$@"
-	RV=$?
-	if [ "$RV" = "0" ]; then
-		make "$B"
-		RV=$?
-	fi
+    if $SILENT; then
+        B=
+    else
+        B='VERBOSE=1'
+    fi
+    cmake "$@"
+    RV=$?
+    if [ "$RV" = "0" ]; then
+        make "$B"
+        RV=$?
+    fi
 elif [ -e Makefile ]; then
-	if $SILENT; then
-		A=-s
-	fi
-	make $A "$@" NUM_JOBS=1
-	RV=$?
+    if $SILENT; then
+        A=-s
+    fi
+    make "$A" "$@" NUM_JOBS=1
+    RV=$?
 else
-	for f in *.cabal; do
-		if [ -e "$f" ]; then
-			cabal install --only-dependencies --enable-tests && cabal configure --enable-tests && cabal build && cabal test
-			RV=$?
-			break
-		fi
-	done
+    for f in *.cabal; do
+        if [ -e "$f" ]; then
+            cabal install --only-dependencies --enable-tests && cabal configure --enable-tests && cabal build && cabal test
+            RV=$?
+            break
+        fi
+    done
 fi
 
 [ -e /chroot ] && ROOT="$(cat /chroot) "
@@ -58,4 +58,4 @@ T=$((SECONDS - PROC_START))
 B=$(basename "$PWD")
 $HAS_WARN && warn "mymake $*" "$ROOT $B finished with $RV after ${T}s"
 
-exit $RV
+exit "$RV"
