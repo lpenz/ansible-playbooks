@@ -9,7 +9,7 @@
   copy:
     content: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
     dest: "/etc/apt/sources.list.d/google-chrome.list"
-    mode: 0644
+    mode: 0o644
   notify: apt-update
 
 - name: run apt-update if necessary

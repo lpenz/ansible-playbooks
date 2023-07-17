@@ -6,7 +6,7 @@
   copy:
     src: "scripts/{{ item }}"
     dest: "{{ lookup('env','HOME') }}/bin/{{ item }}"
-    mode: 0755
+    mode: 0o755
   with_items:
     - clipinfo.py
     - myroottail

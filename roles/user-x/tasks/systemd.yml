@@ -10,7 +10,7 @@
   template:
     src: "systemd-user-x.service.j2"
     dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{ item.name }}.service"
-    mode: 0644
+    mode: 0o644
   with_items:
     - name: clipinfo-clipboard
       exec: "%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt"
@@ -53,7 +53,7 @@
   template:
     src: "systemctl-user.j2"
     dest: "{{ lookup('env','HOME') }}/bin/{{ item.name }}"
-    mode: 0755
+    mode: 0o755
   with_items:
     - name: firefox
       unit: "firefox"

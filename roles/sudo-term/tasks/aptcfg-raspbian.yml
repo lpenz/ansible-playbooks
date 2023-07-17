@@ -5,7 +5,7 @@
     dest: /etc/apt/preferences.d/99pinning
     owner: root
     group: root
-    mode: 0644
+    mode: 0o644
 
 - name: raspbian, install Debian keys
   apt_key: url='https://ftp-master.debian.org/keys/archive-key-10.asc' id='80D15823B7FD1561F9F7BCDDDC30D7C23CBBABEE' state=present

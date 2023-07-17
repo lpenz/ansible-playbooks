@@ -5,7 +5,7 @@
     dest: "/etc/modprobe.d/{{ item }}"
     owner: root
     group: root
-    mode: 0644
+    mode: 0o644
   with_items:
     - loop.conf
 

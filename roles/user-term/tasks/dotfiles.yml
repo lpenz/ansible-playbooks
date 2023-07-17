@@ -4,7 +4,7 @@
   file:
     state: directory
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
-    mode: 0755
+    mode: 0o755
   with_items:
     - .config
     - .mc
@@ -14,7 +14,7 @@
   copy:
     src: "dotfiles/{{ item.src }}"
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
-    mode: 0644
+    mode: 0o644
   with_items:
     - { src: "agignore"      , dest: ".agignore"             }
     - { src: "clang-format"  , dest: ".clang-format"         }
@@ -35,6 +35,6 @@
     dest: "~/.gdbinit"
     create: yes
     state: present
-    mode: 0600
+    mode: 0o600
     line: set history save on
 

@@ -5,7 +5,7 @@
     dest: "/etc/sudoers.d/{{ item }}"
     owner: root
     group: root
-    mode: 0440
+    mode: 0o440
   with_items:
     - power
 
