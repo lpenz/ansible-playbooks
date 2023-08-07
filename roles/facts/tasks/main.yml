@@ -1,0 +1,14 @@
+---
+
+- name: Add facts is_raspbian and is_rpios
+  set_fact:
+    cacheable: true
+    is_raspbian: '{{ ansible_lsb.id == "Raspbian" }}'
+    is_rpios: '{{ ansible_lsb.id == "Debian" and ansible_architecture == "aarch64" }}'
+
+- name: Add other facts
+  set_fact:
+    cacheable: true
+    is_debian: '{{ ansible_lsb.id == "Debian" and not is_rpios }}'
+    is_rpi: '{{ is_rpios or is_raspbian }}'
+

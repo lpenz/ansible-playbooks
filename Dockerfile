@@ -12,6 +12,7 @@ RUN set -e -x; \
         shellcheck \
         gnupg \
         git tmux \
+        lsb-release \
         sudo
 
 # setup su and locale

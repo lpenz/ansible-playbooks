@@ -1,0 +1,14 @@
+---
+- hosts: all
+  roles:
+    - facts
+  tasks:
+    - debug:
+        msg: '{{ ansible_facts }}'
+    - debug:
+        msg: "{{ item.name }}: {{ item.value }}"
+      with_items:
+        - { name: "is_raspbian", value: "{{ is_raspbian }}" }
+        - { name: "is_rpios", value: "{{ is_rpios }}" }
+        - { name: "is_debian", value: "{{ is_debian }}" }
+        - { name: "is_rpi", value: "{{ is_rpi }}" }
