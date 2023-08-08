@@ -1,0 +1,29 @@
+---
+- name: rpi, setup crda country
+  lineinfile:
+    path: /etc/default/crda
+    line: REGDOMAIN=IE
+    regexp: REGDOMAIN=
+
+- name: rpi, setup country for wpa_supplicant
+  lineinfile:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+    line: country=IE
+    regexp: country=
+
+- name: rpi, disable wpa_supplicant in systemd
+  systemd:
+    name: wpa_supplicant.service
+    enabled: no
+
+- name: rpi, enable network-manager in systemd
+  systemd:
+    name: NetworkManager.service
+    enabled: yes
+
+- name: rpi, remove unneeded packages
+  apt:
+    state: absent
+    name:
+      - openresolv
+      - dhcpcd5

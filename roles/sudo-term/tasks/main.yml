@@ -1,9 +1,5 @@
 ---
-- import_tasks: aptcfg-debian.yml
-  when: ansible_lsb.id == "Debian"
-
-- import_tasks: aptcfg-raspbian.yml
-  when: ansible_lsb.id == "Raspbian"
+- import_tasks: aptcfg.yml
 
 - import_tasks: packagecloud.yml
 
@@ -54,5 +50,5 @@
 - import_tasks: syncthing.yml
 - import_tasks: rsyslog.yml
 
-- import_tasks: network-raspbian.yml
-  when: ansible_lsb.id == "Raspbian"
+- import_tasks: network-rpi.yml
+  when: is_rpi

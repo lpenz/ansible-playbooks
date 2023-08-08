@@ -1,0 +1,29 @@
+{% if is_debian -%}
+Package: *
+Pin: release a=stable
+Pin-Priority: 510
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 520
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 150
+
+Package: *
+Pin: release a=experimental
+Pin-Priority: 120
+{% endif %}
+
+{% if is_raspbian or is_rpios %}
+Package: *
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 600
+
+{% if is_raspbian %}
+Package: *
+Pin: release o=Raspbian
+Pin-Priority: 600
+{% endif %}
+{% endif %}

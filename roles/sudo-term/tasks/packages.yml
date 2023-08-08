@@ -16,6 +16,7 @@
       - openssh-server
       - pmount
       - renameutils
+      - resolvconf
       - rkhunter
       - syncthing
       - tmux
