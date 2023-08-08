@@ -12,7 +12,13 @@
 
 - import_tasks: packages.yml
 
-- name: setup locales
+- name: setup default locale
+  lineinfile:
+    path: /etc/default/locale
+    line: LANG=en_US.UTF-8
+    regex: ^LANG *=
+
+- name: setup generated locales
   locale_gen:
     name: "{{ item }}"
     state: present
