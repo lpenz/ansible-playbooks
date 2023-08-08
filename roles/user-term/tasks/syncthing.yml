@@ -1,8 +1,15 @@
 ---
-- name: systemctl enable
+- name: syncthing enable
   systemd:
     name: syncthing
     scope: user
     enabled: yes
+  ignore_errors: yes
+
+- name: syncthing start
+  systemd:
+    name: syncthing
+    scope: user
     state: started
   ignore_errors: yes
+  when: ! ansible_is_chroot
