@@ -4,6 +4,7 @@
     state: present
     package:
       - ansible
+      - aptitude
       - cryptmount
       - gawk # required by tmux-fingers
       - git
