@@ -15,7 +15,7 @@
   notify: apt-update
 
 - name: install all official apt repositories
-  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free' state=present
+  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free non-free-firmware' state=present
   with_items:
     - stable
     - testing
