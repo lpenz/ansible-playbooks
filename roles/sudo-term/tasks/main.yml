@@ -52,6 +52,7 @@
 - import_tasks: sudo.yml
 - import_tasks: modprobe.yml
 - import_tasks: syncthing.yml
+- import_tasks: rsyslog.yml
 
 - import_tasks: network-raspbian.yml
   when: ansible_lsb.id == "Raspbian"

@@ -1,0 +1,21 @@
+---
+
+- name: /etc/rsyslog.conf cleaning
+  lineinfile:
+    path: /etc/rsyslog.conf
+    state: absent
+    regex: "{{ item }}"
+  with_items:
+    - "^auth,authpriv.*"
+    - "^\\*\\.\\*;auth,authpriv.none.*"
+    - "^\\.\\*auth,authpriv.none;"
+    - "^#cron.*"
+    - "^cron,daemon.none;.*"
+    - "^daemon.*"
+    - "^\\*\\.=debug;"
+    - "^\\*\\.=info;\\*\\.=notice;\\*\\.=warn;.*"
+    - "^kern.*"
+    - "^lpr.*"
+    - "^\\s*mail.*"
+    - "^user.*"
+  notify: rsyslog-restart
