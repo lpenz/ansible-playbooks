@@ -43,3 +43,10 @@
     line: "experimental-features = nix-command flakes"
     state: present
     create: true
+
+- name: clone my home-manager repository
+  git:
+    repo: "https://github.com/lpenz/home-manager-config.git"
+    dest: "{{ lookup('env','HOME') }}/.config/home-manager"
+    version: main
+    update: false
