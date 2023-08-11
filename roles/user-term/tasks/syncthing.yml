@@ -12,4 +12,4 @@
     scope: user
     state: started
   ignore_errors: yes
-  when: ! ansible_is_chroot
+  when: not ansible_is_chroot
