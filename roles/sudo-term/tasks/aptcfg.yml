@@ -7,6 +7,10 @@
     group: root
     mode: 0o644
 
+- name: rm sources.list
+  file: dest=/etc/apt/sources.list state=absent
+  notify: apt-update
+
 - name: debian default apt sources
   apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free non-free-firmware' state=present
   with_items:
@@ -43,7 +47,3 @@
     - 'deb http://security.debian.org/debian-security bullseye-security main contrib non-free'
   notify: apt-update
   when: is_rpios
-
-- name: rm sources.list
-  file: dest=/etc/apt/sources.list state=absent
-  notify: apt-update
