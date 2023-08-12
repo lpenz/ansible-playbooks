@@ -44,9 +44,15 @@
     state: present
     create: true
 
+- name: Check if we have an ssh private key
+  stat:
+    path: "{{ lookup('env','HOME') }}/.ssh/id_rsa"
+  register: ssh_private_key
+
 - name: clone my home-manager repository
   git:
-    repo: "https://github.com/lpenz/home-manager-config.git"
+    repo: "git@github.com:lpenz/home-manager-config"
     dest: "{{ lookup('env','HOME') }}/.config/home-manager"
     version: main
     update: false
+  when: ssh_private_key.stat.exists
