@@ -27,3 +27,13 @@
     name:
       - openresolv
       - dhcpcd5
+
+- name: rpi, check if wifi is blocked
+  command: rfkill list
+  register: wifi
+  changed_when: false
+
+- name: rpi, unblock wifi
+  command: rfkill unblock 0
+  when: '"Soft blocked: yes" in wifi.stdout'
+  changed_when: '"Soft blocked: yes" in wifi.stdout'
