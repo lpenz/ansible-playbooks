@@ -8,7 +8,6 @@
   with_items:
     - .config
     - .mc
-    - nix
 
 - name: install dotfiles
   copy:
