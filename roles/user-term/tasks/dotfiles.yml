@@ -54,4 +54,4 @@
     dest: "{{ lookup('env','HOME') }}/.config/home-manager"
     version: main
     update: false
-  when: ssh_private_key.stat.exists
+  when: 'ssh_private_key.stat.exists and not is_rpi'

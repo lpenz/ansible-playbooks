@@ -4,4 +4,7 @@
 - import_tasks: tmux.yml
 - import_tasks: git.yml
 - import_tasks: gpg.yml
+
+# rpi its own additional setup
 - import_tasks: syncthing.yml
+  when: 'not is_rpi'
