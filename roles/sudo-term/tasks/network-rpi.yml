@@ -21,6 +21,12 @@
     name: NetworkManager.service
     enabled: yes
 
+- name: rpi, start network-manager in systemd
+  systemd:
+    name: NetworkManager.service
+    state: started
+  when: not ansible_is_chroot
+
 - name: rpi, remove unneeded packages
   apt:
     state: absent
