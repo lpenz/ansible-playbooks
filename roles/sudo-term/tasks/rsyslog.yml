@@ -1,21 +1,19 @@
 ---
 
-- name: /etc/rsyslog.conf cleaning
-  lineinfile:
-    path: /etc/rsyslog.conf
-    state: absent
-    regex: "{{ item }}"
-  with_items:
-    - "^auth,authpriv.*"
-    - "^\\*\\.\\*;auth,authpriv.none.*"
-    - "^\\.\\*auth,authpriv.none;"
-    - "^#cron.*"
-    - "^cron,daemon.none;.*"
-    - "^daemon.*"
-    - "^\\*\\.=debug;"
-    - "^\\*\\.=info;\\*\\.=notice;\\*\\.=warn;.*"
-    - "^kern.*"
-    - "^lpr.*"
-    - "^\\s*mail.*"
-    - "^user.*"
+- name: set /etc/rsyslog.conf
+  copy:
+    dest: /etc/rsyslog.conf
+    src: rsyslog/rsyslog.conf
+    owner: root
+    group: root
+    mode: 0o644
+  notify: rsyslog-restart
+
+- name: add term rsyslog conf to /etc/rsyslog.d
+  copy:
+    dest: /etc/rsyslog.d/99-lpenz-default.conf
+    src: rsyslog/rsyslog-lpenz-default.conf
+    owner: root
+    group: root
+    mode: 0o644
   notify: rsyslog-restart
