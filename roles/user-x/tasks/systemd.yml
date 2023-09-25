@@ -34,7 +34,7 @@
       parent: stalonetray
     - name: stalonetray
       parent: gkrellm
-      exec: "/usr/bin/stalonetray --window-type dock --geometry 3x5"
+      exec: "/usr/bin/stalonetray --window-type dock --geometry 2x5"
     - name: warnd
       exec: "%h/bin/warnd.py -f %h/.warnd_fifo -l %h/.warnd_log1,%h/.warnd_log2"
     - name: wm
