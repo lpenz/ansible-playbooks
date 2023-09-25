@@ -32,6 +32,8 @@
       parent: stalonetray
     - name: pasystray
       parent: stalonetray
+    - name: blueman-applet
+      parent: stalonetray
     - name: stalonetray
       parent: gkrellm
       exec: "/usr/bin/stalonetray --window-type dock --geometry 2x5"
