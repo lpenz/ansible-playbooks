@@ -1,0 +1,26 @@
+#!/bin/bash
+
+file="${1?usage: $0 file.uf2}"
+
+set -e
+
+for label in GLV80LHBOOT GLV80RHBOOT; do
+    echo "Deploying to $label - please go to boot mode"
+    dev=/dev/disk/by-label/$label
+    echo "Waiting for dev $dev to appear"
+    while ! [ -e $dev ]; do
+        sleep 1
+    done
+    set -x
+    while ! pmount $dev $label; do
+        sleep 1
+    done
+    cp -v "$file" "/media/$label/"
+    sync
+    sync
+    while ! pumount $label; do
+        sleep 1
+    done
+    set +x
+    echo "$file successfully installed in $label"
+done
