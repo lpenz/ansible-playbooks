@@ -30,6 +30,8 @@
       parent: stalonetray
     - name: syncthingtray
       parent: stalonetray
+    - name: copyq
+      parent: stalonetray
     - name: pasystray
       parent: stalonetray
     - name: blueman-applet
