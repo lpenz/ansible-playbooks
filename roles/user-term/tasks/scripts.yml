@@ -52,6 +52,7 @@
     - term-fix
     - timestamp
     - tmux-attach-or-new
+    - urls-download
     - vims-update
     - vmlimit-exec
 
