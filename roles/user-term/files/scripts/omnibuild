@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ -e ./.envrc ]; then
+    # shellcheck disable=SC1091
+    source ./.envrc
+fi
+
+set -e -x
+
+if [ -e SConstruct ]; then
+    scons --max-drift=1 --implicit-cache "$@"
+fi
+
+if [ -e Cargo.toml ]; then
+    cargo clippy
+    cargo test "$@"
+fi
+
+if [ -e CMakeLists.txt ]; then
+    cmake "$@"
+fi
+
+if [ -e Makefile ]; then
+    make -k "$@"
+fi
+
+if [ -e pyproject.toml ]; then
+    mypy
+    flake8 .
+    pytest
+fi
+
+if [ -e Dockerfile ]; then
+    docker-build
+fi

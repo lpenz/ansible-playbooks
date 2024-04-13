@@ -42,6 +42,7 @@
     - mymake
     - mymakesee
     - newest
+    - omnibuild
     - pmount-label
     - pstree-nothreads
     - repeater
