@@ -21,6 +21,7 @@
 
 defbindings("WScreen", {
     bdoc("Display the main menu."),
+    kpress(META.."F10", "mod_query.query_menu(_, 'mainmenu', 'Main menu: ')"),
     kpress(META.."F12", "mod_query.query_menu(_, 'mainmenu', 'Main menu: ')"),
     --kpress(ALTMETA.."F12", "mod_menu.menu(_, _sub, 'mainmenu', {big=true})"),
     mpress("Button3", "mod_menu.pmenu(_, _sub, 'mainmenu')"),
