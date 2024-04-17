@@ -55,7 +55,7 @@ defbindings("WClientWin", {
 
 defbindings("WGroupCW", {
     bdoc("Toggle client window group full-screen mode"),
-    kpress_wait(META.."Return", "WGroup.set_fullscreen(_, 'toggle')"),
+    kpress_wait(META.."F11", "WGroup.set_fullscreen(_, 'toggle')"),
 })
 
 
@@ -102,12 +102,14 @@ defbindings("WMPlex.toplevel", {
     kpress(META.."H", "ioncore.create_ws(_:screen_of(),{name='',switchto=true},'empty')"),
 
     bdoc("Toggle client window full-screen mode"),
-    kpress_wait(META.."Return", 
+    kpress_wait(META.."F11",
                 "WClientWin.set_fullscreen(_sub, 'toggle')", 
                 "_sub:WClientWin"),
 
     bdoc("Terminal"),
     kpress(META.."F1", "ioncore.exec_on(_, 'exec x-terminal-emulator')"),
+    kpress(META.."Escape", "ioncore.exec_on(_, 'exec x-terminal-emulator')"),
+    kpress(META.."Return", "ioncore.exec_on(_, 'exec x-terminal-emulator')"),
 
     bdoc("Synapse"),
     kpress(META.."F2", "ioncore.exec_on(_, 'exec synapse')"),
