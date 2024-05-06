@@ -1,0 +1,35 @@
+#!/bin/bash
+
+TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT
+
+LOGDIR=${LOGDIR:-$HOME/logs}
+mkdir -p "$LOGDIR"
+
+LBASE="$LOGDIR/$(date +%s)"
+L="${LBASE}-run.txt"
+printf "%s start with log %s\n" "$(date +%FT%T)" "$L"
+
+{
+    printf "%s start [%s]\n" "$(date +%FT%T)" "$*"
+    echo + "$@"
+    set +e
+    /usr/bin/time -o "$TMP" "$@"
+    ret=$?
+    set -e
+    printf "%s end   [%s]\n" "$(date +%FT%T)" "$*"
+    cat "$TMP"
+    echo "\$?" = "$ret"
+} >"$L" 2>&1
+
+if [ "$ret" = "0" ]; then
+    LEND="${LBASE}-pass.txt"
+else
+    LEND="${LBASE}-fail.txt"
+fi
+
+mv "$L" "$LEND"
+
+printf "%s end   with log %s\n" "$(date +%FT%T)" "$LEND"
+
+exit "$ret"

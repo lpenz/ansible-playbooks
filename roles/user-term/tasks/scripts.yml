@@ -46,6 +46,7 @@
     - pmount-label
     - pstree-nothreads
     - repeater
+    - runlog
     - rust-coverage
     - rust-install
     - stressnlog
