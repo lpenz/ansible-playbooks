@@ -8,7 +8,7 @@ mkdir -p "$LOGDIR"
 
 LBASE="$LOGDIR/$(date +%s)"
 L="${LBASE}-run.txt"
-printf "%s start with log %s\n" "$(date +%FT%T)" "$L"
+printf "%s start;  log %s\n" "$(date +%FT%T)" "$L"
 
 {
     printf "%s start [%s]\n" "$(date +%FT%T)" "$*"
@@ -30,6 +30,8 @@ fi
 
 mv "$L" "$LEND"
 
-printf "%s end   with log %s\n" "$(date +%FT%T)" "$LEND"
+read -r duration < <(sed -n 's/.*\( [^ ]\+\)elapsed.*/\1/p' <"$TMP")
+
+printf "%s exited; log %s result %3d after %s\n" "$(date +%FT%T)" "$LEND" "$ret" "$duration"
 
 exit "$ret"
