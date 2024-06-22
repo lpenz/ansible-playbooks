@@ -7,7 +7,9 @@ if [ "$1" = "-0" ]; then
 fi
 
 if [ "$#" = 0 ]; then
-    ARGS=("${USER}/${PWD##*/}")
+    NAME="${USER}/${PWD##*/}"
+    NAME="${NAME,,}"
+    ARGS=("${NAME}")
 else
     ARGS=("$@")
 fi
