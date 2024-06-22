@@ -10,4 +10,3 @@ git clean -f -d
 
 echo 'Add files and/or make an empty initial commit with:'
 echo git commit --allow-empty -m "Initial commit of $BRANCH."
-

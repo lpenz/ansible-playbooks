@@ -24,9 +24,9 @@ mount -t none -o bind /run "$TARGET/run"
 
 END
 if [ "$#" = 0 ]; then
-	echo chroot "$TARGET" >>"$TMP"
+    echo chroot "$TARGET" >>"$TMP"
 else
-	echo chroot "$TARGET" "$@" >>"$TMP"
+    echo chroot "$TARGET" "$@" >>"$TMP"
 fi
 
 unshare -m -- "$TMP"

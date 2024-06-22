@@ -3,8 +3,7 @@
 set -e
 
 if [ ! -e .find.txt.gz ]; then
-	find . -not -regex '.*\(\.d\|\.o\|\.swp\|\.swo\)$' -not -regex '.*\/\(CVS\|_darcs\|.hg\|.bzr\)\/.*' -not -regex '.*\.#.*' 2>/dev/null | gzip -c > .find.txt.gz
+    find . -not -regex '.*\(\.d\|\.o\|\.swp\|\.swo\)$' -not -regex '.*\/\(CVS\|_darcs\|.hg\|.bzr\)\/.*' -not -regex '.*\.#.*' 2>/dev/null | gzip -c >.find.txt.gz
 fi
 
 zgrep -i "$1" .find.txt.gz
-

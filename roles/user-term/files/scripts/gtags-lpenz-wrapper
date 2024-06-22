@@ -6,7 +6,7 @@ GLOBAL=$(command -v global)
 DIR=$(realpath "$GLOBAL")
 
 if ! echo "$DIR" | grep -q nix/store; then
-	exec gtags "$@"
+    exec gtags "$@"
 fi
 
 DIR=$(dirname "$DIR")
@@ -14,7 +14,7 @@ DIR=$(dirname "$DIR")
 CONF="$DIR/share/gtags/gtags.conf"
 
 if [ -e "$CONF" ]; then
-	exec gtags "--gtagsconf=$CONF" --gtagslabel=pygments "$@"
+    exec gtags "--gtagsconf=$CONF" --gtagslabel=pygments "$@"
 fi
 
 exec gtags "$@"

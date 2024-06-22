@@ -3,18 +3,18 @@
 export LC_ALL=C
 
 function vimup {
-	bin="$1"
-	runtimepath="$2"
-	cfg="$3"
-	"$bin" -n -e -u NONE -c "silent! source $runtimepath/autoload/plug.vim" -c "silent! source $cfg" -c 'PlugInstall!' -c 'PlugUpdate!' -c 'PlugClean!' -c 'qa!' >/dev/null
+    bin="$1"
+    runtimepath="$2"
+    cfg="$3"
+    "$bin" -n -e -u NONE -c "silent! source $runtimepath/autoload/plug.vim" -c "silent! source $cfg" -c 'PlugInstall!' -c 'PlugUpdate!' -c 'PlugClean!' -c 'qa!' >/dev/null
 }
 
 set -e -x
 
 if command -v nvim >/dev/null; then
-	vimup nvim ~/.config/nvim ~/.config/nvim/init.vim
+    vimup nvim ~/.config/nvim ~/.config/nvim/init.vim
 fi
 
 if command -v vim >/dev/null; then
-	vimup vim ~/.vim ~/.vim/vimrc
+    vimup vim ~/.vim ~/.vim/vimrc
 fi

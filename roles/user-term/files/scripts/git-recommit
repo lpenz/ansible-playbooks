@@ -2,8 +2,8 @@
 
 git update-index --refresh
 if ! git diff-index --quiet HEAD --; then
-	echo Stash or commit all changes before using this script >&2
-	exit 1
+    echo Stash or commit all changes before using this script >&2
+    exit 1
 fi
 
 TMP=$(mktemp)

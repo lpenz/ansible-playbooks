@@ -4,5 +4,4 @@ IMAGE=${1?usage: $0 image.png}
 
 set -e
 
-xclip -i -selection clipboard -target image/png < "$IMAGE"
-
+xclip -i -selection clipboard -target image/png <"$IMAGE"

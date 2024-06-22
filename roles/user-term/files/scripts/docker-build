@@ -5,18 +5,18 @@ NAME="${NAME,,}"
 
 if grep -q '^\(COPY\|ADD\) ' Dockerfile; then
 
-	set -e -x
-	docker build -t "$NAME" . "$@"
+    set -e -x
+    docker build -t "$NAME" . "$@"
 
 else
-	TMPDIR=$(mktemp -d)
-	trap 'rm -rf "$TMPDIR"' EXIT
-	BUILD_DIR="$TMPDIR/$NAME"
+    TMPDIR=$(mktemp -d)
+    trap 'rm -rf "$TMPDIR"' EXIT
+    BUILD_DIR="$TMPDIR/$NAME"
 
-	set -e -x
+    set -e -x
 
-	mkdir -p "$BUILD_DIR"
-	cp Dockerfile "$BUILD_DIR/"
-	cd "$BUILD_DIR/"
-	docker build -t "$NAME" . "$@"
+    mkdir -p "$BUILD_DIR"
+    cp Dockerfile "$BUILD_DIR/"
+    cd "$BUILD_DIR/"
+    docker build -t "$NAME" . "$@"
 fi

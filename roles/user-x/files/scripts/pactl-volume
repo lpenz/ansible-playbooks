@@ -5,5 +5,5 @@ set -e
 DIFF=${1?usage: $0 +x%}
 
 pactl list | sed -n 's@^Sink #\([0-9]\+\)@\1@p' | while read -r sink; do
-	pactl set-sink-volume "$sink" "$DIFF"
+    pactl set-sink-volume "$sink" "$DIFF"
 done

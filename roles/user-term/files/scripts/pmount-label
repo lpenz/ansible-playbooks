@@ -5,16 +5,16 @@ labeldir=/dev/disk/by-label
 set -e
 
 if ! [ -d "$labeldir" ]; then
-	echo "$labeldir not found" >&2
-	exit 1
+    echo "$labeldir not found" >&2
+    exit 1
 fi
 
 cd "$labeldir"
 
 if [ "$#" = 0 ]; then
-	echo "Available labels:"
-	ls -1
-	exit 0
+    echo "Available labels:"
+    ls -1
+    exit 0
 fi
 
 label="$1"

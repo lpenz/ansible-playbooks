@@ -8,12 +8,11 @@ trap 'rm -f $TMP' EXIT HUP INT QUIT TERM
 git-prune
 
 if git --version | grep -q 'git version 1.5'; then
-	git gc --quiet --aggressive
+    git gc --quiet --aggressive
 else
-	git gc --quiet --prune=now --aggressive 2> "$TMP" || :
-	cat "$TMP"
+    git gc --quiet --prune=now --aggressive 2>"$TMP" || :
+    cat "$TMP"
 fi
 
-sed -n "s@warning: reflog of 'refs/remotes/origin/\\([^']\\+\\)' references pruned commits@\\1@p" "$TMP" \
-	| xargs '-I{}' -n 1 git update-ref -d 'refs/remotes/origin/{}'
-
+sed -n "s@warning: reflog of 'refs/remotes/origin/\\([^']\\+\\)' references pruned commits@\\1@p" "$TMP" |
+    xargs '-I{}' -n 1 git update-ref -d 'refs/remotes/origin/{}'

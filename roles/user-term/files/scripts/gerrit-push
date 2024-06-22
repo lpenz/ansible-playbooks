@@ -3,4 +3,3 @@
 set -e -x
 
 git push origin HEAD:refs/for/develop
-
