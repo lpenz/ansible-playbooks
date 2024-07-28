@@ -7,6 +7,10 @@ fi
 
 set -e -x
 
+if [ -e build.sh ]; then
+    exec ./build.sh
+fi
+
 if [ -e SConstruct ]; then
     scons --max-drift=1 --implicit-cache "$@"
 fi
