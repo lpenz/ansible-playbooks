@@ -4,11 +4,19 @@ TMP=$(mktemp)
 trap 'rm -f "$TMP"' EXIT
 
 LOGDIR=${LOGDIR:-$HOME/logs}
+LOGDIR=${LOGDIR%%/}
 mkdir -p "$LOGDIR"
 
 LBASE="$LOGDIR/$(date +%s)"
 L="${LBASE}-run.txt"
-printf "%s start;  log %s\n" "$(date +%FT%T)" "$L"
+
+PIPE=""
+if [ "$1" = "-t" ]; then
+    PIPE="$2"
+    shift 2
+fi
+
+printf "%s start with log %s\n" "$(date +%FT%T)" "$L"
 
 {
     printf "%s start [%s]\n" "$(date +%FT%T)" "$*"
@@ -28,10 +36,13 @@ else
     LEND="${LBASE}-fail.txt"
 fi
 
-mv "$L" "$LEND"
+if [ -n "$PIPE" ]; then
+    "${PIPE[@]}" <"$L" >"$LEND"
+    rm -f "$L"
+else
+    mv "$L" "$LEND"
+fi
 
-read -r duration < <(sed -n 's/.*\( [^ ]\+\)elapsed.*/\1/p' <"$TMP")
-
-printf "%s exited; log %s result %3d after %s\n" "$(date +%FT%T)" "$LEND" "$ret" "$duration"
+printf "%s end   with log %s\n" "$(date +%FT%T)" "$LEND"
 
 exit "$ret"
