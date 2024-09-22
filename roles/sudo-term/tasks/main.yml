@@ -45,6 +45,7 @@
 
 - import_tasks: ssh-server-config.yml
 - import_tasks: rkhunter.yml
+  when: 'not is_ubuntu'
 - import_tasks: sudo.yml
 - import_tasks: modprobe.yml
 - import_tasks: syncthing.yml

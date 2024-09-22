@@ -16,9 +16,11 @@
       - openssh-server
       - pmount
       - renameutils
-      - resolvconf
-      - rkhunter
       - syncthing
       - tmux
       - ufw
       - vim
+
+- name: install resolvconf
+  apt: state=present package=resolvconf
+  when: 'not is_ubuntu'

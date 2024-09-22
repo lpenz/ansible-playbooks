@@ -1,4 +1,10 @@
 ---
+- name: install rkhunter
+  apt:
+    state: present
+    package:
+      - rkhunter
+
 - name: rkhunter config
   lineinfile:
     path: /etc/rkhunter.conf
