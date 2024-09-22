@@ -1,0 +1,7 @@
+---
+- name: install base packages
+  apt:
+    state: present
+    package:
+      - podman-docker
+      - uidmap

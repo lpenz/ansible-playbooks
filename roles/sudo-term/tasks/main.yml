@@ -49,6 +49,7 @@
 - import_tasks: modprobe.yml
 - import_tasks: syncthing.yml
 - import_tasks: rsyslog.yml
+- import_tasks: podman.yml
 
 - import_tasks: network-rpi.yml
   when: is_rpi
