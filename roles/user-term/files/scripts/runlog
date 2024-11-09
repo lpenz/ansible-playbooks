@@ -3,18 +3,32 @@
 TMP=$(mktemp)
 trap 'rm -f "$TMP"' EXIT
 
-LOGDIR=${LOGDIR:-$HOME/logs}
-LOGDIR=${LOGDIR%%/}
+PIPE=""
+PREFIX=""
+
+while getopts "t:p:" opt; do
+  case ${opt} in
+    t) PIPE="$OPTARG";;
+    p) PREFIX="$OPTARG";;
+    ?)
+      echo "Invalid option" >&2
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+if [ -z "$PREFIX" ]; then
+    LOGDIR=${LOGDIR:-$HOME/logs}
+    LOGDIR=${LOGDIR%%/}
+    PREFIX="$LOGDIR/$(date +%s)"
+fi
+
+LOGDIR="${PREFIX%/}"
 mkdir -p "$LOGDIR"
 
-LBASE="$LOGDIR/$(date +%s)"
-L="${LBASE}-run.txt"
-
-PIPE=""
-if [ "$1" = "-t" ]; then
-    PIPE="$2"
-    shift 2
-fi
+L="${PREFIX}-run.txt"
 
 printf "%s start with log %s\n" "$(date +%FT%T)" "$L"
 
@@ -31,9 +45,9 @@ printf "%s start with log %s\n" "$(date +%FT%T)" "$L"
 } >"$L" 2>&1
 
 if [ "$ret" = "0" ]; then
-    LEND="${LBASE}-pass.txt"
+    LEND="${PREFIX}-pass.txt"
 else
-    LEND="${LBASE}-fail.txt"
+    LEND="${PREFIX}-fail.txt"
 fi
 
 if [ -n "$PIPE" ]; then
