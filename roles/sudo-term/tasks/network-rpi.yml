@@ -1,9 +1,11 @@
 ---
-- name: rpi, setup crda country
-  lineinfile:
-    path: /etc/default/crda
-    line: REGDOMAIN=IE
-    regexp: REGDOMAIN=
+- name: rpi, setup wifi country
+  copy:
+    src: "modprobe.d/cfg80211_regdomain.conf"
+    dest: "/etc/modprobe.d/cfg80211_regdomain.conf"
+    owner: root
+    group: root
+    mode: 0o644
 
 - name: rpi, setup country for wpa_supplicant
   lineinfile:
