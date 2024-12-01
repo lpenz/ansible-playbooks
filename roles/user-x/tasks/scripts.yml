@@ -9,6 +9,7 @@
     mode: 0o755
   with_items:
     - clipinfo.py
+    - image-to-clipboard
     - myroottail
     - pactl-volume
     - steam-session
