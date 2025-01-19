@@ -1,13 +1,17 @@
 ---
-- name: "apt | ensure Google linux signing key present"
-  apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
+- name: "apt | create /etc/apt/keyrings"
+  file: dest=/etc/apt/keyrings state=directory mode=0755
 
-- name: "apt | ensure previous repository for Google Chrome is absent, as Google removed the x86 distribution"
-  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=absent
+- name: "apt | download google signing key"
+  get_url:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    dest: /etc/apt/keyrings/google_signing_key.pub
 
 - name: "apt | ensure Google chrome repo present, using a workaround for missing x86 distribution"
   copy:
-    content: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+    content: >
+      deb [arch=amd64,signed-by=/etc/apt/keyrings/google_signing_key.pub]
+      https://dl.google.com/linux/chrome/deb/ stable main
     dest: "/etc/apt/sources.list.d/google-chrome.list"
     mode: 0o644
   notify: apt-update
