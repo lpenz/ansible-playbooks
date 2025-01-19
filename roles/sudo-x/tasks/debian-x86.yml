@@ -3,5 +3,4 @@
 # These won't work on other architectures:
 
 - import_tasks: google-chrome.yml
-# - import_tasks: spotify.yml
 
