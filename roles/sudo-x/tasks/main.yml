@@ -13,4 +13,12 @@
     mode: 0o644
   notify: rsyslog-restart
 
+- name: elecom deft trackball config
+  copy:
+    src: xorg.conf.d/99-trackball-elecomdeft.conf
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
+    mode: 0o644
+
 - import_tasks: xscreensaver.yml
