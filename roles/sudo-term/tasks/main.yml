@@ -51,6 +51,7 @@
 - import_tasks: syncthing.yml
 - import_tasks: rsyslog.yml
 - import_tasks: podman.yml
+  when: 'not is_rpi'
 
 - import_tasks: network-rpi.yml
   when: is_rpi
