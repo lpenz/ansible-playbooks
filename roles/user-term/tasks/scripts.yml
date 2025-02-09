@@ -50,7 +50,6 @@
     - rust-coverage
     - rust-install
     - stressnlog
-    - system-update
     - term-fix
     - timestamp
     - tmux-attach-or-new
