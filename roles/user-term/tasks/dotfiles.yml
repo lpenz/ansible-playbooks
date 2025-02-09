@@ -36,13 +36,6 @@
     mode: 0o600
     line: set history save on
 
-- name: enable flake and nix-command in in nix.conf
-  lineinfile:
-    path: "{{ lookup('env','HOME') }}/.config/nix/nix.conf"
-    line: "experimental-features = nix-command flakes"
-    state: present
-    create: true
-
 - name: Check if we have an ssh private key
   stat:
     path: "{{ lookup('env','HOME') }}/.ssh/id_rsa"
