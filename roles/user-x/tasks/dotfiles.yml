@@ -42,7 +42,7 @@
 
 - name: install nerd fonts
   unarchive:
-    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/{{ item }}.zip
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/{{ item }}.zip
     dest: ~/.local/share/fonts/
     remote_src: yes
   with_items:
