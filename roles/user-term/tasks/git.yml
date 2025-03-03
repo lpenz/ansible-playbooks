@@ -16,6 +16,37 @@
     - { name: push.default, value: 'matching' }
     - { name: rerere.enabled, value: 'true' }
 
+    # From https://blog.gitbutler.com/how-git-core-devs-configure-git/
+    - { name: column.ui, value: 'auto' }
+    - { name: branch.sort, value: '-committerdate' }
+    - { name: tag.sort, value: 'version:refname' }
+    # - { name: init.defaultBranch, value: 'main' } # dup
+    - { name: diff.algorithm, value: 'histogram' }
+    - { name: diff.colorMoved, value: 'plain' }
+    - { name: diff.mnemonicPrefix, value: 'true' }
+    - { name: diff.renames, value: 'true' }
+    - { name: push.default, value: 'simple' }
+    - { name: push.autoSetupRemote, value: 'true' }
+    - { name: push.followTags, value: 'true' }
+    - { name: fetch.prune, value: 'true' }
+    - { name: fetch.pruneTags, value: 'true' }
+    - { name: fetch.all, value: 'true' }
+    # why the hell not?
+    - { name: help.autocorrect, value: 'prompt' }
+    - { name: commit.verbose, value: 'true' }
+    # - { name: rerere.enabled, value: 'true' } # dup
+    - { name: rerere.autoupdate, value: 'true' }
+    # - { name: core.excludesfile, value: '~/.gitignore' } # dup
+    - { name: rebase.autoSquash, value: 'true' }
+    - { name: rebase.autoStash, value: 'true' }
+    - { name: rebase.updateRefs, value: 'true' }
+    # a matter of taste (uncomment if you dare)
+    # - { name: core.fsmonitor, value: 'true' }
+    # - { name: core.untrackedCache, value: 'true' }
+    # (just 'diff3' if git version < 2.3)
+    # - { name: merge.conflictstyle, value: 'zdiff3 ' }
+    # - { name: pull.rebase, value: 'true' } # dup
+
 - name: gitignore setup
   lineinfile: dest=~/.config/git/ignore create=yes mode=0644 line={{ item }}
   with_items:
