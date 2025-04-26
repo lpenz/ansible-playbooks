@@ -13,7 +13,6 @@
     - { name: credential.helper, value: cache }
     - { name: init.defaultBranch, value: 'main' }
     - { name: pull.rebase, value: 'true' }
-    - { name: push.default, value: 'matching' }
     - { name: rerere.enabled, value: 'true' }
 
     # From https://blog.gitbutler.com/how-git-core-devs-configure-git/
