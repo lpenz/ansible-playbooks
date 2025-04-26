@@ -6,9 +6,5 @@
   service: name=sshd state=restarted
   when: not ansible_is_chroot
 
-- name: rsyslog-restart
-  service: name=rsyslog state=restarted
-  when: not ansible_is_chroot
-
 - name: systemd-reload
   systemd: daemon_reload=yes

@@ -4,15 +4,6 @@
 - import_tasks: debian-x86.yml
   when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture == "i386" )
 
-- name: rsyslog configure roottail
-  copy:
-    src: rsyslog/roottail.conf
-    dest: /etc/rsyslog.d/99-roottail.conf
-    owner: root
-    group: root
-    mode: 0o644
-  notify: rsyslog-restart
-
 - name: elecom deft trackball config
   copy:
     src: xorg.conf.d/99-trackball-elecomdeft.conf
@@ -20,5 +11,3 @@
     owner: root
     group: root
     mode: 0o644
-
-- import_tasks: xscreensaver.yml
