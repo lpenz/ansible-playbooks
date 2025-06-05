@@ -24,11 +24,6 @@
     - "pt_BR" # ISO-8859-1
     - "pt_BR.UTF-8"
 
-- name: set up mail alias for root
-  lineinfile:
-    path: /etc/aliases
-    line: "root: lpenz@lpenz.org"
-
 - name: install wifi-disable-when-wired
   copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired owner=root group=root mode=0755
 
