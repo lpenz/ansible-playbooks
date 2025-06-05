@@ -7,12 +7,6 @@
     group: root
     mode: 0o644
 
-- name: rpi, setup country for wpa_supplicant
-  lineinfile:
-    path: /etc/wpa_supplicant/wpa_supplicant.conf
-    line: country=IE
-    regexp: country=
-
 - name: rpi, disable wpa_supplicant in systemd
   systemd:
     name: wpa_supplicant.service
