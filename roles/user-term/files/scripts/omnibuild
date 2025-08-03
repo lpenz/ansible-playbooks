@@ -5,6 +5,8 @@ if [ -e ./.envrc ]; then
     source ./.envrc
 fi
 
+done=0
+
 set -e -x
 
 if [ -e build.sh ]; then
@@ -13,27 +15,32 @@ fi
 
 if [ -e SConstruct ]; then
     scons --max-drift=1 --implicit-cache "$@"
+    done=$((done + 1))
 fi
 
 if [ -e Cargo.toml ]; then
     cargo clippy
     cargo test "$@"
+    done=$((done + 1))
 fi
 
 if [ -e CMakeLists.txt ]; then
     cmake "$@"
+    done=$((done + 1))
 fi
 
 if [ -e Makefile ]; then
     make -k "$@"
+    done=$((done + 1))
 fi
 
 if [ -e pyproject.toml ]; then
     mypy
     flake8 .
     pytest
+    done=$((done + 1))
 fi
 
-if [ -e Dockerfile ]; then
+if [ "$done" -eq "0" ] && [ -e Dockerfile ]; then
     docker-build
 fi
