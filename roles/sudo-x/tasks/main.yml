@@ -2,7 +2,8 @@
 - import_tasks: packages.yml
 
 - import_tasks: debian-x86.yml
-  when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture == "i386" )
+  when: ansible_lsb.id == "Debian" and ( ansible_architecture == "x86_64" or ansible_architecture
+    == "i386" )
 
 - name: elecom deft trackball config
   copy:

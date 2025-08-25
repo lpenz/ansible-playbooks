@@ -1,8 +1,8 @@
 ---
 - name: rpi, setup wifi country
   copy:
-    src: "modprobe.d/cfg80211_regdomain.conf"
-    dest: "/etc/modprobe.d/cfg80211_regdomain.conf"
+    src: modprobe.d/cfg80211_regdomain.conf
+    dest: /etc/modprobe.d/cfg80211_regdomain.conf
     owner: root
     group: root
     mode: 0o644
@@ -10,12 +10,12 @@
 - name: rpi, disable wpa_supplicant in systemd
   systemd:
     name: wpa_supplicant.service
-    enabled: no
+    enabled: false
 
 - name: rpi, enable network-manager in systemd
   systemd:
     name: NetworkManager.service
-    enabled: yes
+    enabled: true
 
 - name: rpi, start network-manager in systemd
   systemd:
@@ -26,9 +26,7 @@
 - name: rpi, remove unneeded packages
   apt:
     state: absent
-    name:
-      - openresolv
-      - dhcpcd5
+    name: [openresolv, dhcpcd5]
 
 - name: rpi, check if wifi is blocked
   command: rfkill list

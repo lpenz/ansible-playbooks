@@ -2,7 +2,7 @@
 name: docker-do
 description: docker-do
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: docker-build
       run: set -e -x; docker build -t container .

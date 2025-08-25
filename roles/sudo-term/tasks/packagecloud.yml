@@ -6,17 +6,19 @@
   shell:
     cmd: >
       set -o pipefail;
-      curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey |
+      curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey
+      |
       gpg --dearmor >
       /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
     executable: /bin/bash
-    creates: '/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg'
+    creates: /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
 
 - name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
   apt_repository:
     repo: >
       deb [signed-by=/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg]
-      https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id | lower }}/
+      https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id
+      | lower }}/
       {{ ansible_lsb.codename }} main
-    update_cache: no
+    update_cache: false
   notify: apt-update

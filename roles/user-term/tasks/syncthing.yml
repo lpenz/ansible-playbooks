@@ -3,13 +3,13 @@
   systemd:
     name: syncthing
     scope: user
-    enabled: yes
-  ignore_errors: yes
+    enabled: true
+  ignore_errors: true
 
 - name: syncthing start
   systemd:
     name: syncthing
     scope: user
     state: started
-  ignore_errors: yes
+  ignore_errors: true
   when: not ansible_is_chroot

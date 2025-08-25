@@ -7,7 +7,7 @@
 
 - name: clone tmux plugin manager
   git:
-    repo: "http://github.com/tmux-plugins/tpm"
+    repo: http://github.com/tmux-plugins/tpm
     dest: "{{ lookup('env','HOME') }}/.tmux/plugins/tpm"
     version: master
   notify: tmux_plugins_install

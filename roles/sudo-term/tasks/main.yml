@@ -16,16 +16,17 @@
 
 - name: setup generated locales
   locale_gen:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
   with_items:
-    - "en_US" # ISO-8859-1
-    - "en_US.UTF-8"
-    - "pt_BR" # ISO-8859-1
-    - "pt_BR.UTF-8"
+    - en_US  # ISO-8859-1
+    - en_US.UTF-8
+    - pt_BR  # ISO-8859-1
+    - pt_BR.UTF-8
 
 - name: install wifi-disable-when-wired
-  copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired owner=root group=root mode=0755
+  copy: src=99-disable-wireless-when-wired dest=/etc/NetworkManager/dispatcher.d/99-disable-wireless-when-wired
+    owner=root group=root mode=0755
 
 - name: install sysctl.d/local-userns.conf
   copy:
@@ -40,12 +41,12 @@
 
 - import_tasks: ssh-server-config.yml
 - import_tasks: rkhunter.yml
-  when: 'not is_ubuntu'
+  when: not is_ubuntu
 - import_tasks: sudo.yml
 - import_tasks: modprobe.yml
 - import_tasks: syncthing.yml
 - import_tasks: podman.yml
-  when: 'not is_rpi'
+  when: not is_rpi
 
 - import_tasks: network-rpi.yml
   when: is_rpi

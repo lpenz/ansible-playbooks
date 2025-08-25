@@ -1,8 +1,8 @@
 ---
 dependencies:
   - role: sudo-term
-    become: yes
+    become: true
   - role: sudo-x
-    become: yes
+    become: true
   - role: user-term
   - role: user-x

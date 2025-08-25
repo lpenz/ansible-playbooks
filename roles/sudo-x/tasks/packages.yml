@@ -4,7 +4,7 @@
     state: present
     package:
       - copyq
-      - dbus-x11 # dep
+      - dbus-x11  # dep
       - dunst
       - fonts-dejavu
       - fonts-inconsolata

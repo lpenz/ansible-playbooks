@@ -2,20 +2,19 @@
 
 - name: create ~/.config/systemd/user
   file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory mode=0755
-  with_items:
-    - .config/systemd
-    - .config/systemd/user
+  with_items: [.config/systemd, .config/systemd/user]
 
 - name: install templated systemd user graphical services
   template:
-    src: "systemd-user-x.service.j2"
-    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{ item.name }}.service"
+    src: systemd-user-x.service.j2
+    dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{\
+      \ item.name }}.service"
     mode: 0o644
   with_items:
     - name: clipinfo-clipboard
-      exec: "%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt"
+      exec: '%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt'
     - name: clipinfo-primary
-      exec: "%h/bin/clipinfo.py -m 79 -c -b -o %h/.selection_primary.txt"
+      exec: '%h/bin/clipinfo.py -m 79 -c -b -o %h/.selection_primary.txt'
     - name: firefox
       limit_memory: true
       autostart: false
@@ -25,7 +24,7 @@
       limit_memory: true
       autostart: false
     - name: myroottail
-      exec: "%h/bin/myroottail"
+      exec: '%h/bin/myroottail'
     - name: nm-applet
       parent: stalonetray
     - name: syncthingtray
@@ -38,30 +37,31 @@
       parent: stalonetray
     - name: stalonetray
       parent: gkrellm
-      exec: "/usr/bin/stalonetray --window-type dock --geometry 2x5"
+      exec: /usr/bin/stalonetray --window-type dock --geometry 2x5
     - name: warnd
-      exec: "%h/bin/warnd.py -f %h/.warnd_fifo -l %h/.warnd_log1,%h/.warnd_log2"
+      exec: '%h/bin/warnd.py -f %h/.warnd_fifo -l %h/.warnd_log1,%h/.warnd_log2'
     - name: wm
       exec: /usr/bin/notion
       bind_to_parent: false
       autostart: false
     - name: xscreensaver
-      exec: "/usr/bin/xscreensaver -verbose"
+      exec: /usr/bin/xscreensaver -verbose
     - name: xscreensaver-watch
-      exec_pre: "logger -t xscreensaver STARTED"
-      exec: "/bin/bash -c 'set -e -o pipefail; xscreensaver-command -watch | logger -t xscreensaver'"
+      exec_pre: logger -t xscreensaver STARTED
+      exec: /bin/bash -c 'set -e -o pipefail; xscreensaver-command -watch | logger
+        -t xscreensaver'
       parent: xscreensaver
   notify: systemd-reload
 
 - name: install systemd shorthand scripts
   template:
-    src: "systemctl-user.j2"
+    src: systemctl-user.j2
     dest: "{{ lookup('env','HOME') }}/bin/{{ item.name }}"
     mode: 0o755
   with_items:
     - name: firefox
-      unit: "firefox"
+      unit: firefox
     - name: google-chrome
-      unit: "google-chrome"
+      unit: google-chrome
     - name: chrome
-      unit: "google-chrome"
+      unit: google-chrome

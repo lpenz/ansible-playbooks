@@ -12,38 +12,38 @@
   notify: apt-update
 
 - name: debian default apt sources
-  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib non-free non-free-firmware' state=present
-  with_items:
-    - stable
-    - testing
-    - unstable
-    - experimental
+  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib
+    non-free non-free-firmware' state=present
+  with_items: [stable, testing, unstable, experimental]
   notify: apt-update
   when: is_debian
 
 - name: raspbian default apt sources
   apt_repository:
-    repo: "{{ item }}"
+    repo: '{{ item }}'
     state: present
   with_items:
-    - 'deb http://raspbian.raspberrypi.org/raspbian/ bookworm main contrib non-free rpi firmware'
-    - 'deb http://archive.raspberrypi.org/debian/ bookworm main'
+    - deb http://raspbian.raspberrypi.org/raspbian/ bookworm main contrib non-free
+      rpi firmware
+    - deb http://archive.raspberrypi.org/debian/ bookworm main
   notify: apt-update
   when: is_raspbian
 
 - name: raspbian repository keys
-  apt_key: url='https://ftp-master.debian.org/keys/archive-key-10.asc' id='80D15823B7FD1561F9F7BCDDDC30D7C23CBBABEE' state=present
+  apt_key: url='https://ftp-master.debian.org/keys/archive-key-10.asc' id='80D15823B7FD1561F9F7BCDDDC30D7C23CBBABEE'
+    state=present
   notify: apt-update
   when: is_raspbian
 
 - name: rpios default apt sources
   apt_repository:
-    repo: "{{ item }}"
+    repo: '{{ item }}'
     state: present
   with_items:
-    - 'deb http://archive.raspberrypi.org/debian/ bookworm main'
-    - 'deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware'
-    - 'deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware'
-    - 'deb http://security.debian.org/debian-security bookworm-security main contrib non-free'
+    - deb http://archive.raspberrypi.org/debian/ bookworm main
+    - deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+    - deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+    - deb http://security.debian.org/debian-security bookworm-security main contrib
+      non-free
   notify: apt-update
   when: is_rpios

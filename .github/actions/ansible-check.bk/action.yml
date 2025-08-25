@@ -4,4 +4,3 @@ description: ansible-check
 runs:
   using: docker
   image: Dockerfile
-

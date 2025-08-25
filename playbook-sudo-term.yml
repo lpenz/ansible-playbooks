@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  roles:
-    - sudo-term
-  become: yes
+  roles: [sudo-term]
+  become: true
   become_user: root

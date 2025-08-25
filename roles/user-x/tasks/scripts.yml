@@ -4,7 +4,7 @@
 
 - name: install scripts
   copy:
-    src: "scripts/{{ item }}"
+    src: scripts/{{ item }}
     dest: "{{ lookup('env','HOME') }}/bin/{{ item }}"
     mode: 0o755
   with_items:
@@ -18,4 +18,3 @@
     - view-plantuml
     - warn
     - warnd.py
-

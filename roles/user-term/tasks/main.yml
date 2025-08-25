@@ -7,4 +7,4 @@
 
 # rpi its own additional setup
 - import_tasks: syncthing.yml
-  when: 'not is_rpi'
+  when: not is_rpi

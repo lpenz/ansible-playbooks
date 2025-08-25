@@ -6,11 +6,11 @@
 - name: gpg.conf
   lineinfile:
     path: "{{ lookup('env','HOME') }}/.gnupg/gpg.conf"
-    line: "{{ item }}"
-    create: yes
+    line: '{{ item }}'
+    create: true
     mode: 0o600
   with_items:
-    - "keyid-format long"
-    - "with-fingerprint"
-    - "with-sig-list"
-    - "list-options show-notations"
+    - keyid-format long
+    - with-fingerprint
+    - with-sig-list
+    - list-options show-notations

@@ -5,33 +5,31 @@
     state: directory
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
     mode: 0o755
-  with_items:
-    - .config
-    - .mc
+  with_items: [.config, .mc]
 
 - name: install dotfiles
   copy:
-    src: "dotfiles/{{ item.src }}"
+    src: dotfiles/{{ item.src }}
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
     mode: 0o644
   with_items:
-    - { src: "agignore"      , dest: ".agignore"             }
-    - { src: "clang-format"  , dest: ".clang-format"         }
-    - { src: "expectk.rc"    , dest: ".expectk.rc"           }
-    - { src: "expect.rc"     , dest: ".expect.rc"            }
-    - { src: "mailcap"       , dest: ".mailcap"              }
-    - { src: "mc.ini"        , dest: ".mc/ini"               }
-    - { src: "mime.types"    , dest: ".mime.types"           }
-    - { src: "pdbrc"         , dest: ".pdbrc"                }
-    - { src: "pdb_rc.py"     , dest: ".pdb_rc.py"            }
-    - { src: "pystartup"     , dest: ".pystartup"            }
-    - { src: "screenrc"      , dest: ".screenrc"             }
-    - { src: "topgrade.toml" , dest: ".config/topgrade.toml" }
+    - {src: agignore, dest: .agignore}
+    - {src: clang-format, dest: .clang-format}
+    - {src: expectk.rc, dest: .expectk.rc}
+    - {src: expect.rc, dest: .expect.rc}
+    - {src: mailcap, dest: .mailcap}
+    - {src: mc.ini, dest: .mc/ini}
+    - {src: mime.types, dest: .mime.types}
+    - {src: pdbrc, dest: .pdbrc}
+    - {src: pdb_rc.py, dest: .pdb_rc.py}
+    - {src: pystartup, dest: .pystartup}
+    - {src: screenrc, dest: .screenrc}
+    - {src: topgrade.toml, dest: .config/topgrade.toml}
 
 - name: gdbinit save history
   lineinfile:
-    dest: "~/.gdbinit"
-    create: yes
+    dest: ~/.gdbinit
+    create: true
     state: present
     mode: 0o600
     line: set history save on
@@ -43,8 +41,8 @@
 
 - name: clone my home-manager repository
   git:
-    repo: "git@github.com:lpenz/home-manager-config"
+    repo: git@github.com:lpenz/home-manager-config
     dest: "{{ lookup('env','HOME') }}/.config/home-manager"
     version: main
     update: false
-  when: 'ssh_private_key.stat.exists and not is_rpi'
+  when: ssh_private_key.stat.exists and not is_rpi

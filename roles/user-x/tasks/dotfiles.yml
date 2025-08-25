@@ -15,23 +15,21 @@
 
 - name: install dotfiles
   copy:
-    src: "dotfiles/{{ item.src }}"
+    src: dotfiles/{{ item.src }}
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
-    mode: "{{ item.mode }}"
+    mode: '{{ item.mode }}'
   with_items:
-    - { src: "Xresources"   , dest: ".Xresources"    , mode: 0o644 }
-    - { src: "xsession"     , dest: ".xsession"      , mode: 0o755 }
-    - { src: "dunstrc"      , dest: ".config/dunst/" , mode: 0o644 }
+    - {src: Xresources, dest: .Xresources, mode: 0o644}
+    - {src: xsession, dest: .xsession, mode: 0o755}
+    - {src: dunstrc, dest: .config/dunst/, mode: 0o644}
 
 - name: some dot files must exist
   copy:
     content: ''
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
-    force: no
+    force: false
     mode: 0o644
-  with_items:
-     - .Xresources.local
-     - .stalonetrayrc
+  with_items: [.Xresources.local, .stalonetrayrc]
 
 - name: install fonts.conf that gets nix fonts
   template:
@@ -44,7 +42,5 @@
   unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/{{ item }}.zip
     dest: ~/.local/share/fonts/
-    remote_src: yes
-  with_items:
-    - InconsolataGo
-    - Meslo
+    remote_src: true
+  with_items: [InconsolataGo, Meslo]

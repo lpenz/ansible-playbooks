@@ -1,4 +1,3 @@
 ---
 - hosts: all
-  roles:
-    - meta-mine
+  roles: [meta-mine]

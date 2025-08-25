@@ -1,7 +1,5 @@
 ---
 - hosts: all
-  roles:
-    - postfix
-  become: yes
+  roles: [postfix]
+  become: true
   become_user: root
-

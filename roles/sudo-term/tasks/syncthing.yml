@@ -12,7 +12,7 @@
     owner: root
     group: root
     mode: 0o644
-    marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ item.label }}"
+    marker: '# {mark} ANSIBLE MANAGED BLOCK for {{ item.label }}'
     block: |
       {{ item.label }} {
         dev=$(HOME)/{{ item.file }}
@@ -21,4 +21,4 @@
         keyformat=luks
       }
   with_items:
-    - { label: "syncrypted", file: "Sync/crypted.vol", dir: "syncrypted" }
+    - {label: syncrypted, file: Sync/crypted.vol, dir: syncrypted}
