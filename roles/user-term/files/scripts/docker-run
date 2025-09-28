@@ -14,11 +14,19 @@ else
     ARGS=("$@")
 fi
 
+cmd=( docker )
+
+if which podman; then
+    cmd=( podman )
+    ARGS=( --userns=keep-id "${ARGS[@]}" )
+else
+    ARGS=( -v /var/run/docker.sock:/var/run/docker.sock "${ARGS[@]}" )
+fi
+
 set -e -x
 
-docker run --rm \
+${cmd[@]} run --rm \
     -u "$USERID" \
     -v "$PWD:$PWD" -w "$PWD" \
     -e "DISPLAY=$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /var/run/docker.sock:/var/run/docker.sock \
     "${ARGS[@]}"
