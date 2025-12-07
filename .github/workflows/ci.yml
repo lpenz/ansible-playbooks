@@ -1,6 +1,6 @@
 ---
 name: CI
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]  # yamllint disable-line rule:truthy
 jobs:
   omnilint:
     runs-on: ubuntu-latest
