@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:trixie
 
 # install debian packages:
 ENV DEBIAN_FRONTEND=noninteractive
@@ -7,7 +7,7 @@ RUN set -e -x; \
     apt-get install -y --no-install-recommends locales \
         openssh-client \
         python3-pip python3-setuptools python3-wheel \
-        flake8 python3-nosexcover \
+        flake8 \
         ansible \
         shellcheck \
         gnupg \
