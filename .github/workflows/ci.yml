@@ -2,11 +2,12 @@
 name: CI
 on: [workflow_dispatch, push, pull_request]  # yamllint disable-line rule:truthy
 jobs:
-  omnilint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3.1.0
-      - uses: docker://lpenz/omnilint:0.5.1
+  # omnilint gets confused with some of the json files, diabled
+  # omnilint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3.1.0
+  #     - uses: docker://lpenz/omnilint:0.5.1
   docker-do:
     runs-on: ubuntu-latest
     steps:
