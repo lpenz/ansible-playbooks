@@ -27,7 +27,6 @@
       # Audio:
       - gkrellm-volume
       - pavucontrol
-      - pavumeter
       - pulseaudio
       - pulseaudio-utils
 
