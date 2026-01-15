@@ -107,6 +107,8 @@ URxvt.letterSpace:      -1
 URxvt.saveLines: 5000
 URxvt.perl-ext: default,selection-to-clipboard,matcher,notify-osc
 URxvt.keysym.C-Delete: perl:matcher:list
+URxvt.keysym.M-Left:  \033[1;3D
+URxvt.keysym.M-Right: \033[1;3C
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
