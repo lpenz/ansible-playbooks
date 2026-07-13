@@ -5,7 +5,7 @@
     line: '{{ item.line }}'
     regexp: '{{ item.regex }}'
     state: present
-  with_items:
+  loop:
     - {line: PasswordAuthentication no, regex: ^ *#? *PasswordAuthentication .*}
     - {line: ChallengeResponseAuthentication no, regex: ^ *#? *ChallengeResponseAuthentication
         .*}

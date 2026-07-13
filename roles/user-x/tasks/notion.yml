@@ -4,7 +4,7 @@
 
 - name: install notion config
   copy: src="notion/{{ item }}" dest="~/.notion/{{ item }}" mode=0644
-  with_items:
+  loop:
     - cfg_debian_ext.lua
     - cfg_defaults.lua
     - cfg_dock.lua

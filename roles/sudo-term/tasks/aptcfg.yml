@@ -14,7 +14,7 @@
 - name: debian default apt sources
   apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib
     non-free non-free-firmware' state=present
-  with_items: [stable, testing, unstable, experimental]
+  loop: [stable, testing, unstable, experimental]
   notify: apt-update
   when: is_debian
 
@@ -22,7 +22,7 @@
   apt_repository:
     repo: '{{ item }}'
     state: present
-  with_items:
+  loop:
     - deb http://raspbian.raspberrypi.org/raspbian/ trixie main contrib non-free
       rpi firmware
     - deb http://archive.raspberrypi.org/debian/ trixie main
@@ -39,7 +39,7 @@
   apt_repository:
     repo: '{{ item }}'
     state: present
-  with_items:
+  loop:
     - deb http://archive.raspberrypi.org/debian/ trixie main
     - deb http://deb.debian.org/debian trixie main contrib non-free non-free-firmware
     - deb http://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware

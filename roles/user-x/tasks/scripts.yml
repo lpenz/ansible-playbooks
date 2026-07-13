@@ -7,7 +7,7 @@
     src: scripts/{{ item }}
     dest: "{{ lookup('env','HOME') }}/bin/{{ item }}"
     mode: 0o755
-  with_items:
+  loop:
     - clipinfo.py
     - image-to-clipboard
     - myroottail

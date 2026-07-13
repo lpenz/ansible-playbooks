@@ -20,5 +20,5 @@
         fstype=auto
         keyformat=luks
       }
-  with_items:
+  loop:
     - {label: syncrypted, file: Sync/crypted.vol, dir: syncrypted}

@@ -9,7 +9,7 @@
     line: '{{ item }}'
     create: true
     mode: 0o600
-  with_items:
+  loop:
     - keyid-format long
     - with-fingerprint
     - with-sig-list

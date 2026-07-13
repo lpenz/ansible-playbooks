@@ -6,7 +6,7 @@
     question: postfix/{{ item.q }}
     value: '{{ item.v }}'
     vtype: '{{ item.t }}'
-  with_items:
+  loop:
     - {q: destinations, t: string, v: '$myhostname, {{ ansible_hostname }}, localhost.localdomain,
         localhost'}
     - {q: mynetworks, t: string, v: '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128'}
@@ -32,7 +32,7 @@
     path: /etc/postfix/main.cf
     regexp: '^{{ item.k }} '
     line: '{{ item.k }} = {{ item.v }}'
-  with_items:
+  loop:
     - {k: myhostname, v: '{{ ansible_hostname }}'}
     - {k: inet_interfaces, v: loopback-only}
     - {k: relayhost, v: '[smtp.gmail.com]:587'}

@@ -6,4 +6,4 @@
     owner: root
     group: root
     mode: 0o644
-  with_items: [loop.conf]
+  loop: [loop.conf]

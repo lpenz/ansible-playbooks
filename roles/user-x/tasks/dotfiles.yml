@@ -5,7 +5,7 @@
     state: directory
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
     mode: 0o755
-  with_items:
+  loop:
     - .config
     - .config/fontconfig
     - .config/dunst
@@ -18,7 +18,7 @@
     src: dotfiles/{{ item.src }}
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
     mode: '{{ item.mode }}'
-  with_items:
+  loop:
     - {src: Xresources, dest: .Xresources, mode: 0o644}
     - {src: xsession, dest: .xsession, mode: 0o755}
     - {src: dunstrc, dest: .config/dunst/, mode: 0o644}
@@ -29,7 +29,7 @@
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
     force: false
     mode: 0o644
-  with_items: [.Xresources.local, .stalonetrayrc]
+  loop: [.Xresources.local, .stalonetrayrc]
 
 - name: install fonts.conf that gets nix fonts
   template:
@@ -43,4 +43,4 @@
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/{{ item }}.zip
     dest: ~/.local/share/fonts/
     remote_src: true
-  with_items: [InconsolataGo, Meslo]
+  loop: [InconsolataGo, Meslo]

@@ -6,4 +6,4 @@
     owner: root
     group: root
     mode: 0o440
-  with_items: [power]
+  loop: [power]

@@ -5,14 +5,14 @@
     state: directory
     dest: "{{ lookup('env','HOME') }}/{{ item }}"
     mode: 0o755
-  with_items: [.config, .mc]
+  loop: [.config, .mc]
 
 - name: install dotfiles
   copy:
     src: dotfiles/{{ item.src }}
     dest: "{{ lookup('env','HOME') }}/{{ item.dest }}"
     mode: 0o644
-  with_items:
+  loop:
     - {src: agignore, dest: .agignore}
     - {src: clang-format, dest: .clang-format}
     - {src: expectk.rc, dest: .expectk.rc}

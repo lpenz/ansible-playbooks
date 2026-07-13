@@ -11,7 +11,7 @@
     regexp: ^ *#? *{{ item.line }}$
     insertafter: '{{ item.regex }}'
     state: present
-  with_items:
+  loop:
     - {line: ALLOW_SSH_ROOT_USER=prohibit-password, regex: ^ *#? *ALLOW_SSH_ROOT_USER=.*}
     - {line: PKGMGR=DPKG, regex: ^ *#? *PKGMGR=.*}
     - {line: IPC_SEG_SIZE=16777216, regex: ^ *#? *IPC_SEG_SIZE=.*}

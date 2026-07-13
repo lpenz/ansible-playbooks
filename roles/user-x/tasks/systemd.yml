@@ -2,7 +2,7 @@
 
 - name: create ~/.config/systemd/user
   file: name="{{ lookup('env','HOME') }}/{{ item }}" state=directory mode=0755
-  with_items: [.config/systemd, .config/systemd/user]
+  loop: [.config/systemd, .config/systemd/user]
 
 - name: install templated systemd user graphical services
   template:
@@ -10,7 +10,7 @@
     dest: "{{ lookup('env','HOME') }}/.config/systemd/user/{{ ansible_user }}-x-{{\
       \ item.name }}.service"
     mode: 0o644
-  with_items:
+  loop:
     - name: clipinfo-clipboard
       exec: '%h/bin/clipinfo.py -m 79 -p -b -o %h/.selection_clipboard.txt'
     - name: clipinfo-primary
@@ -58,7 +58,7 @@
     src: systemctl-user.j2
     dest: "{{ lookup('env','HOME') }}/bin/{{ item.name }}"
     mode: 0o755
-  with_items:
+  loop:
     - name: firefox
       unit: firefox
     - name: google-chrome
