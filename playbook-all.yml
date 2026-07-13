@@ -1,6 +1,6 @@
 ---
 
-# Use this for static analisys (--check)
+# Use this for static analysis (--check)
 
 - import_playbook: playbook-meta-mine.yml
 - import_playbook: playbook-sudo-term.yml
