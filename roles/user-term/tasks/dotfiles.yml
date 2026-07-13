@@ -36,8 +36,9 @@
 
 - name: Check if we have an ssh private key
   stat:
-    path: "{{ lookup('env','HOME') }}/.ssh/id_rsa"
+    path: "{{ lookup('env','HOME') }}/.ssh/{{ item }}"
   register: ssh_private_key
+  loop: [id_rsa, id_ed25519]
 
 - name: clone my home-manager repository
   git:
@@ -45,4 +46,4 @@
     dest: "{{ lookup('env','HOME') }}/.config/home-manager"
     version: main
     update: false
-  when: ssh_private_key.stat.exists and not is_rpi
+  when: ssh_private_key.results | selectattr("stat.exists") | list | length > 0 and not is_rpi
