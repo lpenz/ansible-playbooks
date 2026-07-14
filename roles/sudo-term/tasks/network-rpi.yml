@@ -21,7 +21,7 @@
   systemd:
     name: NetworkManager.service
     state: started
-  when: not ansible_is_chroot
+  when: not ansible_facts["is_chroot"]
 
 - name: rpi, remove unneeded packages
   apt:

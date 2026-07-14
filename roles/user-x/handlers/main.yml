@@ -5,4 +5,4 @@
 
 - name: systemd-reload
   systemd: daemon_reload=yes scope=user
-  when: ansible_service_mgr == "systemd"
+  when: ansible_facts["service_mgr"] == "systemd"

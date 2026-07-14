@@ -32,7 +32,7 @@
 
 - name: install notion
   apt: state=present package=notion
-  when: ansible_lsb.id != "Raspbian"
+  when: ansible_facts["lsb"].id != "Raspbian"
 
 - name: setup rxvt-unicode as x-terminal-emulator
   alternatives: name=x-terminal-emulator path=/usr/bin/rxvt-unicode

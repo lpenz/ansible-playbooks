@@ -5,7 +5,7 @@
     scope: user
     enabled: true
   ignore_errors: true
-  when: not ansible_is_chroot and ansible_service_mgr == "systemd"
+  when: not ansible_facts["is_chroot"] and ansible_facts["service_mgr"] == "systemd"
 
 - name: syncthing start
   systemd:
@@ -13,4 +13,4 @@
     scope: user
     state: started
   ignore_errors: true
-  when: not ansible_is_chroot and ansible_service_mgr == "systemd"
+  when: not ansible_facts["is_chroot"] and ansible_facts["service_mgr"] == "systemd"
