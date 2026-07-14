@@ -12,38 +12,65 @@
   notify: apt-update
 
 - name: debian default apt sources
-  apt_repository: repo='deb http://ftp.debian.org/debian {{ item }} main contrib
-    non-free non-free-firmware' state=present
-  loop: [stable, testing, unstable, experimental]
+  deb822_repository:
+    name: debian
+    uris: http://ftp.debian.org/debian
+    suites: [stable, testing, unstable, experimental]
+    components: [main, contrib, non-free, non-free-firmware]
   notify: apt-update
   when: is_debian
 
-- name: raspbian default apt sources
-  apt_repository:
-    repo: '{{ item }}'
-    state: present
-  loop:
-    - deb http://raspbian.raspberrypi.org/raspbian/ trixie main contrib non-free
-      rpi firmware
-    - deb http://archive.raspberrypi.org/debian/ trixie main
-  notify: apt-update
+- name: create /etc/apt/keyrings
+  file: dest=/etc/apt/keyrings state=directory mode=0755
   when: is_raspbian
 
-- name: raspbian repository keys
-  apt_key: url='https://ftp-master.debian.org/keys/archive-key-10.asc' id='80D15823B7FD1561F9F7BCDDDC30D7C23CBBABEE'
-    state=present
+- name: download archive-key-10.gpg
+  shell:
+    cmd: >
+      set -o pipefail;
+      curl -L https://ftp-master.debian.org/keys/archive-key-10.asc |
+      gpg --dearmor > /etc/apt/keyrings/archive-key-10.gpg
+    executable: /bin/bash
+    creates: /etc/apt/keyrings/archive-key-10.gpg
+  when: is_raspbian
+
+- name: raspbian default apt sources
+  deb822_repository:
+    name: '{{ item.name }}'
+    uris: '{{ item.uri }}'
+    suites: ['{{ item.suite }}']
+    components: '{{ item.components }}'
+    signed_by: /etc/apt/keyrings/archive-key-10.gpg
+  loop:
+    - name: raspbian
+      uri: http://raspbian.raspberrypi.org/raspbian/
+      suite: trixie
+      components: [main, contrib, non-free, rpi, firmware]
+    - name: raspberrypi
+      uri: http://archive.raspberrypi.org/debian/
+      suite: trixie
+      components: [main]
   notify: apt-update
   when: is_raspbian
 
 - name: rpios default apt sources
-  apt_repository:
-    repo: '{{ item }}'
-    state: present
+  deb822_repository:
+    name: '{{ item.name }}'
+    uris: '{{ item.uri }}'
+    suites: '{{ item.suites }}'
+    components: '{{ item.components }}'
   loop:
-    - deb http://archive.raspberrypi.org/debian/ trixie main
-    - deb http://deb.debian.org/debian trixie main contrib non-free non-free-firmware
-    - deb http://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware
-    - deb http://security.debian.org/debian-security trixie-security main contrib
-      non-free
+    - name: rpios-raspberrypi
+      uri: http://archive.raspberrypi.org/debian/
+      suites: [trixie]
+      components: [main]
+    - name: rpios-debian
+      uri: http://deb.debian.org/debian
+      suites: [trixie, trixie-updates]
+      components: [main, contrib, non-free, non-free-firmware]
+    - name: rpios-security
+      uri: http://security.debian.org/debian-security
+      suites: [trixie-security]
+      components: [main, contrib, non-free]
   notify: apt-update
   when: is_rpios

@@ -9,12 +9,13 @@
 
 - name: apt | ensure Google chrome repo present, using a workaround for missing
     x86 distribution
-  copy:
-    content: >
-      deb [arch=amd64,signed-by=/etc/apt/keyrings/google_signing_key.pub]
-      https://dl.google.com/linux/chrome/deb/ stable main
-    dest: /etc/apt/sources.list.d/google-chrome.list
-    mode: 0o644
+  deb822_repository:
+    name: google-chrome
+    uris: https://dl.google.com/linux/chrome/deb/
+    suites: [stable]
+    components: [main]
+    architectures: [amd64]
+    signed_by: /etc/apt/keyrings/google_signing_key.pub
   notify: apt-update
 
 - name: run apt-update if necessary

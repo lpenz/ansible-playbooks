@@ -2,23 +2,23 @@
 - name: create /etc/apt/keyrings
   file: dest=/etc/apt/keyrings state=directory mode=0755
 
-- name: download lpenz_{{ ansible_lsb.id | lower }}.gpg
+- name: download lpenz_{{ ansible_facts["lsb"].id | lower }}.gpg
   shell:
     cmd: >
       set -o pipefail;
-      curl -L https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/gpgkey
+      curl -L https://packagecloud.io/lpenz/{{ ansible_facts["lsb"].id | lower }}/gpgkey
       |
       gpg --dearmor >
-      /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
+      /etc/apt/keyrings/lpenz_{{ ansible_facts["lsb"].id | lower }}.gpg
     executable: /bin/bash
-    creates: /etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg
+    creates: /etc/apt/keyrings/lpenz_{{ ansible_facts["lsb"].id | lower }}.gpg
 
-- name: add packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}
-  apt_repository:
-    repo: >
-      deb [signed-by=/etc/apt/keyrings/lpenz_{{ ansible_lsb.id | lower }}.gpg]
-      https://packagecloud.io/lpenz/{{ ansible_lsb.id | lower }}/{{ ansible_lsb.id
-      | lower }}/
-      {{ ansible_lsb.codename }} main
-    update_cache: false
+- name: add packagecloud.io/lpenz/{{ ansible_facts["lsb"].id | lower }}
+  deb822_repository:
+    name: lpenz-{{ ansible_facts["lsb"].id | lower }}
+    uris: https://packagecloud.io/lpenz/{{ ansible_facts["lsb"].id | lower }}/{{
+      ansible_facts["lsb"].id | lower }}/
+    suites: [trixie]
+    components: [main]
+    signed_by: /etc/apt/keyrings/lpenz_{{ ansible_facts["lsb"].id | lower }}.gpg
   notify: apt-update
