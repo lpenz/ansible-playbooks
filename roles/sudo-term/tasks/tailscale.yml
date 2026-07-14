@@ -1,0 +1,10 @@
+---
+- name: add tailscale repository
+  deb822_repository:
+    name: tailscale
+    types: deb
+    uris: https://pkgs.tailscale.com/stable/debian
+    suites: [forky]
+    components: [main]
+    signed_by: https://pkgs.tailscale.com/stable/debian/forky.noarmor.gpg
+  notify: apt-update
