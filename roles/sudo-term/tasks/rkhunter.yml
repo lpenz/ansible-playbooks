@@ -12,11 +12,11 @@
     insertafter: '{{ item.regex }}'
     state: present
   loop:
-    - {line: ALLOW_SSH_ROOT_USER=prohibit-password, regex: ^ *#? *ALLOW_SSH_ROOT_USER=.*}
-    - {line: PKGMGR=DPKG, regex: ^ *#? *PKGMGR=.*}
-    - {line: IPC_SEG_SIZE=16777216, regex: ^ *#? *IPC_SEG_SIZE=.*}
-    - {line: ALLOWHIDDENDIR=/etc/.java, regex: ^ *#? *ALLOWHIDDENDIR=.*}
-    - {line: ALLOWIPCPROC=/usr/bin/firefox, regex: ^ *#? *ALLOWIPCPROC=.*}
-    - {line: ALLOWIPCPROC=/usr/bin/firefox-esr, regex: ^ *#? *ALLOWIPCPROC=.*}
-    - {line: SCRIPTWHITELIST=/usr/bin/lwp-request, regex: ^ *#? *SCRIPTWHITELIST=.*}
+    - {line: ALLOW_SSH_ROOT_USER=prohibit-password, regex: "^ *#? *ALLOW_SSH_ROOT_USER=.*"}
+    - {line: PKGMGR=DPKG, regex: "^ *#? *PKGMGR=.*"}
+    - {line: IPC_SEG_SIZE=16777216, regex: "^ *#? *IPC_SEG_SIZE=.*"}
+    - {line: ALLOWHIDDENDIR=/etc/.java, regex: "^ *#? *ALLOWHIDDENDIR=.*"}
+    - {line: ALLOWIPCPROC=/usr/bin/firefox, regex: "^ *#? *ALLOWIPCPROC=.*"}
+    - {line: ALLOWIPCPROC=/usr/bin/firefox-esr, regex: "^ *#? *ALLOWIPCPROC=.*"}
+    - {line: SCRIPTWHITELIST=/usr/bin/lwp-request, regex: "^ *#? *SCRIPTWHITELIST=.*"}
     # - { line: "SCRIPTWHITELIST=/usr/sbin/ifstatus", regex: "^ *#? *SCRIPTWHITELIST=.*" }

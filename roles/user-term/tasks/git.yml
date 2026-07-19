@@ -8,8 +8,7 @@
     name: '{{ item.name }}'
     value: '{{ item.value }}'
   loop:
-    - {name: alias.k, value: log --graph --decorate '--pretty=format:%C(auto)%h
-        %G?%d %s'}
+    - {name: alias.k, value: "log --graph --decorate '--pretty=format:%C(auto)%h %G?%d %s'"}
     - {name: core.excludesFile, value: "{{ lookup('env','HOME') }}/.config/git/ignore"}
     - {name: credential.helper, value: cache}
     - {name: init.defaultBranch, value: main}

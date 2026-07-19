@@ -6,11 +6,10 @@
     regexp: '{{ item.regex }}'
     state: present
   loop:
-    - {line: PasswordAuthentication no, regex: ^ *#? *PasswordAuthentication .*}
-    - {line: ChallengeResponseAuthentication no, regex: ^ *#? *ChallengeResponseAuthentication
-        .*}
-    - {line: PermitRootLogin prohibit-password, regex: ^ *#? *PermitRootLogin .*}
-    - {line: UseDNS no, regex: ^ *#? *UseDNS .*}
+    - {line: PasswordAuthentication no, regex: "^ *#? *PasswordAuthentication .*"}
+    - {line: ChallengeResponseAuthentication no, regex: "^ *#? *ChallengeResponseAuthentication .*"}
+    - {line: PermitRootLogin prohibit-password, regex: "^ *#? *PermitRootLogin .*"}
+    - {line: UseDNS no, regex: "^ *#? *UseDNS .*"}
   notify: ssh-server-restart
 
 - name: ufw ssh allow
