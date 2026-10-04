@@ -17,6 +17,7 @@
     uris: http://ftp.debian.org/debian
     suites: [stable, testing, unstable, experimental]
     components: [main, contrib, non-free, non-free-firmware]
+    signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
   notify: apt-update
   when: is_debian
 
