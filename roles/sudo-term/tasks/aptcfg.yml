@@ -41,7 +41,7 @@
     uris: '{{ item.uri }}'
     suites: ['{{ item.suite }}']
     components: '{{ item.components }}'
-    signed_by: /etc/apt/keyrings/archive-key-10.gpg
+    signed_by: /usr/share/keyrings/raspberrypi-archive-automatic.gpg
   loop:
     - name: raspbian
       uri: http://raspbian.raspberrypi.org/raspbian/
@@ -60,18 +60,22 @@
     uris: '{{ item.uri }}'
     suites: '{{ item.suites }}'
     components: '{{ item.components }}'
+    signed_by: '{{ item.signed_by }}'
   loop:
     - name: rpios-raspberrypi
       uri: http://archive.raspberrypi.org/debian/
       suites: [trixie]
       components: [main]
+      signed_by: /usr/share/keyrings/raspberrypi-archive-automatic.gpg
     - name: rpios-debian
       uri: http://deb.debian.org/debian
       suites: [trixie, trixie-updates]
       components: [main, contrib, non-free, non-free-firmware]
+      signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
     - name: rpios-security
       uri: http://security.debian.org/debian-security
       suites: [trixie-security]
       components: [main, contrib, non-free]
+      signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
   notify: apt-update
   when: is_rpios
